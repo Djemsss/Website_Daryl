@@ -1,0 +1,77 @@
+
+* {
+    
+}
+
+#Wrapper {
+    background-image: url("img/1.jpg"), url("img/3.jpg"), url("img/4.jpg");
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-attachment: scroll, scroll, scroll;
+    background-position-y: 0px, 900px, 1800px;
+    
+    min-height: 2700px;
+}
+
+#Header {
+    display: flex;
+    border-color: red;
+    border-width: 0px;
+    border-style: solid;
+
+    flex: 1;
+    flex-flow: row;
+    margin-left: 50px;
+    margin-right: 50px;
+    padding-top: 30px;
+    
+    
+}
+
+#logoBox {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bolder;
+    color: aliceblue;
+    font-size: 24px;
+    padding-left: 30px;
+    padding-top: 10px;
+    
+    
+}
+
+#Navigation {
+    border: 0px;
+    border-style: solid;
+    border-color: blueviolet;
+    display: flex;
+    margin-left: 200px;
+}
+
+.NavButton {
+    display: flex;
+    margin-left: 50px;
+    color: white;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    text-decoration: none;
+}
+
+#mainContainer {
+    display: flex;
+    height: 600px;
+    border: 2px;
+    border-color: red;
+    border-style: solid;
+    align-items: flex-end;
+}
+
+.missionBox {
+    display: flex;
+    flex-direction: row;
+    border: 2px;
+    border-color: chocolate;
+    border-style: solid;
+    height: 300px;
+    width: 300px;
+}
+

@@ -4,12 +4,17 @@
 }
 
 #Wrapper {
-    background-image: url("img/1.jpg"), url("img/3.jpg"), url("img/4.jpg");
-    background-repeat: no-repeat, no-repeat, no-repeat;
-    background-attachment: scroll, scroll, scroll;
-    background-position-y: 0px, 900px, 1800px;
-    
-    min-height: 2700px;
+    background-image: url("img/Jupiter_01.jpg");
+    background-size: cover;
+    background-clip: border-box;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center center;
+    border-style: dashed;
+    border-width: 0px;
+    border-color: tomato; 
+    height: 100%;
+    width: 100%;
 }
 
 #Header {
@@ -43,7 +48,7 @@
     border-style: solid;
     border-color: blueviolet;
     display: flex;
-    margin-left: 200px;
+    margin-left: 260px;
 }
 
 .NavButton {
@@ -59,7 +64,7 @@
 #mainContainer {
     display: flex;
     height: 600px;
-    border: 2px;
+    border: 0px;
     border-color: red;
     border-style: solid;
     align-items: flex-end;
@@ -75,3 +80,17 @@
     width: 300px;
 }
 
+#canvas {
+    pointer-events: none;
+    position: absolute;
+    border-style: dashed;
+    border-color: violet;
+    border-width: 0px;
+    z-index: 5;
+
+}
+
+#pointer {
+    position: absolute;
+    scale: 0.1;
+}

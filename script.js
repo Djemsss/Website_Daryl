@@ -61,22 +61,16 @@ var cutCircle = function(context, x, y, radius){
     context.fill();
 }
 
-// Delta time calculations
-var lastUpdate = Date.now();
-var myInterval = setInterval(tick, 0);
+// Animation loop
+var deg = 0;
 
-function tick() {
-    var now = Date.now();
-    var dt = now - lastUpdate;
-    lastUpdate = now;
+// Runs 30 times a second
+var intervalId = window.setInterval(function(){
+    deg += 3;
+    document.getElementById("orbit").style.transform = "rotate(" + deg + "deg)"
+  }, 33);
 
-};
 
-//console.log(document.getElementById("pointer"))
-if (true){
-    console.log("loaded");
-}
-console.log("looped");
 waitForElement("pointer", function(){
     console.log("Pointer is LOADED!")
 });
@@ -89,7 +83,7 @@ window.addEventListener('load', (eevent) => {
     document.getElementById("canvas").width = document.width;
     document.getElementById("canvas").height = document.height;
 
-    var pointer = document.getElementById("pointer")
+   /* var pointer = document.getElementById("pointer")*/
 
     var emitter = new bubble_emitter();
 
@@ -97,8 +91,8 @@ window.addEventListener('load', (eevent) => {
     document.getElementById("Wrapper").onmousemove = (event) => {
         emitter.posX = event.clientX;
         emitter.posY = event.clientY;
-        pointer.style.left = event.clientX - 100 + "px";
-        pointer.style.top = event.clientY - 100 + "px";
+        //pointer.style.left = event.clientX - 100 + "px";
+       // pointer.style.top = event.clientY - 100 + "px";
         emitter.run();
     }   
 

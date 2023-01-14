@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html id="html" lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="stylesheet.css" />
     <script src="script.js"></script>
   </head>
-  <body style = "margin:0; height: 50vw; left: 0; right: 0; border-color: teal; border-width: 0px; border-style: dotted;"></body>
+  <body id="body" style = "margin:0; left: 0; right: 0; border-color: teal; border-width: 0px; border-style: dotted;"></body>
     <div id="Wrapper" class="flex-container" style="height: 100%;">
       <canvas id="canvas" ></canvas>
       <div id="Header" class="flex-container">
+        <img id="orbit" src="img/dotOrbit.png" alt="">
         <div id="logoBox">Daryl Jaimes</div>
         <ul id="Navigation" class="flex-container">
           <a class="NavButton" href="index.html">HOME</a>
@@ -21,8 +22,8 @@
         </ul>
       </div>
       <div id="mainContainer" class="flex-container">
-        <div id= "missionBox" class="missionBox" class="flex-container">
-            
+        <div class="projectPreview" class="flex-container">
+            <a href="orbits.html">Try it out</a>
         </div>
       </div>
     </div>

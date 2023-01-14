@@ -1,12 +1,21 @@
 
-* {
-    
+
+#html {
+    height: 100%;
+    width: 100%;
+}
+
+#body {
+    height: 100%;
+    width: 100%;
 }
 
 #Wrapper {
+    /*cursor: none;*/
+    fill: black;
     background-image: url("img/Jupiter_01.jpg");
     background-size: cover;
-    background-clip: border-box;
+    
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: center center;
@@ -16,6 +25,7 @@
     height: 100%;
     width: 100%;
 }
+
 
 #Header {
     display: flex;
@@ -52,6 +62,7 @@
 }
 
 .NavButton {
+    /*cursor: none;*/
     display: flex;
     margin-left: 50px;
     color: white;
@@ -63,17 +74,19 @@
 
 #mainContainer {
     display: flex;
+    height: 100%;
     height: 600px;
     border: 0px;
     border-color: red;
     border-style: solid;
-    align-items: flex-end;
+    align-items: flex-start;
+    justify-content: center;
 }
 
 .missionBox {
     display: flex;
     flex-direction: row;
-    border: 2px;
+    border: 0px;
     border-color: chocolate;
     border-style: solid;
     height: 300px;
@@ -90,7 +103,62 @@
 
 }
 
-#pointer {
+#orbit {
+    margin-top: 4px;
+    margin-right: -20px;
+    height: 100%;
+    border-width: 0px; 
+    border-style: solid; 
+    border-color: aliceblue;
+    /*position: absolute;*/
+    scale: 1;
+}
+
+.projectPreview {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    margin-top: 160px;
+    height: 180px;
+    width: 320px;
+    border-style: solid;
+    border-width: 6px;
+    border-color: aliceblue;
+    justify-content: center;
+    align-items: center;
+}
+
+#orbitsWindow {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-content: left;
+    justify-content: center;
+    border: 2px;
+    border-style: solid;
+    border-color: aliceblue;
+}
+
+#buttonBox {
+    display: flex;
+    flex-direction: column;
+}
+
+.orbitsButton {
+    background-color: black;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bolder;
+    color: aliceblue;
+    font-size: 24px;
+    height: 40px;
+    width: 120px;
+}
+
+.satellite {
     position: absolute;
-    scale: 0.1;
+}
+
+.planet {
+    position: absolute;
 }

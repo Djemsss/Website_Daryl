@@ -12,8 +12,7 @@ class bubble_emitter {
             var bub = new bubble(0, 0, 500, 0);
             this.bubbles.push(bub)
         }
-        console.log("Created emitter");
-        console.log(this.bubbles);
+        
 
     }
     static create(){
@@ -79,22 +78,20 @@ waitForElement("pointer", function(){
 window.addEventListener('load', (eevent) => {
     console.log("Document loaded")
 
+    list = document.getElementsByClassName("projectPreview");
+    for (var i = 0; i < list.length; i++) {
+        list[i].addEventListener("mouseenter", function(e) {
+            e.target.style.boxShadow = '0px 0px 20px 5px rgba(255,255,255,0.4)';
+        });
+        list[i].addEventListener("mouseleave", function(e) {
+            e.target.style.boxShadow = '0px 0px 10px 10px rgba(255,255,255,0)';
+        });
+
+
     // adjust canvas to screen
     document.getElementById("canvas").width = document.width;
     document.getElementById("canvas").height = document.height;
-
-   /* var pointer = document.getElementById("pointer")*/
-
-    var emitter = new bubble_emitter();
-
-    // Mouse move event handling
-    document.getElementById("Wrapper").onmousemove = (event) => {
-        emitter.posX = event.clientX;
-        emitter.posY = event.clientY;
-        //pointer.style.left = event.clientX - 100 + "px";
-       // pointer.style.top = event.clientY - 100 + "px";
-        emitter.run();
-    }   
+};
 
 });
 
@@ -108,4 +105,3 @@ function waitForElement(id, callback){
 };
 
 
-;

@@ -50,11 +50,9 @@ class satellite {
 
         satellites.push(this);
         console.log("Created satellite");
-
     }
 
     simulate(){
-
         for (let x = 0; x < planets.length;x++){
             if (this.pos.distanceTo(planets[x].pos) < 40){
                 return;
@@ -70,7 +68,6 @@ class satellite {
         this.sprite.style.top = this.pos.y - 100 + "px";
         this.sprite.style.left = this.pos.x - 100 + "px";  
     }
-
 }
 
 // Animation loop
@@ -87,15 +84,27 @@ var intervalId = window.setInterval(function(){
 
 // Button listeners
 document.getElementById("planetButton").addEventListener("click", (ev) => {
-    console.log("Planet Button Clicked");
     placing = "Planets";
 
 });
 
 document.getElementById("satButton").addEventListener("click", (ev) => {
-    console.log("Satellite Button Clicked");
     placing = "Satellites";
     
+});
+
+document.getElementById("clearButton").addEventListener("click", (ev) => {
+    
+
+    for (let x = 0; x < planets.length; x++) {
+        planets[x].sprite.parentNode.removeChild(planets[x].sprite);
+      }
+    for (let x = 0; x < satellites.length; x++) {
+        satellites[x].sprite.remove();
+      }
+    
+    planets = []
+    satellites = []
 });
 
 
@@ -114,7 +123,6 @@ document.getElementById("orbitsWindow").addEventListener("click", (ev) => {
     }
     
 });
-
 
 document.getElementById("orbitsWindow").addEventListener("pointerdown", (ev) => {
     switch (placing) {
@@ -149,8 +157,6 @@ document.getElementById("orbitsWindow").addEventListener("pointerup", (ev) => {
     
 });
 
-
-
 waitForElement("pointer", function(){
     console.log("Pointer is LOADED!")
 });
@@ -158,7 +164,6 @@ waitForElement("pointer", function(){
 // Run when window is loaded
 window.addEventListener('load', (eevent) => {
     console.log("Document loaded")
-
     // adjust canvas to screen
     document.getElementById("canvas").width = document.width;
     document.getElementById("canvas").height = document.height;
@@ -168,7 +173,6 @@ window.addEventListener('load', (eevent) => {
         //pointer.style.left = event.clientX - 100 + "px";
        // pointer.style.top = event.clientY - 100 + "px";
     }   
-
 });
 
 function waitForElement(id, callback){
@@ -181,7 +185,6 @@ function waitForElement(id, callback){
 };
 
 function arrayRemove(arr, value) { 
-    
     return arr.filter(function(ele){ 
         return ele != value; 
     });

@@ -8,24 +8,37 @@
     <link rel="stylesheet" href="stylesheet.css" />
     <script type="module" src="orbits_script.js"></script>
   </head>
-  <body id="body" style = "margin:0; left: 0; right: 0; border-color: teal; border-width: 0px; border-style: dotted;"></body>
+  <body id="body"></body>
     <div id="WrapperOrbits" class="flex-container" style="height: 100%; width: 100%; background-color: black;">
       <canvas id="canvas" ></canvas>
       <div id="Header" class="flex-container">
         <img id="orbit" src="img/dotOrbit.png" alt="">
         <div id="logoBox">Daryl Jaimes</div>
+        <ul id="Navigation" class="flex-container">
+          <a class="NavButton" href="index.html">HOME</a>
+          <a class="NavButton" href="portfolio.html">PORTFOLIO</a>
+          <a class="NavButton" href="contact.html">CONTACT</a>
+          <a class="NavButton" href="about.html">ABOUT</a>
+        </ul>
       </div>
-      <div id="mainContainer" class="flex-container">
-        <div id="buttonBox" class="flex-container">
-          <button id="planetButton" class="orbitsButton">Planet</button>
-          <button id="satButton" class="orbitsButton">Satellite</button>
-          <button id="clearButton" class="orbitsButton">Clear</button>
+      <div class="mainContainer" class="flex-container">
+        <div id="project" class="flex-container">
+          <div id="buttonBox" class="flex-container">
+            <button id="planetButton" class="orbitsButton">Planet</button>
+            <button id="satButton" class="orbitsButton">Satellite</button>
+            <button id="clearButton" class="orbitsButton">Clear</button>
+          </div>
+          <div id="orbitsWindow" class="flex-container">
+          </div>
         </div>
-        
-        <div id="orbitsWindow" class="flex-container">
-          
-        </div>    
+      </div>
+      <div class="footer">
+        <div class="infoContent">
+          <p>Orbits is a project written in html, CSS and vanilla JavaScript as a way for me to familiarize
+          with the languages and their basic tools.</p>
+          <p>The project consist of a 2D simulation of orbital mechanics using Newton's law of universal gravitation.</p>
         </div>
+        <button class="infoCollapsible">Orbits</button>
       </div>
     </div>
   </body>

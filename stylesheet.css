@@ -1,12 +1,17 @@
 
 
 #html {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(0, 0, 0);
     height: 100%;
     width: 100%;
 }
 
 #body {
-    height: 100%;
+    margin: 0;
+    padding: 0;
+    height:100%;
     width: 100%;
 }
 
@@ -22,12 +27,14 @@
     border-style: dashed;
     border-width: 0px;
     border-color: tomato; 
-    height: 100%;
+    height: auto;
     width: 100%;
 }
 
 
 #Header {
+    position:absolute;
+    height: 100px;
     display: flex;
     border-color: red;
     border-width: 0px;
@@ -37,18 +44,20 @@
     flex-flow: row;
     margin-left: 50px;
     margin-right: 50px;
-    padding-top: 30px;
     
     
 }
 
 #logoBox {
+    display: flex;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: bolder;
     color: aliceblue;
     font-size: 24px;
-    padding-left: 30px;
-    padding-top: 10px;
+    margin-left: 30px;
+    margin-top: 10px;
+    bottom: 0px;
+    align-items: center;
     
     
 }
@@ -59,6 +68,8 @@
     border-color: blueviolet;
     display: flex;
     margin-left: 260px;
+    align-items: center;
+
 }
 
 .NavButton {
@@ -70,17 +81,31 @@
     font-weight: bold;
     font-size: 12px;
     text-decoration: none;
+    
 }
 
-#mainContainer {
+.NavButton:hover {
+    margin-bottom: -2px;
+    border-bottom: 2px;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-style: solid;
+    border-color: #eee;
+
+}
+
+.mainContainer {
+    position: absolute;
+    width: 100%;
+    height: 80vh;
     display: flex;
-    height: 100%;
-    height: 600px;
+    top: 100px;
     border: 0px;
     border-color: red;
     border-style: solid;
     align-items: flex-start;
-    justify-content: center;
+    color: #eee;
 }
 
 .missionBox {
@@ -104,9 +129,9 @@
 }
 
 #orbit {
-    margin-top: 4px;
+    margin-top: 30px;
     margin-right: -20px;
-    height: 100%;
+    height: 50%;
     border-width: 0px; 
     border-style: solid; 
     border-color: aliceblue;
@@ -130,13 +155,12 @@
     font-size: 24px;
     display: flex;
     background-color: rgba(1, 1, 1, 1);
-    margin-top: 60px;
+    margin-top: 50px;
     margin-left: 60px;
     height: 180px;
     width: 320px;
 
     border-radius: 14px;
-    /*box-shadow: 0px 0px 10px 10px rgba(255,255,255,0.5);*/
     border-style: solid;
     border-width: 2px;
     border-color: aliceblue;
@@ -146,8 +170,12 @@
     flex-direction: column;
 }
 
+.projectPreview:hover {
+    box-shadow: 0px 0px 20px 5px rgba(255,255,255,0.4);
+}
+
 #orbitsWindow {
-    height: 100%;
+    height: 90%;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -181,3 +209,49 @@
 .planet {
     position: absolute;
 }
+
+.footer {
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+}
+
+.infoCollapsible {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bolder;
+    color: rgb(179, 179, 179);
+    font-size: 24px;
+    background-color:darkslategray;
+    cursor: pointer;
+    padding: 20px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+  }
+
+  .infoCollapsible:hover {
+    background-color:#eee;
+    color: rgb(97, 97, 97);
+    
+  }
+
+  .infoContent {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bolder;
+    color: rgb(179, 179, 179);
+    font-size: 14px;
+    background-color: aquamarine;
+    padding: 10px;
+    max-height: 0;
+    color: black;
+    transition: max-height 0.2s ease-out;
+  }
+
+  #project {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    
+  }

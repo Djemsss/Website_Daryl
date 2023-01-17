@@ -23,7 +23,7 @@ class planet {
         this.sprite.classList.add("planet");
         this.sprite.style.scale = 0.3;
         document.getElementById("orbitsWindow").appendChild(this.sprite);
-        this.sprite.style.top = this.pos.y - 100 + "px";
+        this.sprite.style.top = this.pos.y - 200 + "px";
         this.sprite.style.left = this.pos.x - 100 + "px";
 
         planets.push(this);
@@ -45,7 +45,7 @@ class satellite {
         this.sprite.classList.add("satellite")
         this.sprite.style.scale = 0.05;
         document.getElementById("orbitsWindow").appendChild(this.sprite);
-        this.sprite.style.top = this.pos.y - 100 + "px";
+        this.sprite.style.top = this.pos.y - 200 + "px";
         this.sprite.style.left = this.pos.x - 100 + "px";
 
         satellites.push(this);
@@ -65,7 +65,7 @@ class satellite {
         }
         
         this.pos.add(this.vel);
-        this.sprite.style.top = this.pos.y - 100 + "px";
+        this.sprite.style.top = this.pos.y - 200 + "px";
         this.sprite.style.left = this.pos.x - 100 + "px";  
     }
 }
@@ -164,15 +164,21 @@ waitForElement("pointer", function(){
 // Run when window is loaded
 window.addEventListener('load', (eevent) => {
     console.log("Document loaded")
-    // adjust canvas to screen
-    document.getElementById("canvas").width = document.width;
-    document.getElementById("canvas").height = document.height;
+    
+    var coll = document.getElementsByClassName("infoCollapsible");
+    var i;
 
-    // Mouse move event handling
-    document.getElementById("WrapperOrbits").onmousemove = (event) => {
-        //pointer.style.left = event.clientX - 100 + "px";
-       // pointer.style.top = event.clientY - 100 + "px";
-    }   
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.previousElementSibling;
+            if (content.style.maxHeight){
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    }
 });
 
 function waitForElement(id, callback){
@@ -189,3 +195,4 @@ function arrayRemove(arr, value) {
         return ele != value; 
     });
 }
+

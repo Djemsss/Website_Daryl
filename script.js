@@ -78,22 +78,13 @@ waitForElement("pointer", function(){
 window.addEventListener('load', (eevent) => {
     console.log("Document loaded")
 
-    list = document.getElementsByClassName("projectPreview");
-    for (var i = 0; i < list.length; i++) {
-        list[i].addEventListener("mouseenter", function(e) {
-            e.target.style.boxShadow = '0px 0px 20px 5px rgba(255,255,255,0.4)';
-        });
-        list[i].addEventListener("mouseleave", function(e) {
-            e.target.style.boxShadow = '0px 0px 10px 10px rgba(255,255,255,0)';
-        });
-
+   
 
     // adjust canvas to screen
     document.getElementById("canvas").width = document.width;
     document.getElementById("canvas").height = document.height;
-};
-
 });
+
 
 function waitForElement(id, callback){
     var poops = setInterval(function(){

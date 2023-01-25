@@ -196,14 +196,18 @@ waitForElement("pointer", function(){
     console.log("Pointer is LOADED!")
 });
 
+window.addEventListener("resize", (ev) => {
+    // adjust canvas to screen
+    document.getElementById("canvas").width = document.innerWidth;
+    document.getElementById("canvas").height = document.innerHeight;
+});
+
 // Run when window is loaded
 window.addEventListener('load', (eevent) => {
     console.log("Document loaded")
     console.log(window.innerWidth)
 
-    // adjust canvas to screen
-    document.getElementById("canvas").width = window.innerWidth;
-    document.getElementById("canvas").height = window.innerHeight;
+    
 
     var coll = document.getElementsByClassName("infoCollapsible");
     var i;

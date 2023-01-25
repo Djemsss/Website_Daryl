@@ -84,7 +84,7 @@ class satellite {
             
             this.canvas.globalAlp
             this.canvas.lineWidth = 1;
-            this.canvas.strokeStyle = "rgba(0, 100, 100, 0.1)";
+            this.canvas.strokeStyle = "rgba(0, 100, 100, 0.05)";
             this.canvas.stroke();
         }  
         this.pos.add(this.vel);
@@ -130,6 +130,13 @@ document.getElementById("clearButton").addEventListener("click", (ev) => {
     
     planets = []
     satellites = []
+    let c = document.getElementById("canvas");
+    let ctx = c.getContext("2d");
+    ctx.clearRect(0,0,c.width,c.height);
+
+    let c2 = document.getElementById("canvas2");
+    let ctx2 = c2.getContext("2d");
+    ctx2.clearRect(0,0,c2.width,c2.height);
 });
 
 document.getElementById("autoButton").addEventListener("click", (ev) => {

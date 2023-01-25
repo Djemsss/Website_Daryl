@@ -4,16 +4,17 @@ html {
     background-color: rgb(0, 0, 0);
     height: 100%;
     width: 100%;
-    overflow: auto;
+    overflow: hidden;
     
 }
 
 body {
-
+    position: relative;
     margin: 0;
     padding: 0;
     height: 100%;
     width: 100%;
+    overflow: hidden;
 }
 
 #Wrapper {
@@ -275,9 +276,9 @@ body {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: bolder;
     color: rgb(179, 179, 179);
-    font-size: 14px;
+    font-size: 10px;
     background-color: aquamarine;
-    padding: 10px;
+    padding: 4px;
     max-height: 0;
     color: black;
     transition: max-height 0.2s ease-out;

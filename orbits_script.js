@@ -198,8 +198,9 @@ waitForElement("pointer", function(){
 
 window.addEventListener("resize", (ev) => {
     // adjust canvas to screen
-    document.getElementById("canvas").width = document.innerWidth;
-    document.getElementById("canvas").height = document.innerHeight;
+    console.log(body.height)
+    document.getElementById("canvas").width = window.innerWidth;
+    document.getElementById("canvas").height = window.innerHeight;
 });
 
 // Run when window is loaded
@@ -220,6 +221,7 @@ window.addEventListener('load', (eevent) => {
                 content.style.maxHeight = null;
             } else {
                 content.style.maxHeight = content.scrollHeight + "px";
+                
             }
         });
     }

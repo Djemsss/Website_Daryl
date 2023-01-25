@@ -35,10 +35,14 @@ class planet {
 
 class satellite {
     constructor (PosX, PosY, VelX, VelY, MASS){
-        this.color = "#FFFFFF";
+        var randomColor = Math.floor(Math.random()*16777215).toString(16);
+        console.log(randomColor)
+        this.color = "#" + randomColor;
         this.mass = 100;
         this.pos = new THREE.Vector2(PosX, PosY);
         this.vel = new THREE.Vector2(VelX, VelY);
+        this.orbitPoints = [];
+        
         this.canvas = document.getElementById("canvas").getContext("2d");
         
         this.sprite = document.createElement("img");
@@ -57,14 +61,32 @@ class satellite {
         for (let x = 0; x < planets.length;x++){
             if (this.pos.distanceTo(planets[x].pos) < 30){
                 this.sprite.remove();
+                this.orbitPoints = []
+                return
             } 
             let gravDir = (new THREE.Vector2().copy(planets[x].pos).sub(this.pos)).normalize()
             
             let gravForce = (GRAVITY * 100 * planets[x].mass) / (this.pos.distanceToSquared(planets[x].pos))
             this.vel.add(new THREE.Vector2().copy(gravDir).multiplyScalar(gravForce))
+        };
+        this.orbitPoints.push(new THREE.Vector2().copy(this.pos))
+        if (this.orbitPoints.length > 100){
+            this.orbitPoints.shift();
+          }
+
+        if (this.orbitPoints.length > 0){
+            this.canvas.beginPath();
+            this.canvas.moveTo(this.orbitPoints[0].x, this.orbitPoints[0].y);
+                
+            this.orbitPoints.forEach(element => {
+                this.canvas.lineTo(element.x, element.y);
+            });
             
-        }
-        
+            this.canvas.globalAlp
+            this.canvas.lineWidth = 1;
+            this.canvas.strokeStyle = "rgba(0, 100, 100, 0.1)";
+            this.canvas.stroke();
+        }  
         this.pos.add(this.vel);
         this.sprite.style.top = this.pos.y - 200 + "px";
         this.sprite.style.left = this.pos.x - 100 + "px";  
@@ -76,11 +98,13 @@ var deg = 0;
 
 // Runs 30 times a second
 var intervalId = window.setInterval(function(){
+    
     deg += 3;
     document.getElementById("orbit").style.transform = "rotate(" + deg + "deg)"
     for (let x = 0; x<satellites.length; x++){
         satellites[x].simulate();
     }
+    
   }, 33);
 
 // Button listeners
@@ -168,7 +192,7 @@ document.getElementById("orbitsWindow").addEventListener("pointerup", (ev) => {
 
             var newSat = new satellite(drag_start.x, drag_start.y, impulse.x, impulse.y, 100);
             dragging = false
-            var c = document.getElementById("canvas");
+            var c = document.getElementById("canvas2");
             var ctx = c.getContext("2d");
             ctx.clearRect(0,0,c.width,c.height);
             break;
@@ -184,7 +208,11 @@ document.getElementById("orbitsWindow").addEventListener("pointermove", (ev) => 
         case "Satellites":
             if (dragging){
                 drag_end = new THREE.Vector2(ev.clientX, ev.clientY);
+                var c = document.getElementById("canvas2");
+                var ctx = c.getContext("2d");
+                ctx.clearRect(0,0,c.width,c.height);
                 drawLine(drag_start, drag_end);
+                
             }
             
             break
@@ -200,6 +228,9 @@ window.addEventListener("resize", (ev) => {
     // adjust canvas to screen
     document.getElementById("canvas").width = window.innerWidth;
     document.getElementById("canvas").height = window.innerHeight;
+
+    document.getElementById("canvas2").width = window.innerWidth;
+    document.getElementById("canvas2").height = window.innerHeight;
 });
 
 // Run when window is loaded
@@ -208,6 +239,9 @@ window.addEventListener('load', (eevent) => {
     
     document.getElementById("canvas").width = window.innerWidth;
     document.getElementById("canvas").height = window.innerHeight;
+
+    document.getElementById("canvas2").width = window.innerWidth;
+    document.getElementById("canvas2").height = window.innerHeight;
 
     var coll = document.getElementsByClassName("infoCollapsible");
     var i;
@@ -220,7 +254,6 @@ window.addEventListener('load', (eevent) => {
                 content.style.maxHeight = null;
             } else {
                 content.style.maxHeight = content.scrollHeight + "px";
-                
             }
         });
     }
@@ -242,16 +275,14 @@ function arrayRemove(arr, value) {
 }
 
 function drawLine(from, to){
-    var c = document.getElementById("canvas");
+    var c = document.getElementById("canvas2");
     var ctx = c.getContext("2d");
-    ctx.clearRect(0,0,c.width,c.height);
     ctx.beginPath();
     ctx.moveTo(from.x, from.y);
     ctx.lineTo(to.x, to.y);
     ctx.strokeStyle = "white";
     ctx.lineWidth = 5;
     ctx.lineCap = 'round';
-    ctx.lineWid
     ctx.stroke();
 }
 
@@ -266,10 +297,8 @@ function calculate_orbit(pos){
                 closest_body = planets[x]
             }
         }
-    
     }
     if (closest_body){
         let newVel = calculate_launch_velocity
     }
-
 }

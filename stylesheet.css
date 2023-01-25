@@ -142,7 +142,7 @@ body {
 }
 
 
-#canvas {
+#canvas, #canvas2{
     pointer-events: none;
     position: absolute;
     border-style: dashed;

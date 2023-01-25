@@ -2,12 +2,13 @@ import * as THREE from './three/build/three.module.js';
 
 var dir = new THREE.Vector2();
 
-const GRAVITY = 0.001
+const GRAVITY = 0.001;
 var planets = [];
 var planet_positions = [];
 var satellites = [];
 
-var placing = "Planets"
+var placing = "Planets";
+var autoOrbits = false;
 
 class planet {
     constructor (x, y, MASS){
@@ -107,9 +108,23 @@ document.getElementById("clearButton").addEventListener("click", (ev) => {
     satellites = []
 });
 
+document.getElementById("autoButton").addEventListener("click", (ev) => {
+    if (autoOrbits == false){
+        autoOrbits = true
+        document.getElementById("autoButton").style.backgroundColor = "green"
+    }
+    else {
+        autoOrbits = false
+        document.getElementById("autoButton").style.backgroundColor = "red"
+    }
+    
+});
 
-var drag_start = new THREE.Vector2(0, 0)
-var dragging = false
+
+
+var drag_start = new THREE.Vector2(0, 0);
+let drag_end = new THREE.Vector2(0, 0);
+var dragging = false;
 
 // Window click listener
 document.getElementById("orbitsWindow").addEventListener("click", (ev) => {
@@ -144,7 +159,7 @@ document.getElementById("orbitsWindow").addEventListener("pointerup", (ev) => {
             break;
         
         case "Satellites":
-            let drag_end = new THREE.Vector2(ev.clientX, ev.clientY);
+            drag_end = new THREE.Vector2(ev.clientX, ev.clientY);
             let dir = (new THREE.Vector2().copy(drag_end).sub(drag_start)).normalize().negate();
             let force = drag_start.distanceTo(new THREE.Vector2().copy(drag_end)) / 30
             var impulse = new THREE.Vector2().copy(dir).multiplyScalar(force);
@@ -152,7 +167,27 @@ document.getElementById("orbitsWindow").addEventListener("pointerup", (ev) => {
             console.log(dir, force, impulse)
 
             var newSat = new satellite(drag_start.x, drag_start.y, impulse.x, impulse.y, 100);
+            dragging = false
+            var c = document.getElementById("canvas");
+            var ctx = c.getContext("2d");
+            ctx.clearRect(0,0,c.width,c.height);
             break;
+    }
+    
+});
+
+document.getElementById("orbitsWindow").addEventListener("pointermove", (ev) => {
+    switch (placing) {
+        case "Planets":
+            break;
+        
+        case "Satellites":
+            if (dragging){
+                drag_end = new THREE.Vector2(ev.clientX, ev.clientY);
+                drawLine(drag_start, drag_end);
+            }
+            
+            break
     }
     
 });
@@ -164,7 +199,12 @@ waitForElement("pointer", function(){
 // Run when window is loaded
 window.addEventListener('load', (eevent) => {
     console.log("Document loaded")
-    
+    console.log(window.innerWidth)
+
+    // adjust canvas to screen
+    document.getElementById("canvas").width = window.innerWidth;
+    document.getElementById("canvas").height = window.innerHeight;
+
     var coll = document.getElementsByClassName("infoCollapsible");
     var i;
 
@@ -196,3 +236,35 @@ function arrayRemove(arr, value) {
     });
 }
 
+function drawLine(from, to){
+    var c = document.getElementById("canvas");
+    var ctx = c.getContext("2d");
+    ctx.clearRect(0,0,c.width,c.height);
+    ctx.beginPath();
+    ctx.moveTo(from.x, from.y);
+    ctx.lineTo(to.x, to.y);
+    ctx.strokeStyle = "white";
+    ctx.lineWidth = 5;
+    ctx.lineCap = 'round';
+    ctx.lineWid
+    ctx.stroke();
+}
+
+function calculate_orbit(pos){
+    let closest_body = null
+    for (let x = 0; x < planets.length; x++) {
+        if (closest_body == null){
+            closest_body = planets[x]
+        }
+        else{
+            if (pos.distanceTo(planets[x].pos) < pos.distanceTo(closest_body.pos)){
+                closest_body = planets[x]
+            }
+        }
+    
+    }
+    if (closest_body){
+        let newVel = calculate_launch_velocity
+    }
+
+}

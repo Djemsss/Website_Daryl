@@ -76,13 +76,12 @@ waitForElement("pointer", function(){
 
 // Run when window is loaded
 window.addEventListener('load', (eevent) => {
-    console.log("Document loaded")
-
-   
+    
 
     // adjust canvas to screen
     document.getElementById("canvas").width = document.width;
     document.getElementById("canvas").height = document.height;
+    
 });
 
 

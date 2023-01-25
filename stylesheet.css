@@ -138,15 +138,6 @@ html {
     color: #eee;
 }
 
-.missionBox {
-    display: flex;
-    flex-direction: row;
-    border: 0px;
-    border-color: chocolate;
-    border-style: solid;
-    height: 300px;
-    width: 300px;
-}
 
 #canvas {
     pointer-events: none;
@@ -212,14 +203,20 @@ html {
     flex-direction: column;
     align-content: left;
     justify-content: center;
-    border: 2px;
+    border: 0px;
     border-style: solid;
     border-color: aliceblue;
+}
+#orbitsProject {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 #buttonBox {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .orbitsButton {
@@ -227,9 +224,9 @@ html {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: bolder;
     color: aliceblue;
-    font-size: 24px;
+    font-size: 14px;
     height: 40px;
-    width: 120px;
+    width: 80px;
     margin-top: 10px;
 }
 

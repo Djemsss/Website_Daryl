@@ -22,7 +22,7 @@ class planet {
         this.sprite = document.createElement("img");
         this.sprite.src = "img/dot.png";
         this.sprite.classList.add("planet");
-        this.sprite.style.scale = 0.3;
+        this.sprite.style.scale = 0.2;
         document.getElementById("orbitsWindow").appendChild(this.sprite);
         this.sprite.style.top = this.pos.y - 200 + "px";
         this.sprite.style.left = this.pos.x - 100 + "px";
@@ -55,8 +55,8 @@ class satellite {
 
     simulate(){
         for (let x = 0; x < planets.length;x++){
-            if (this.pos.distanceTo(planets[x].pos) < 40){
-                return;
+            if (this.pos.distanceTo(planets[x].pos) < 30){
+                this.sprite.remove();
             } 
             let gravDir = (new THREE.Vector2().copy(planets[x].pos).sub(this.pos)).normalize()
             

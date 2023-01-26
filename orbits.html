@@ -28,8 +28,20 @@
             <div id="buttonBox" class="flex-container">
               <button id="planetButton" class="orbitsButton">Planet</button>
               <button id="satButton" class="orbitsButton">Satellite</button>
-              <button id="autoButton" class="orbitsButton" style="background-color: red;">Auto orbits</button>
               <button id="clearButton" class="orbitsButton" >Clear</button>
+              <button id="autoButton" class="orbitsButton" style="background-color: red;">Auto orbits</button>
+              <div id="orbitSettings">
+                <div style="margin-top: 10px;">Eccentricity</div>
+                <div>
+                  <span id="rangeValue">0</span>
+                  <Input id="eccSlider" class="range" type="range" name "" value="0" min="-100" max="100" onChange="rangeSlide(this.value)" onmousemove="rangeSlide(this.value)"></Input>
+                </div>
+                <script type="text/javascript">
+                  function rangeSlide(value) {
+                      document.getElementById('rangeValue').innerHTML = value;
+                  }
+                </script>
+              </div>
             </div>
             <div id="orbitsWindow" class="flex-container">
             </div>

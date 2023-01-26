@@ -5,6 +5,9 @@ html {
     height: 100%;
     width: 100%;
     overflow: hidden;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: bolder;
+    color: aliceblue;
     
 }
 
@@ -148,7 +151,7 @@ body {
     border-style: dashed;
     border-color: violet;
     border-width: 0px;
-    z-index: 5;
+    z-index: 0;
 
 }
 
@@ -224,10 +227,15 @@ body {
 #buttonBox {
     display: flex;
     flex-direction: row;
+    border-style: solid;
+    border-width: 0px;
+    border-bottom-width: 2px;
 }
 
 .orbitsButton {
     background-color: black;
+    border-color: white;
+    border-bottom: 0px;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: bolder;
     color: aliceblue;
@@ -235,6 +243,34 @@ body {
     height: 40px;
     width: 80px;
     margin-top: 10px;
+    margin-left: 2px;
+    border-radius: 6px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.orbitsButton:hover {
+    box-shadow: 0px 0px 10px 2px rgba(255, 255, 255, 0.4);
+}
+
+#orbitSettings {
+    display: flex;
+    border-style: solid;
+    border-color: aliceblue;
+    border-width: 2px;
+
+    position: absolute;
+    display: none;
+    margin-top: 50px;
+    right: 0px;
+    width: 160px;
+    height: 200px;
+    flex-direction: column;
+    align-items: center;
+}
+
+#autoButton {
+    margin-left: auto;
 }
 
 .satellite {
@@ -290,3 +326,44 @@ body {
     width: 100%;
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+#rangeValue {
+    position: relative;
+    display: block;
+    text-align: center;
+    font-size: 30px;
+    color: #999;
+    font-weight: 200;
+  }
+  .range {
+    width: 154px;
+    height: 15px;
+    background: #111;
+    outline: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 1);
+  }
+  .range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #000701;
+    cursor: pointer;
+    border: 4px solid #333;
+    box-shadow: -407px 0 0 400px #4b524b;
+  }
+  

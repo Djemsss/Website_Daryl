@@ -8,7 +8,9 @@ var planet_positions = [];
 var satellites = [];
 
 var placing = "Planets";
+
 var autoOrbits = false;
+var orbitEccentricity = 1;
 
 class planet {
     constructor (x, y, MASS){
@@ -66,7 +68,7 @@ class satellite {
             } 
             let gravDir = (new THREE.Vector2().copy(planets[x].pos).sub(this.pos)).normalize()
             
-            let gravForce = (GRAVITY * 100 * planets[x].mass) / (this.pos.distanceToSquared(planets[x].pos))
+            let gravForce = (GRAVITY * this.mass * planets[x].mass) / (this.pos.distanceToSquared(planets[x].pos))
             this.vel.add(new THREE.Vector2().copy(gravDir).multiplyScalar(gravForce))
         };
         this.orbitPoints.push(new THREE.Vector2().copy(this.pos))
@@ -110,11 +112,15 @@ var intervalId = window.setInterval(function(){
 // Button listeners
 document.getElementById("planetButton").addEventListener("click", (ev) => {
     placing = "Planets";
+    document.getElementById("planetButton").style.backgroundColor = "rgb(100, 100, 100)"
+    document.getElementById("satButton").style.backgroundColor = "rgb(0, 0, 0)"
 
 });
 
 document.getElementById("satButton").addEventListener("click", (ev) => {
     placing = "Satellites";
+    document.getElementById("planetButton").style.backgroundColor = "rgb(0, 0, 0)"
+    document.getElementById("satButton").style.backgroundColor = "rgb(100, 100, 100)"
     
 });
 
@@ -143,10 +149,12 @@ document.getElementById("autoButton").addEventListener("click", (ev) => {
     if (autoOrbits == false){
         autoOrbits = true
         document.getElementById("autoButton").style.backgroundColor = "green"
+        document.getElementById("orbitSettings").style.display = "Flex"
     }
     else {
         autoOrbits = false
         document.getElementById("autoButton").style.backgroundColor = "red"
+        document.getElementById("orbitSettings").style.display = "None"
     }
     
 });
@@ -176,10 +184,18 @@ document.getElementById("orbitsWindow").addEventListener("pointerdown", (ev) => 
             break;
         
         case "Satellites":
-            drag_start.x = ev.clientX;
-            drag_start.y = ev.clientY;
-            dragging = true;
-            break;
+            if (autoOrbits == true){
+                var launchVel = calculate_orbit(new THREE.Vector2(ev.clientX, ev.clientY))
+                var newSat = new satellite(ev.clientX, ev.clientY, launchVel.x, launchVel.y, 100);
+                break;
+            }
+            else{
+                drag_start.x = ev.clientX;
+                drag_start.y = ev.clientY;
+                dragging = true;
+                break;
+            }
+            
     }
     
 });
@@ -190,6 +206,9 @@ document.getElementById("orbitsWindow").addEventListener("pointerup", (ev) => {
             break;
         
         case "Satellites":
+            if (!dragging){
+                break
+            }
             drag_end = new THREE.Vector2(ev.clientX, ev.clientY);
             let dir = (new THREE.Vector2().copy(drag_end).sub(drag_start)).normalize().negate();
             let force = drag_start.distanceTo(new THREE.Vector2().copy(drag_end)) / 30
@@ -306,6 +325,21 @@ function calculate_orbit(pos){
         }
     }
     if (closest_body){
-        let newVel = calculate_launch_velocity
+        let newVel = calculate_launch_velocity(new THREE.Vector2().copy(pos), new THREE.Vector2().copy(closest_body.pos))
+        
+        return newVel
+        
     }
+}
+
+function calculate_launch_velocity(satPos, planetPos, satMass = 100, planetMass = 100000){
+    let gravDir = (new THREE.Vector2().copy(planetPos).sub(satPos)).normalize()
+    let grav_force = (GRAVITY * satMass * planetMass) / satPos.distanceToSquared(planetPos)
+
+    let newDir = new THREE.Vector2(gravDir.y, -gravDir.x)
+
+    let orbitEccentricity = document.getElementById("eccSlider").value
+
+    let launch_vel = Math.sqrt(((GRAVITY*satMass)*planetMass) / satPos.distanceTo(planetPos)) + (orbitEccentricity / 10)
+    return (newDir.multiplyScalar(launch_vel))
 }

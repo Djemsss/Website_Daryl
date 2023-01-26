@@ -26,9 +26,10 @@
         <div id="project" class="flex-container">
           <div id="orbitsProject">
             <div id="buttonBox" class="flex-container">
-              <button id="planetButton" class="orbitsButton">Planet</button>
+              <button id="planetButton" class="orbitsButton" style="background-color: rgb(100, 100, 100);">Planet</button>
               <button id="satButton" class="orbitsButton">Satellite</button>
-              <button id="clearButton" class="orbitsButton" >Clear</button>
+              <button id="clearButton" class="orbitsButton" style="margin-left: 40px;">Clear All</button>
+              <button id="clearCanvasButton" class="orbitsButton" >Clear Paths</button>
               <button id="autoButton" class="orbitsButton" style="background-color: red;">Auto orbits</button>
               <div id="orbitSettings">
                 <div style="margin-top: 10px;">Eccentricity</div>
@@ -42,6 +43,7 @@
                   }
                 </script>
               </div>
+              <div id="textDisplay">Click anywhere below to place a planet!</div>
             </div>
             <div id="orbitsWindow" class="flex-container">
             </div>
@@ -50,11 +52,12 @@
       </div>
       <div class="footer">
         <div class="infoContent">
-          <p>Orbits is a project written in html, CSS and vanilla JavaScript as a way for me to familiarize
+          <p>Orbits is a project written in mostly vanilla html, CSS and JavaScript as a way for me to familiarize
           with the languages and their basic tools.</p>
           <p>The project consist of a 2D simulation of orbital mechanics using Newton's law of universal gravitation.</p>
         </div>
-        <button class="infoCollapsible">Orbits</button>
+        <button class="infoCollapsible">Orbits
+        </button>
       </div>
     </div>
   </body>

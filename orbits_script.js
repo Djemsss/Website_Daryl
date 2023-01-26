@@ -7,6 +7,8 @@ var planets = [];
 var planet_positions = [];
 var satellites = [];
 
+var infoState = 0;
+
 var placing = "Planets";
 
 var autoOrbits = false;
@@ -31,6 +33,12 @@ class planet {
 
         planets.push(this);
         planet_positions.push(new THREE.Vector2(this.pos.x, this.pos.y))
+
+        if (infoState == 0){
+            infoState = 1;
+            document.getElementById("textDisplay").innerHTML = "Now select the satellite button and try clicking and dragging your mouse to launch a satellite, the more you drag, the faster the satellite will get launched.";
+        }
+
         console.log("Created planet");
     }
 }
@@ -56,6 +64,24 @@ class satellite {
         this.sprite.style.left = this.pos.x - 100 + "px";
 
         satellites.push(this);
+
+        if (infoState == 1){
+            if (this.vel.length() < 1){
+                document.getElementById("textDisplay").innerHTML = "Don't forget to drag the mouse while you hold the left mouse button pressed!";
+            }
+
+            else {
+                infoState = 2;
+                document.getElementById("textDisplay").innerHTML = "Have fun!";
+            }            
+        }
+
+        if (infoState == 2) {
+            if (satellites.length > 5){
+                document.getElementById("textDisplay").innerHTML = "";
+            } 
+        }
+
         console.log("Created satellite");
     }
 
@@ -71,8 +97,10 @@ class satellite {
             let gravForce = (GRAVITY * this.mass * planets[x].mass) / (this.pos.distanceToSquared(planets[x].pos))
             this.vel.add(new THREE.Vector2().copy(gravDir).multiplyScalar(gravForce))
         };
+
+        // Handle drawing of paths
         this.orbitPoints.push(new THREE.Vector2().copy(this.pos))
-        if (this.orbitPoints.length > 100){
+        if (this.orbitPoints.length > 300){
             this.orbitPoints.shift();
           }
 
@@ -86,7 +114,7 @@ class satellite {
             
             this.canvas.globalAlp
             this.canvas.lineWidth = 1;
-            this.canvas.strokeStyle = "rgba(0, 100, 100, 0.05)";
+            this.canvas.strokeStyle = "rgba(0, 100, 100, 0.5)";
             this.canvas.stroke();
         }  
         this.pos.add(this.vel);
@@ -103,6 +131,9 @@ var intervalId = window.setInterval(function(){
     
     deg += 3;
     document.getElementById("orbit").style.transform = "rotate(" + deg + "deg)"
+    let c = document.getElementById("canvas");
+    let ctx = c.getContext("2d");
+    ctx.clearRect(0,0,c.width,c.height);
     for (let x = 0; x<satellites.length; x++){
         satellites[x].simulate();
     }
@@ -143,6 +174,15 @@ document.getElementById("clearButton").addEventListener("click", (ev) => {
     let c2 = document.getElementById("canvas2");
     let ctx2 = c2.getContext("2d");
     ctx2.clearRect(0,0,c2.width,c2.height);
+});
+
+document.getElementById("clearCanvasButton").addEventListener("click", (ev) => {
+    let c = document.getElementById("canvas");
+    let ctx = c.getContext("2d");
+    ctx.clearRect(0,0,c.width,c.height);
+    satellites.forEach(element => {
+        element.orbitPoints = []
+    });
 });
 
 document.getElementById("autoButton").addEventListener("click", (ev) => {

@@ -273,6 +273,14 @@ body {
     margin-left: auto;
 }
 
+#textDisplay {
+    position: absolute;
+    margin-top: 60px;
+    margin-left: 6px;
+    font-size: 14px;
+    max-width: 500px;
+}
+
 .satellite {
     position: absolute;
 }
@@ -291,15 +299,14 @@ body {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: bolder;
     color: rgb(179, 179, 179);
-    font-size: 24px;
     background-color: darkslategray;
     cursor: pointer;
-    padding: 20px;
+    padding: 10px;
     width: 100%;
     border: none;
     text-align: left;
     outline: none;
-    font-size: 15px;
+    font-size: 22px;
 }
 
 .infoCollapsible:hover {

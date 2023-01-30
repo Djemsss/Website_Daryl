@@ -5,7 +5,7 @@ html {
     height: 100%;
     width: 100%;
     overflow: hidden;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family:'Roboto Slab', serif, sans-serif;
     font-weight: bolder;
     color: aliceblue;
     
@@ -54,7 +54,6 @@ body {
 
 #logoBox {
     display: flex;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: bolder;
     color: aliceblue;
     font-size: 24px;
@@ -88,7 +87,6 @@ body {
     margin-left: 50px;
     margin-top: 6px;
     color: white;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: bold;
     font-size: 12px;
     text-decoration: none;
@@ -171,37 +169,60 @@ body {
     height: 100%;
     width: 100%;
     border: 0px;
+    margin-top: 100px;
     border-style: solid;
     border-color: aliceblue;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 
 }
 
 .projectPreview {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: bolder;
     color: aliceblue;
     font-size: 24px;
     display: flex;
-    background-color: rgba(1, 1, 1, 1);
+    background: linear-gradient(to top, rgba(0, 0, 0, 255), rgba(0, 0, 0, 0.5) 90%);
     margin-top: 0px;
     margin-left: 0px;
     height: 180px;
     width: 320px;
+    overflow: hidden;
 
     border-radius: 14px;
     border-style: solid;
-    border-width: 2px;
-    border-color: aliceblue;
+    border-width: 1px;
+    border-color:rgb(255, 255, 255);
 
-    justify-content: center;
+    transition: height 0.5s;
+
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
+
+    
 }
 
 .projectPreview:hover {
     box-shadow: 0px 0px 20px 5px rgba(255, 255, 255, 0.4);
+    height: 280px;
+}
+
+.anchorButton {
+    display: block;
+    width: 115px;
+    height: 25px;
+    background: #073541;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    line-height: 25px;
+}
+
+.anchorButton:hover {
+    background: #0f758f;
 }
 
 #orbitsWindow {
@@ -236,7 +257,6 @@ body {
     background-color: black;
     border-color: white;
     border-bottom: 0px;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: bolder;
     color: aliceblue;
     font-size: 14px;
@@ -296,7 +316,6 @@ body {
 }
 
 .infoCollapsible {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: bolder;
     color: rgb(179, 179, 179);
     background-color: darkslategray;
@@ -316,7 +335,6 @@ body {
 }
 
 .infoContent {
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: bolder;
     color: rgb(179, 179, 179);
     font-size: 10px;

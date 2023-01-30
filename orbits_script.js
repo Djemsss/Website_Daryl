@@ -13,19 +13,55 @@ var placing = "Planets";
 
 var autoOrbits = false;
 var orbitEccentricity = 1;
+var orbitDir = 1;
 
-function create_svg_circle(color, size){
-    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+function create_svg_circle(color, size, useGradient = false){
+    let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     svg.setAttribute("width", size.toString());
     svg.setAttribute("height", size.toString());
     svg.style.position = "absolute";
   
-    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    let circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
     circle.setAttribute("cx", (size/2).toString());
     circle.setAttribute("cy", (size/2).toString());
     circle.setAttribute("r", (size/2).toString());
-    circle.setAttribute("fill", color);
-  
+
+    var randNum = Math.random() * 500000
+
+    let gradient = document.createElementNS("http://www.w3.org/2000/svg", "linearGradient");
+    gradient.setAttribute("id", "myGradient" + randNum.toString());
+    gradient.setAttribute("x1", "40%");
+    gradient.setAttribute("y1", "0%");
+    gradient.setAttribute("x2", "50%");
+    gradient.setAttribute("y2", "80%");
+
+    // create color stops for the gradient
+    let stop1 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+    stop1.setAttribute("offset", getRandomInt(0, 30) + "%");
+    stop1.setAttribute("style", "stop-color:" + color.toString());
+    gradient.appendChild(stop1);
+
+    let stop2 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+    stop2.setAttribute("offset", getRandomInt(40, 70) + "%");
+    stop2.setAttribute("style", "stop-color:rgb(" + Math.floor(Math.random() * 256) + "," + Math.floor(Math.random() * 256) + "," + Math.floor(Math.random() * 256) + ")");
+    gradient.appendChild(stop2);
+
+    let stop3 = document.createElementNS("http://www.w3.org/2000/svg", "stop");
+    stop3.setAttribute("offset", getRandomInt(80, 100) + "%");
+    stop3.setAttribute("style", "stop-color:rgb(" + Math.floor(Math.random() * 256) + "," + Math.floor(Math.random() * 256) + "," + Math.floor(Math.random() * 256) + ")");
+    gradient.appendChild(stop3);
+    
+    // append the gradient element to the SVG
+    console.log(useGradient)
+    if (useGradient == true){
+        circle.setAttribute("fill", "url(#myGradient"  + randNum.toString() + ")");
+    }
+    else {
+        circle.setAttribute("fill", color.toString());
+    }
+
+    svg.appendChild(gradient);
+
     svg.appendChild(circle);
     document.getElementById("orbitsWindow").appendChild(svg);
     return svg;
@@ -42,7 +78,7 @@ class planet {
     
         this.canvas = document.getElementById("canvas").getContext("2d");
         
-        this.sprite = create_svg_circle(this.color, size)
+        this.sprite = create_svg_circle(this.color, size, true)
         this.sprite.classList.add("planet");
         document.getElementById("orbitsWindow").appendChild(this.sprite);
         this.sprite.style.top = this.pos.y - document.getElementById("Header").clientHeight - (this.size / 2) + "px";
@@ -216,6 +252,20 @@ document.getElementById("autoButton").addEventListener("click", (ev) => {
     
 });
 
+document.getElementById("clockwiseButton").addEventListener("click", (ev) => {
+    orbitDir = 1;
+    document.getElementById("clockwiseButton").style.backgroundColor = "rgba(150, 150, 150, 0.5)"
+    document.getElementById("antiClockwiseButton").style.backgroundColor = "rgba(0, 0, 0, 0.5)"
+    
+});
+
+document.getElementById("antiClockwiseButton").addEventListener("click", (ev) => {
+    orbitDir = -1;
+    document.getElementById("clockwiseButton").style.backgroundColor = "rgba(0, 0, 0, 0.5)"
+    document.getElementById("antiClockwiseButton").style.backgroundColor = "rgba(150, 150, 150, 0.5)"
+    
+});
+
 
 
 var drag_start = new THREE.Vector2(0, 0);
@@ -227,8 +277,6 @@ document.getElementById("orbitsWindow").addEventListener("click", (ev) => {
     switch (placing) {
         case "Planets":
             var newPlanet = new planet(ev.clientX, ev.clientY, 100000, 40);
-            console.log("EV: ", ev.clientX, ev.clientY)
-            console.log("Orbits window x pos", document.getElementById("orbitsWindow").getBoundingClientRect().top)
             break;
         
         case "Satellites":
@@ -245,7 +293,7 @@ document.getElementById("orbitsWindow").addEventListener("pointerdown", (ev) => 
         case "Satellites":
             if (autoOrbits == true){
                 var launchVel = calculate_orbit(new THREE.Vector2(ev.clientX, ev.clientY))
-                var newSat = new satellite(ev.clientX, ev.clientY, launchVel.x, launchVel.y, 100, 8);
+                var newSat = new satellite(ev.clientX, ev.clientY, launchVel.x * orbitDir, launchVel.y * orbitDir, 100, 8);
                 break;
             }
             else{
@@ -272,8 +320,6 @@ document.getElementById("orbitsWindow").addEventListener("pointerup", (ev) => {
             let dir = (new THREE.Vector2().copy(drag_end).sub(drag_start)).normalize().negate();
             let force = drag_start.distanceTo(new THREE.Vector2().copy(drag_end)) / 30
             var impulse = new THREE.Vector2().copy(dir).multiplyScalar(force);
-
-            console.log(dir, force, impulse)
 
             var newSat = new satellite(drag_start.x, drag_start.y, impulse.x, impulse.y, 100, 8);
             dragging = false
@@ -306,6 +352,7 @@ document.getElementById("orbitsWindow").addEventListener("pointermove", (ev) => 
 });
 
 waitForElement("pointer", function(){
+    return
     console.log("Pointer is LOADED!")
 });
 
@@ -419,3 +466,9 @@ function changeColorAlpha(color, opacity)
 
     return color + opacityHex;
 }
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+  }

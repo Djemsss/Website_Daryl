@@ -293,16 +293,22 @@ body {
     margin-left: auto;
 }
 
+#clockwiseButton {
+    color: white;
+    background-color: rgba(150, 150, 150, 0.5);
+}
+
+#antiClockwiseButton {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
 #textDisplay {
     position: absolute;
     margin-top: 60px;
     margin-left: 6px;
     font-size: 14px;
     max-width: 500px;
-}
-
-.satellite .planet {
-    position: absolute;
 }
 
 .footer {

@@ -301,11 +301,7 @@ body {
     max-width: 500px;
 }
 
-.satellite {
-    position: absolute;
-}
-
-.planet {
+.satellite .planet {
     position: absolute;
 }
 
@@ -351,17 +347,6 @@ body {
     width: 100%;
 
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 #rangeValue {

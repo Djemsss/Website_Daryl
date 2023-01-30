@@ -14,22 +14,39 @@ var placing = "Planets";
 var autoOrbits = false;
 var orbitEccentricity = 1;
 
-class planet {
-    constructor (x, y, MASS){
-        this.color = 
+function create_svg_circle(color, size){
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("width", size.toString());
+    svg.setAttribute("height", size.toString());
+    svg.style.position = "absolute";
+  
+    const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    circle.setAttribute("cx", (size/2).toString());
+    circle.setAttribute("cy", (size/2).toString());
+    circle.setAttribute("r", (size/2).toString());
+    circle.setAttribute("fill", color);
+  
+    svg.appendChild(circle);
+    document.getElementById("orbitsWindow").appendChild(svg);
+    return svg;
+}
 
+class planet {
+    constructor (x, y, MASS, size){
+        var randomColor = Math.floor(Math.random()*16777215).toString(16);
+        this.color = "#" + randomColor;
+
+        this.size = size;
         this.mass = MASS;
         this.pos = new THREE.Vector2(x, y);
     
         this.canvas = document.getElementById("canvas").getContext("2d");
         
-        this.sprite = document.createElement("img");
-        this.sprite.src = "img/dot.png";
+        this.sprite = create_svg_circle(this.color, size)
         this.sprite.classList.add("planet");
-        this.sprite.style.scale = 0.2;
         document.getElementById("orbitsWindow").appendChild(this.sprite);
-        this.sprite.style.top = this.pos.y - 200 + "px";
-        this.sprite.style.left = this.pos.x - 100 + "px";
+        this.sprite.style.top = this.pos.y - document.getElementById("Header").clientHeight - (this.size / 2) + "px";
+        this.sprite.style.left = this.pos.x - (this.size / 2) + "px";
 
         planets.push(this);
         planet_positions.push(new THREE.Vector2(this.pos.x, this.pos.y))
@@ -44,24 +61,23 @@ class planet {
 }
 
 class satellite {
-    constructor (PosX, PosY, VelX, VelY, MASS){
+    constructor (PosX, PosY, VelX, VelY, MASS, size){
         var randomColor = Math.floor(Math.random()*16777215).toString(16);
-        console.log(randomColor)
         this.color = "#" + randomColor;
+        
         this.mass = 100;
         this.pos = new THREE.Vector2(PosX, PosY);
         this.vel = new THREE.Vector2(VelX, VelY);
         this.orbitPoints = [];
+        this.size = size;
         
         this.canvas = document.getElementById("canvas").getContext("2d");
         
-        this.sprite = document.createElement("img");
-        this.sprite.src = "img/dot.png";
-        this.sprite.classList.add("satellite")
-        this.sprite.style.scale = 0.05;
+        this.sprite = create_svg_circle(this.color, size)
+        this.sprite.classList.add("satellite");
         document.getElementById("orbitsWindow").appendChild(this.sprite);
-        this.sprite.style.top = this.pos.y - 200 + "px";
-        this.sprite.style.left = this.pos.x - 100 + "px";
+        this.sprite.style.top = this.pos.y - document.getElementById("Header").clientHeight - (this.size / 2) + "px";
+        this.sprite.style.left = this.pos.x - (this.size / 2) + "px";
 
         satellites.push(this);
 
@@ -98,7 +114,7 @@ class satellite {
             this.vel.add(new THREE.Vector2().copy(gravDir).multiplyScalar(gravForce))
         };
 
-        // Handle drawing of paths
+        // Handle drawing of trails
         this.orbitPoints.push(new THREE.Vector2().copy(this.pos))
         if (this.orbitPoints.length > 300){
             this.orbitPoints.shift();
@@ -114,12 +130,13 @@ class satellite {
             
             this.canvas.globalAlp
             this.canvas.lineWidth = 1;
-            this.canvas.strokeStyle = "rgba(0, 100, 100, 0.5)";
+            let trail_color = changeColorAlpha(this.color, 0.4)
+            this.canvas.strokeStyle = trail_color;
             this.canvas.stroke();
         }  
         this.pos.add(this.vel);
-        this.sprite.style.top = this.pos.y - 200 + "px";
-        this.sprite.style.left = this.pos.x - 100 + "px";  
+        this.sprite.style.top = this.pos.y - document.getElementById("Header").clientHeight - (this.size / 2) + "px";
+        this.sprite.style.left = this.pos.x - (this.size / 2) + "px";
     }
 }
 
@@ -209,7 +226,9 @@ var dragging = false;
 document.getElementById("orbitsWindow").addEventListener("click", (ev) => {
     switch (placing) {
         case "Planets":
-            var newPlanet = new planet(ev.clientX, ev.clientY, 100000);
+            var newPlanet = new planet(ev.clientX, ev.clientY, 100000, 40);
+            console.log("EV: ", ev.clientX, ev.clientY)
+            console.log("Orbits window x pos", document.getElementById("orbitsWindow").getBoundingClientRect().top)
             break;
         
         case "Satellites":
@@ -226,7 +245,7 @@ document.getElementById("orbitsWindow").addEventListener("pointerdown", (ev) => 
         case "Satellites":
             if (autoOrbits == true){
                 var launchVel = calculate_orbit(new THREE.Vector2(ev.clientX, ev.clientY))
-                var newSat = new satellite(ev.clientX, ev.clientY, launchVel.x, launchVel.y, 100);
+                var newSat = new satellite(ev.clientX, ev.clientY, launchVel.x, launchVel.y, 100, 8);
                 break;
             }
             else{
@@ -256,7 +275,7 @@ document.getElementById("orbitsWindow").addEventListener("pointerup", (ev) => {
 
             console.log(dir, force, impulse)
 
-            var newSat = new satellite(drag_start.x, drag_start.y, impulse.x, impulse.y, 100);
+            var newSat = new satellite(drag_start.x, drag_start.y, impulse.x, impulse.y, 100, 8);
             dragging = false
             var c = document.getElementById("canvas2");
             var ctx = c.getContext("2d");
@@ -382,4 +401,21 @@ function calculate_launch_velocity(satPos, planetPos, satMass = 100, planetMass 
 
     let launch_vel = Math.sqrt(((GRAVITY*satMass)*planetMass) / satPos.distanceTo(planetPos)) + (orbitEccentricity / 10)
     return (newDir.multiplyScalar(launch_vel))
+}
+
+function changeColorAlpha(color, opacity) 
+{
+    //if it has an alpha, remove it
+    if (color.length > 7)
+        color = color.substring(0, color.length - 2);
+
+    // coerce values so ti is between 0 and 1.
+    const _opacity = Math.round(Math.min(Math.max(opacity, 0), 1) * 255);
+    let opacityHex = _opacity.toString(16).toUpperCase()
+
+    // opacities near 0 need a trailing 0
+    if (opacityHex.length == 1)
+        opacityHex = "0" + opacityHex;
+
+    return color + opacityHex;
 }

@@ -7,9 +7,7 @@ var planets = [];
 var planet_positions = [];
 var satellites = [];
 
-var infoState = 0;
-
-var placing = "Planets";
+var placing = "Satellites";
 
 var autoOrbits = false;
 var orbitEccentricity = 1;
@@ -86,12 +84,6 @@ class planet {
 
         planets.push(this);
         planet_positions.push(new THREE.Vector2(this.pos.x, this.pos.y))
-
-        if (infoState == 0){
-            infoState = 1;
-            document.getElementById("textDisplay").innerHTML = "Now select the satellite button and try clicking and dragging your mouse to launch a satellite, the more you drag, the faster the satellite will get launched.";
-        }
-
         console.log("Created planet");
     }
 }
@@ -116,23 +108,6 @@ class satellite {
         this.sprite.style.left = this.pos.x - (this.size / 2) + "px";
 
         satellites.push(this);
-
-        if (infoState == 1){
-            if (this.vel.length() < 1){
-                document.getElementById("textDisplay").innerHTML = "Don't forget to drag the mouse while you hold the left mouse button pressed!";
-            }
-
-            else {
-                infoState = 2;
-                document.getElementById("textDisplay").innerHTML = "Have fun!";
-            }            
-        }
-
-        if (infoState == 2) {
-            if (satellites.length > 5){
-                document.getElementById("textDisplay").innerHTML = "";
-            } 
-        }
 
         console.log("Created satellite");
     }
@@ -159,14 +134,13 @@ class satellite {
         if (this.orbitPoints.length > 0){
             this.canvas.beginPath();
             this.canvas.moveTo(this.orbitPoints[0].x, this.orbitPoints[0].y);
-                
+        
             this.orbitPoints.forEach(element => {
                 this.canvas.lineTo(element.x, element.y);
             });
             
-            this.canvas.globalAlp
-            this.canvas.lineWidth = 1;
-            let trail_color = changeColorAlpha(this.color, 0.4)
+            this.canvas.lineWidth = 2;
+            let trail_color = changeColorAlpha(this.color, 0.2)
             this.canvas.strokeStyle = trail_color;
             this.canvas.stroke();
         }  
@@ -198,14 +172,16 @@ document.getElementById("planetButton").addEventListener("click", (ev) => {
     placing = "Planets";
     document.getElementById("planetButton").style.backgroundColor = "rgb(100, 100, 100)"
     document.getElementById("satButton").style.backgroundColor = "rgb(0, 0, 0)"
-
+    document.getElementById("textDisplay").innerHTML = "Place planets anywhere to see their gravitational effects on the satellites!"
+    
 });
 
 document.getElementById("satButton").addEventListener("click", (ev) => {
     placing = "Satellites";
     document.getElementById("planetButton").style.backgroundColor = "rgb(0, 0, 0)"
     document.getElementById("satButton").style.backgroundColor = "rgb(100, 100, 100)"
-    
+    document.getElementById("textDisplay").innerHTML = "Click, drag and release to launch satellites, the more you drag, the faster the launch!"
+
 });
 
 document.getElementById("clearButton").addEventListener("click", (ev) => {
@@ -318,7 +294,7 @@ document.getElementById("orbitsWindow").addEventListener("pointerup", (ev) => {
             }
             drag_end = new THREE.Vector2(ev.clientX, ev.clientY);
             let dir = (new THREE.Vector2().copy(drag_end).sub(drag_start)).normalize().negate();
-            let force = drag_start.distanceTo(new THREE.Vector2().copy(drag_end)) / 30
+            let force = drag_start.distanceTo(new THREE.Vector2().copy(drag_end)) / 20
             var impulse = new THREE.Vector2().copy(dir).multiplyScalar(force);
 
             var newSat = new satellite(drag_start.x, drag_start.y, impulse.x, impulse.y, 100, 8);
@@ -377,6 +353,15 @@ window.addEventListener('load', (eevent) => {
 
     var coll = document.getElementsByClassName("infoCollapsible");
     var i;
+
+    // Spawn starter planet
+    let planetPos_x = window.innerWidth / 2
+    let planetPos_y = window.innerHeight / 2
+    let newPlanet = new planet(planetPos_x, planetPos_y, 100000, 40);
+
+    // Spawn satellite orbiting planet
+    let launchVel = calculate_orbit(new THREE.Vector2(planetPos_x + 100, planetPos_y))
+    let newSat = new satellite(planetPos_x + 100, planetPos_y, launchVel.x * orbitDir, launchVel.y * orbitDir * 0.8, 100, 8);
 
     for (i = 0; i < coll.length; i++) {
         coll[i].addEventListener("click", function() {
@@ -471,4 +456,8 @@ function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
-  }
+}
+
+function remap(value, inMin, inMax, outMin, outMax) {
+    return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+}

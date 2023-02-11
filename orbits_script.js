@@ -1,3 +1,5 @@
+// Script for the Orbits project
+
 import * as THREE from './three/build/three.module.js';
 
 var dir = new THREE.Vector2();
@@ -354,15 +356,6 @@ window.addEventListener('load', (eevent) => {
     var coll = document.getElementsByClassName("infoCollapsible");
     var i;
 
-    // Spawn starter planet
-    let planetPos_x = window.innerWidth / 2
-    let planetPos_y = window.innerHeight / 2
-    let newPlanet = new planet(planetPos_x, planetPos_y, 100000, 40);
-
-    // Spawn satellite orbiting planet
-    let launchVel = calculate_orbit(new THREE.Vector2(planetPos_x + 100, planetPos_y))
-    let newSat = new satellite(planetPos_x + 100, planetPos_y, launchVel.x * orbitDir, launchVel.y * orbitDir * 0.8, 100, 8);
-
     for (i = 0; i < coll.length; i++) {
         coll[i].addEventListener("click", function() {
             this.classList.toggle("active");
@@ -374,6 +367,17 @@ window.addEventListener('load', (eevent) => {
             }
         });
     }
+
+     // Spawn starter planet
+     let planetPos_x = window.innerWidth / 2
+     let planetPos_y = window.innerHeight / 2
+     let newPlanet = new planet(planetPos_x, planetPos_y, 100000, 40);
+ 
+     // Spawn satellite orbiting planet
+     let launchVel = calculate_orbit(new THREE.Vector2(planetPos_x + 100, planetPos_y))
+     let newSat = new satellite(planetPos_x + 100, planetPos_y, launchVel.x * orbitDir, launchVel.y * orbitDir * 0.8, 100, 8);
+ 
+
 });
 
 function waitForElement(id, callback){

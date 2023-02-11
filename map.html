@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html id="html" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daryl Jaimes</title>
+    <link rel="stylesheet" href="stylesheet.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500&display=swap" rel="stylesheet">
+
+    <script type="module" src="map_script.js"></script>
+  </head>
+  <body id="body"></body>
+    <div id="WrapperMap" class="flex-container" style="overflow: hidden; height: 100%; width: 100%; background-color: black;">
+      <canvas id="canvas" ></canvas>
+      <canvas id="canvas2" ></canvas>
+      <div id="Header" class="flex-container">
+        <img id="orbit" src="img/dotOrbit.png" alt="">
+        <div id="logoBox">Daryl Jaimes</div>
+        <ul id="Navigation" class="flex-container">
+          <a class="NavButton" href="index.html">HOME</a>
+          <a class="NavButton" href="portfolio.html">PORTFOLIO</a>
+          <a class="NavButton" href="contact.html">CONTACT</a>
+          <a class="NavButton" href="about.html">ABOUT</a>
+        </ul>
+      </div>
+
+
+
+
+        <div class="mainContainer" class="flex-container">
+            <div id="project" class="flex-container" >
+                <div id="countryName" style="position: absolute; pointer-events: none;"></div>
+                <div id="countryNameHover" style="position: absolute; color: coral; z-index: 5; pointer-events: none; width: 400px; text-align: center;"></div>
+                <div id="mapProject" style="overflow: hidden;">
+                    <embed id="fullMap" src="img/worldHigh.svg" type="image/svg+xml">
+                </div>
+        </div>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="infoContent">
+          <p>Map project</p>
+          <p>World map</p>
+        </div>
+        <button class="infoCollapsible">Map
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

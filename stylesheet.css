@@ -170,6 +170,7 @@ body {
     justify-content: center;
     align-items: flex-start;
 
+
 }
 
 .projectPreview {
@@ -178,8 +179,8 @@ body {
     font-size: 24px;
     display: flex;
     background: linear-gradient(to top, rgba(0, 0, 0, 255), rgba(0, 0, 0, 0.5) 90%);
-    margin-top: 0px;
-    margin-left: 0px;
+    margin-right: 20px;
+    margin-left: 20px;
     height: 180px;
     width: 320px;
     overflow: hidden;
@@ -379,3 +380,27 @@ body {
     box-shadow: -407px 0 0 400px #4b524b;
   }
   
+  #mapProject {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+
+  }
+
+  #fullMap {
+    position: absolute;
+    user-select: none;
+    width: 70%;
+    object-fit: contain;
+  }
+
+  .land {
+    fill: rgb(100, 100, 255);
+	fill-opacity: 1;
+	stroke:black;
+	stroke-opacity: 1;
+	stroke-width:0.5;
+  }

@@ -79,8 +79,8 @@ window.addEventListener('load', (eevent) => {
     
 
     // adjust canvas to screen
-    document.getElementById("canvas").width = document.innerWidth;
-    document.getElementById("canvas").height = document.innerHeight;
+    // document.getElementById("canvas").width = document.innerWidth;
+    // document.getElementById("canvas").height = document.innerHeight;
     
 });
 

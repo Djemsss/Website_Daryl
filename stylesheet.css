@@ -38,7 +38,8 @@ body {
 
 
 #Header {
-    /* background: linear-gradient(to bottom, rgba(6, 134, 143, 0.527), rgba(0, 0, 0, 0.2) 100%); */
+    z-index: 10;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 2), rgba(0, 0, 0, 0) 100%);
     position: fixed;
     width: 100%;
     height: 100px;
@@ -338,6 +339,7 @@ body {
     font-weight: bolder;
     color: rgb(179, 179, 179);
     font-size: 10px;
+    font-weight: 500;
     background-color: aquamarine;
     padding: 4px;
     max-height: 0;
@@ -387,6 +389,7 @@ body {
     align-items: center;
     justify-content: center;
     user-select: none;
+    overflow: hidden;
 
   }
 
@@ -397,10 +400,36 @@ body {
     object-fit: contain;
   }
 
-  .land {
-    fill: rgb(100, 100, 255);
-	fill-opacity: 1;
-	stroke:black;
-	stroke-opacity: 1;
-	stroke-width:0.5;
-  }
+#countryData {
+    display: none;
+    flex-direction: column;
+    z-index: 2;
+    width: 240px;
+    height: auto;
+    
+    background-image: linear-gradient(to right, rgba(211, 211, 211, 0.123) 2px, transparent 2px),
+                      linear-gradient(to bottom, rgba(211, 211, 211, 0.116) 2px, transparent 2px);
+    background-size: 20px 20px;
+    background-color: rgba(0, 1, 59, 0.623);
+    border-style: solid;
+    border-color: aliceblue;
+    border-width: 2px;
+    align-items: center;
+
+}
+
+#countryName {
+    font-size: 24px;
+}
+
+#countryFlag {
+    font-size: 40px;
+}
+
+.listInfo {
+    width: 100%;
+    font-size: 14px;
+    font-weight: 500;
+    overflow-wrap: normal;
+}
+

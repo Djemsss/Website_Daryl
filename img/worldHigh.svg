@@ -5,11 +5,11 @@
 		<style type="text/css">
 			.land
 			{
-				fill: #CDFDEE;
+				fill: #428d90;
 				fill-opacity: 1;
 				stroke:black;
 				stroke-opacity: 1;
-				stroke-width:0.5;
+				stroke-width:0.2;
 			}
 		</style>
 

@@ -33,9 +33,17 @@
 
         <div class="mainContainer" class="flex-container">
             <div id="project" class="flex-container" >
-                <div id="countryName" style="position: absolute; pointer-events: none;"></div>
+                <div id="countryData" style="position: absolute; pointer-events: none;">
+                    <div id="countryName"></div>
+                    <div id="countryFlag"></div>
+                    <div id="countryArea" class="listInfo"></div>
+                    <div id="countryCapital" class="listInfo"></div>
+                    <div id="countryCurrency" class="listInfo"></div>
+                    <div id="countryLanguage" class="listInfo"></div>
+                    <div id="countryPopulation" class="listInfo"></div>
+                </div>
                 <div id="countryNameHover" style="position: absolute; color: coral; z-index: 5; pointer-events: none; width: 400px; text-align: center;"></div>
-                <div id="mapProject" style="overflow: hidden;">
+                <div id="mapProject">
                     <embed id="fullMap" src="img/worldHigh.svg" type="image/svg+xml">
                 </div>
         </div>
@@ -43,10 +51,10 @@
       </div>
       <div class="footer">
         <div class="infoContent">
-          <p>Map project</p>
-          <p>World map</p>
+          <p>In this project I took a more in depth dive into SVG's and API requests.</p>
+          <p>The map consists of an SVG, while the country data comes from the public "Rest Countries" API.</p>
         </div>
-        <button class="infoCollapsible">Map
+        <button class="infoCollapsible">Interactive World Map
         </button>
       </div>
     </div>

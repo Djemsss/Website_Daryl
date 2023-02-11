@@ -1,6 +1,5 @@
 // Script for the Map project
 
-// Rest Countries API -> https://restcountries.com/v3.1/name/peru
 
 var countries = []
 var selected_country = null
@@ -122,10 +121,6 @@ window.addEventListener('load', (eevent) => {
     document.getElementById("mapProject").addEventListener("pointerup", function (e) {
         dragging = false
     });
-    
-    
-
-
 
     // Populate countries array
     doc.childNodes[1].querySelector("g").childNodes.forEach(element => {
@@ -201,29 +196,34 @@ window.addEventListener('load', (eevent) => {
                     let ownerCountry = null
                     let ownerPop = 0
                     if (data.length > 1){
-                        for (let i = 0; i < data.length; i++) {
-                            const element = data[i];
-                            if (typeof element.capital != "undefined"){
-                                if (ownerCountry != null){
-                                    if (element.population > ownerPop){
-                                        ownerPop = element.population
-                                        ownerCountry = element
-                                    }
-                                }
-                                else{
-                                    if (typeof element.capital != "undefined"){
-                                        ownerPop = element.population
-                                        ownerCountry = element
-                                    }
-                                }
-                            }                     
+                        // api endpoint for the congo is broken, returns data for DR Congo and R Congo
+                        if (country_name == "Republic of the Congo"){
+                            data = data[1]
                         }
-                        data = ownerCountry
+                        else{
+                            for (let i = 0; i < data.length; i++) {
+                                const element = data[i];
+                                if (typeof element.capital != "undefined"){
+                                    if (ownerCountry != null){
+                                        if (element.population > ownerPop){
+                                            ownerPop = element.population
+                                            ownerCountry = element
+                                        }
+                                    }
+                                    else{
+                                        if (typeof element.capital != "undefined"){
+                                            ownerPop = element.population
+                                            ownerCountry = element
+                                        }
+                                    }
+                                }                     
+                            }
+                            data = ownerCountry
+                        }
                     }
                     else{
                         data = data[0]
                     }
-                    console.log(data)
                     document.getElementById("countryName").innerHTML = data.name.common
                     document.getElementById("countryFlag").innerHTML = data.flag
 
@@ -281,54 +281,12 @@ var intervalId = window.setInterval(function(){
     // Animate logo
     deg += 3;
     document.getElementById("orbit").style.transform = "rotate(" + deg + "deg)"
-    
-    // let world = document.getElementById("fullMap")
-    // let outOfBounds = isOutOfViewport(world)
-    // if (mapWidth < 90){
-    //     if (outOfBounds.top == true){
-    //         map_pos_y += 5
-    //         console.log(map_pos_y)
-    //         console.log("Out of Top")
-    //     }
-    //     if (outOfBounds.bottom == true){
-    //         map_pos_y -= 5
-    //     }
-    //     if (outOfBounds.left == true){
-    //         map_pos_x += 5
-    //     }
-    //     if (outOfBounds.right == true){
-    //         map_pos_x -= 5
-    //     }
-    //     world.style.left = map_pos_x + "px"
-    //     world.style.top = map_pos_y + "px"
-    // }
-
-    
-
   }, 33);
 
 
-  function remap(value, inMin, inMax, outMin, outMax) {
+function remap(value, inMin, inMax, outMin, outMax) {
     return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
 }
-
-var isOutOfViewport = function (elem) {
-
-	// Get element's bounding
-	var bounding = elem.getBoundingClientRect();
-
-	// Check if it's out of the viewport on each side
-	var out = {};
-	out.top = bounding.top < 0;
-	out.left = bounding.left < 0;
-	out.bottom = bounding.bottom > (window.innerHeight || document.documentElement.clientHeight);
-	out.right = bounding.right > (window.innerWidth || document.documentElement.clientWidth);
-	out.any = out.top || out.left || out.bottom || out.right;
-	out.all = out.top && out.left && out.bottom && out.right;
-
-	return out;
-
-};
 
 function addCommas(nStr) {
     nStr += '';

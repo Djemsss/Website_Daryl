@@ -1,0 +1,119 @@
+
+#orbitsWindow {
+    touch-action: none;
+    height: 90%;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-content: left;
+    justify-content: center;
+    border: 0px;
+    border-style: solid;
+    border-color: aliceblue;
+}
+
+#orbitsProject {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#buttonBox {
+    /* background: linear-gradient(to top, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2) 100%); */
+    display: flex;
+    flex-direction: row;
+    border-style: solid;
+    align-items: center;
+    border-width: 0px;
+    height: 60px;
+    border-bottom-width: 2px;
+
+}
+
+.orbitsButton {
+    background-color: black;
+    border-color: rgba(255, 255, 255, 1);
+    font-weight: bolder;
+    color: aliceblue;
+    font-size: 14px;
+    height: 40px;
+    width: 70px;
+    margin-top: 10px;
+    margin-left: 4px;
+    border-radius: 10px;
+
+}
+
+.orbitsButton:hover {
+    box-shadow: 0px 0px 10px 2px rgba(255, 255, 255, 0.4);
+}
+
+#orbitSettings {
+    display: flex;
+    border-style: solid;
+    border-color: aliceblue;
+    border-width: 2px;
+
+    position: absolute;
+    display: none;
+    margin-top: 280px;
+    right: 0px;
+    width: 160px;
+    height: 200px;
+    flex-direction: column;
+    align-items: center;
+}
+
+#autoButton {
+    margin-left: auto;
+}
+
+#clockwiseButton {
+    color: white;
+    background-color: rgba(150, 150, 150, 0.5);
+}
+
+#antiClockwiseButton {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+#textDisplay {
+    color: rgba(255, 255, 255,0.8);
+    position: absolute;
+    margin-top: 66px;
+    margin-left: 6px;
+    font-size: 14px;
+    max-width: 500px;
+}
+
+
+#rangeValue {
+    position: relative;
+    display: block;
+    text-align: center;
+    font-size: 30px;
+    color: #999;
+    font-weight: 200;
+   }
+  .range {
+    width: 154px;
+    height: 15px;
+    background: #111;
+    outline: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 1);
+  }
+  .range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #000701;
+    cursor: pointer;
+    border: 4px solid #333;
+    box-shadow: -407px 0 0 400px #4b524b;
+  }

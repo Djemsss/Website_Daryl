@@ -8,7 +8,6 @@ html {
     font-family:'Roboto Slab', serif, sans-serif;
     font-weight: bolder;
     color: aliceblue;
-    
 }
 
 body {
@@ -23,7 +22,8 @@ body {
 #Wrapper {
     /*cursor: none;*/
     fill: black;
-    background-image: url("img/Jupiter_01.jpg");
+    /* background-image: url("img/Jupiter_01.jpg"); */
+    background-color: #0d1f29;
     background-size: cover;
 
     background-repeat: no-repeat;
@@ -50,79 +50,43 @@ body {
 
     flex: 1;
     flex-flow: row;
-    margin-right: 50px;
+    margin-right: 0px;
 }
 
-#logoBox {
-    display: flex;
-    font-weight: bolder;
-    color: aliceblue;
-    font-size: 24px;
-    margin-left: 30px;
-    margin-top: 10px;
-    bottom: 0px;
-    align-items: center;
+.drop-in-0 {
+    animation: drop-in 1s ease 200ms backwards;
 }
 
-#Navigation {
-    border: 0px;
-    border-style: solid;
-    border-color: blueviolet;
-    display: flex;
-    margin-left: 0px;
-    align-items: flex-end;
-    flex-direction: column;
-    justify-self: right;
-    position: absolute;
-    top: 0px;
-    right: 40px;
+.drop-in-1 {
+    animation: drop-in 1200ms ease 500ms backwards;
+}
+   
+.drop-in-2 {
+    animation: fade-in 1600ms ease 100ms backwards;
 }
 
-.NavButton {
-    /*cursor: none;*/
-    display: flex;
-    margin-left: 50px;
-    margin-top: 6px;
-    color: white;
-    font-weight: bold;
-    font-size: 12px;
-    text-decoration: none;
+.drop-in-3 {
+    animation: drop-in 2100ms ease 1200ms backwards;
 }
-
-.NavButton:hover {
-    margin-bottom: -2px;
-    border-bottom: 2px;
-    border-top: 0px;
-    border-left: 0px;
-    border-right: 0px;
-    border-style: solid;
-    border-color: #eee;
-}
-
-@media only screen and (min-width: 768px) {
-    #Navigation {
-        margin-left: 160px;
-        flex-direction: row;
-        align-items: center;
-        position: relative;
+   
+@keyframes drop-in {
+    from {
+     opacity: 0;
+     transform: translateY(-120px);
     }
-
-    .NavButton {
-        margin-top: 0px;
+    to {
+     opacity: 1;
+     transform: translate(0px);
     }
 }
 
-@media only screen and (min-width: 1000px) {
-    #Navigation {
-        margin-left: 300px;
-        flex-direction: row;
-        align-items: center;
-        position: relative;
-    }
-
-    .NavButton {
-        margin-top: 0px;
-    }
+@keyframes fade-in {
+    from {
+        opacity: 0;
+       }
+       to {
+        opacity: 1;
+       }
 }
 
 .mainContainer {
@@ -130,11 +94,12 @@ body {
     width: 100%;
     height: 80vh;
     display: flex;
+    flex-direction: column;
     top: 100px;
     border: 0px;
     border-color: red;
     border-style: solid;
-    align-items: flex-start;
+    align-items: center;
     color: #eee;
 }
 
@@ -158,21 +123,98 @@ body {
     border-color: aliceblue;
     /*position: absolute;*/
     scale: 1;
+    animation: spin 5s linear infinite;
+}
+
+@keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+#helloModule {
+    width: 96%;
+}
+
+#myInfo {
+    display: flex;
+    width: 96%;
+    height: fit-content;
+    border: 0px;
+    border-style: solid;
+    border-color: rgb(126, 26, 26);
+    align-items: flex-start;
+    margin-top: 80px;
+    margin-bottom: 60px;
+}
+
+#iLike {
+    transition: opacity 0.5s ease-in-out;
 }
 
 #projects {
     display: flex;
-    height: 100%;
-    width: 100%;
+    width: 96%;
     border: 0px;
-    margin-top: 100px;
     border-style: solid;
-    border-color: aliceblue;
-    justify-content: center;
+    border-color: rgb(26, 79, 126);
     align-items: flex-start;
-
-
+    
 }
+
+.tagContainer {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+
+.projectTag {
+    pointer-events: none;
+    color: inherit;
+    text-decoration: none;
+    display: flex;
+    flex-direction: row;
+    white-space: nowrap;
+    width: 100px;
+    height: 32px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    border-color:rgb(255, 255, 255);
+    text-align: center;
+    transition: width 0.5s, opacity 2s;
+    overflow: hidden;
+    opacity: 0;
+}
+
+.projectTag:hover {
+    background-color: #24323a;
+}
+
+#tagSelector {
+    max-width: 20px;
+    position: absolute;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.marker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 5px;
+    background-color: red;
+    border-radius: 5px;
+    transition: transform 0.3s ease-in-out;
+}
+
 
 .projectPreview {
     font-weight: bolder;
@@ -220,96 +262,6 @@ body {
     background: #0f758f;
 }
 
-#orbitsWindow {
-    touch-action: none;
-    height: 90%;
-    width: 100%;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-content: left;
-    justify-content: center;
-    border: 0px;
-    border-style: solid;
-    border-color: aliceblue;
-}
-
-#orbitsProject {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-#buttonBox {
-    /* background: linear-gradient(to top, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.2) 100%); */
-    display: flex;
-    flex-direction: row;
-    border-style: solid;
-    align-items: center;
-    border-width: 0px;
-    height: 60px;
-    border-bottom-width: 2px;
-
-}
-
-.orbitsButton {
-    background-color: black;
-    border-color: rgba(255, 255, 255, 1);
-    font-weight: bolder;
-    color: aliceblue;
-    font-size: 14px;
-    height: 40px;
-    width: 70px;
-    margin-top: 10px;
-    margin-left: 4px;
-    border-radius: 10px;
-
-}
-
-.orbitsButton:hover {
-    box-shadow: 0px 0px 10px 2px rgba(255, 255, 255, 0.4);
-}
-
-#orbitSettings {
-    display: flex;
-    border-style: solid;
-    border-color: aliceblue;
-    border-width: 2px;
-
-    position: absolute;
-    display: none;
-    margin-top: 280px;
-    right: 0px;
-    width: 160px;
-    height: 200px;
-    flex-direction: column;
-    align-items: center;
-}
-
-#autoButton {
-    margin-left: auto;
-}
-
-#clockwiseButton {
-    color: white;
-    background-color: rgba(150, 150, 150, 0.5);
-}
-
-#antiClockwiseButton {
-    color: white;
-    background-color: rgba(0, 0, 0, 0.5);
-}
-
-#textDisplay {
-    color: rgba(255, 255, 255,0.8);
-    position: absolute;
-    margin-top: 66px;
-    margin-left: 6px;
-    font-size: 14px;
-    max-width: 500px;
-}
-
 .footer {
     width: 100%;
     position: absolute;
@@ -332,7 +284,6 @@ body {
 .infoCollapsible:hover {
     background-color: #eee;
     color: rgb(97, 97, 97);
-
 }
 
 .infoContent {
@@ -354,82 +305,29 @@ body {
 
 }
 
-#rangeValue {
-    position: relative;
-    display: block;
-    text-align: center;
-    font-size: 30px;
-    color: #999;
-    font-weight: 200;
-  }
-  .range {
-    width: 154px;
-    height: 15px;
-    background: #111;
-    outline: none;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 1);
-  }
-  .range::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background: #000701;
-    cursor: pointer;
-    border: 4px solid #333;
-    box-shadow: -407px 0 0 400px #4b524b;
-  }
-  
-  #mapProject {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    user-select: none;
-    overflow: hidden;
 
-  }
-
-  #fullMap {
-    position: absolute;
-    user-select: none;
-    width: 70%;
-    object-fit: contain;
-  }
-
-#countryData {
-    display: none;
-    flex-direction: column;
-    z-index: 2;
-    width: 240px;
-    height: auto;
-    
-    background-image: linear-gradient(to right, rgba(211, 211, 211, 0.123) 2px, transparent 2px),
-                      linear-gradient(to bottom, rgba(211, 211, 211, 0.116) 2px, transparent 2px);
-    background-size: 20px 20px;
-    background-color: rgba(0, 1, 59, 0.623);
-    border-style: solid;
-    border-color: aliceblue;
-    border-width: 2px;
-    align-items: center;
-
+@media only screen and (min-width: 768px) {
+    #helloModule {
+        margin-top: 70px;
+    }
+    #myInfo{
+        margin-top: 70px;
+        margin-bottom: 80px;
+    }
+    #myInfo, #projects, #helloModule {
+        width: 80%;
+    }
 }
 
-#countryName {
-    font-size: 24px;
+@media only screen and (min-width: 1000px) {
+    #helloModule {
+        margin-top: 90px;
+    }
+    #myInfo{
+        margin-top: 80px;
+        margin-bottom: 100px;
+    }
+    #myInfo, #projects, #helloModule {
+        width: 60%;
+    }
 }
-
-#countryFlag {
-    font-size: 40px;
-}
-
-.listInfo {
-    width: 100%;
-    font-size: 14px;
-    font-weight: 500;
-    overflow-wrap: normal;
-}
-

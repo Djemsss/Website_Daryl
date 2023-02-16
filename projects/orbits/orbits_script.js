@@ -1,6 +1,6 @@
 // Script for the Orbits project
 
-import * as THREE from './three/build/three.module.js';
+import * as THREE from '../../three/build/three.module.js';
 
 var dir = new THREE.Vector2();
 
@@ -152,14 +152,8 @@ class satellite {
     }
 }
 
-// Animation loop
-var deg = 0;
-
 // Runs 30 times a second
 var intervalId = window.setInterval(function(){
-    
-    deg += 3;
-    document.getElementById("orbit").style.transform = "rotate(" + deg + "deg)"
     let c = document.getElementById("canvas");
     let ctx = c.getContext("2d");
     ctx.clearRect(0,0,c.width,c.height);

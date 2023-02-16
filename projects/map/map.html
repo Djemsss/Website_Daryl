@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Daryl Jaimes</title>
-    <link rel="stylesheet" href="stylesheet.css" />
+    <link rel="stylesheet" href="../../stylesheet.css" />
+    <link rel="stylesheet" href="map_stylesheet.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,23 +19,14 @@
       <canvas id="canvas" ></canvas>
       <canvas id="canvas2" ></canvas>
       <div id="Header" class="flex-container">
-        <img id="orbit" src="img/dotOrbit.png" alt="">
-        <div id="logoBox">Daryl Jaimes</div>
-        <ul id="Navigation" class="flex-container">
-          <a class="NavButton" href="index.html">HOME</a>
-          <a class="NavButton" href="portfolio.html">PORTFOLIO</a>
-          <a class="NavButton" href="contact.html">CONTACT</a>
-          <a class="NavButton" href="about.html">ABOUT</a>
-        </ul>
+        <img id="orbit" src="../../img/dotOrbit.png" alt="">
+        <div id="logoBox"></div>
       </div>
-
-
-
-
         <div class="mainContainer" class="flex-container">
             <div id="project" class="flex-container" >
                 <div id="countryData" style="position: absolute; pointer-events: none;">
                     <div id="countryName"></div>
+                    <img src="https://countryflagsapi.com/png/argentina" alt="">
                     <div id="countryFlag"></div>
                     <div id="countryArea" class="listInfo"></div>
                     <div id="countryCapital" class="listInfo"></div>
@@ -44,7 +36,7 @@
                 </div>
                 <div id="countryNameHover" style="position: absolute; color: coral; z-index: 5; pointer-events: none; width: 400px; text-align: center;"></div>
                 <div id="mapProject">
-                    <embed id="fullMap" src="img/worldHigh.svg" type="image/svg+xml">
+                    <embed id="fullMap" src="../../img/worldHigh.svg" type="image/svg+xml">
                 </div>
         </div>
         </div>

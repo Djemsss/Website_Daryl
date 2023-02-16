@@ -225,6 +225,8 @@ window.addEventListener('load', (eevent) => {
                         data = data[0]
                     }
                     document.getElementById("countryName").innerHTML = data.name.common
+
+                    // Country Flag
                     document.getElementById("countryFlag").innerHTML = data.flag
 
                     document.getElementById("countryArea").innerHTML = "Area: " + addCommas(data.area) + " km&sup2";
@@ -273,14 +275,10 @@ window.addEventListener('load', (eevent) => {
         });
     }
 });
-// Animation loop
-var deg = 0;
 
 // Runs 30 times a second
 var intervalId = window.setInterval(function(){
-    // Animate logo
-    deg += 3;
-    document.getElementById("orbit").style.transform = "rotate(" + deg + "deg)"
+    
   }, 33);
 
 

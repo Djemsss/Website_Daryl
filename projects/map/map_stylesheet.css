@@ -1,0 +1,52 @@
+
+  
+  #mapProject {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    overflow: hidden;
+
+  }
+
+  #fullMap {
+    position: absolute;
+    user-select: none;
+    width: 70%;
+    object-fit: contain;
+  }
+
+#countryData {
+    display: none;
+    flex-direction: column;
+    z-index: 2;
+    width: 240px;
+    height: auto;
+    
+    background-image: linear-gradient(to right, rgba(211, 211, 211, 0.123) 2px, transparent 2px),
+                      linear-gradient(to bottom, rgba(211, 211, 211, 0.116) 2px, transparent 2px);
+    background-size: 20px 20px;
+    background-color: rgba(0, 1, 59, 0.623);
+    border-style: solid;
+    border-color: aliceblue;
+    border-width: 2px;
+    align-items: center;
+
+}
+
+#countryName {
+    font-size: 24px;
+}
+
+#countryFlag {
+    font-size: 40px;
+}
+
+.listInfo {
+    width: 100%;
+    font-size: 14px;
+    font-weight: 500;
+    overflow-wrap: normal;
+}

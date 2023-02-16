@@ -1,8 +1,6 @@
 // Home page script
 
-const myHobbies = ["Computers", "Electronics", "Arduino", "Music", "Photography", "Games", "Coding", "3D rendering", 
-                "Space", "Engineering", "3D Modeling", "3D Printing", "Animation", "Travelling", "Building things", "Instruments",
-                "Godot"]
+const myHobbies = ["Computers", "Electronics", "Coding", "Music", "Photography", "Games", "Arduino", "3D        rendering", "Space", "Engineering", "Godot", "3D Printing", "Animation", "Travelling", "Building things", "Instruments", "3D Modeling", "Science"]
 var currentLike = 0
 
 const colors = [
@@ -62,8 +60,7 @@ function displayProjects(){
 window.addEventListener('load', (eevent) => {
     console.log("window loaded")
     selector_x = document.getElementById("tagSelector").getBoundingClientRect().x
-    selector_y = document.getElementById("tagSelector").getBoundingClientRect().y
-    console.log(selector_x, selector_y)
+    selector_y = document.getElementById("tagSelector").getBoundingClientRect().y - 97
 
     // Preset Randomized Text
     document.getElementById("helloModule").innerHTML = "%*&(&%(**%&((&%("
@@ -78,12 +75,12 @@ window.addEventListener('load', (eevent) => {
 
     setTimeout(function(){
         const tags = document.querySelectorAll(".projectTag");
-        console.log("TimeoutDone")
         tags.forEach(element => {
             element.addEventListener("mouseenter", (event) => {
                 pos = element.getBoundingClientRect();
                 selectorTarget = pos
                 tagSelector.style.opacity = 1
+                console.log(selector_y)
                 
             })
             element.addEventListener("mouseleave", (event) => {
@@ -175,6 +172,7 @@ function displayText(element, text) {
     setTimeout(displayNext, 1000);
   }
 
+
 var intervalId = window.setInterval(function(){
     if (pageReady == false){
         return
@@ -182,10 +180,10 @@ var intervalId = window.setInterval(function(){
     const tagSelector = document.getElementById("tagSelector")
     if (selectorTarget != null){
         let selectorPos = tagSelector.getBoundingClientRect()
-        tagSelector.style.left = selectorTarget.x - 24 + "px"
+        tagSelector.style.left = selectorTarget.x - 14 + "px"
 
         if (Math.abs(selectorPos.y - selectorTarget.y) < 5){
-            tagSelector.style.top = selectorTarget.y - 97
+            tagSelector.style.top = selectorTarget.y - 97 + "px"
         }
 
         else if (selectorPos.y > selectorTarget.y){

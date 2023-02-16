@@ -198,10 +198,13 @@ body {
 }
 
 #tagSelector {
-    max-width: 20px;
+    min-width: 10px;
+    min-height: 28px;
+    border-radius: 4px;
     position: absolute;
     opacity: 0;
     transition: opacity 1s;
+    background-color: white;
 }
 
 .marker {

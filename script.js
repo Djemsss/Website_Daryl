@@ -96,37 +96,10 @@ window.addEventListener('load', (eevent) => {
 
     document.getElementById("infoText").style.display = "none"
 
-    // document mouse move listener
-    document.addEventListener("mousemove", (event) => {
-        let header = document.getElementById("Header")
-        let wave = document.getElementsByClassName("wave")
-        if (!header) {
-            return
-        }
-
-        // let headerPoly = window.getComputedStyle(wave[0], "::before")
-        // console.log(headerPoly)
-        let mouseX = event.clientX
-        let mouseY = event.clientY
-
-        let screenWidth = window.innerWidth
-        let percent = Math.floor((mouseX / screenWidth) * 100)
-        let height = remap(mouseY, 0, window.innerHeight, 100, 20)
-
-
-        let center = percent.toString() + "% " + height + "%, "
-        let left = Math.max(percent - 20, 0).toString() + "% 60%, "
-        let right = Math.min(percent + 20, 100).toString() + "% 60%, "
-        let poly = "polygon(0 0, 100% 0, 100% 60%, " + left + center + right + "0 60%);"
-
-        let styleSheet = document.styleSheets[0]
-        
-        const rules = styleSheet.cssRules
-
-        // To do - delete previously created clip-path rule if necessary
-        let index = styleSheet.cssRules.length;
-        styleSheet.insertRule('.wave::before { clip-path: ' + poly + "}", index);
-    });
+    document.addEventListener("mousemove", eventHandler, false)
+    document.addEventListener("touchmove", eventHandler, false)
+    document.addEventListener("touchend", eventHandler, false)
+    document.addEventListener("touchstart", eventHandler, false)
 
     setTimeout(function(){
         document.getElementById("infoText").style.display = "block"
@@ -154,9 +127,58 @@ window.addEventListener('load', (eevent) => {
 }, 4000); 
 })
 
+var eventHandler = function (event) {
+    let header = document.getElementById("Header")
+    let wave = document.getElementsByClassName("wave")
+    if (!header) {
+        return
+    }
+    let mouseX = 0
+    let mouseY = 0
+    switch (event.type){
+        case "touchstart":
+        case "touchend":
+            mouseX = 0
+            mouseY = 2000
+            break
+        case "touchmove":
+            mouseX = event.touches[0].clientX
+            mouseY = event.touches[0].clientY
+            break
+        case "mousemove":
+            mouseX = event.clientX
+            mouseY = event.clientY
+            break
+
+            
+
+    }
+    // console.log(mouseX, mouseY)
+    wave_to(mouseX, mouseY)
+};
+
+function wave_to(mouseX, mouseY){
+    let screenWidth = window.innerWidth
+    let percent = Math.floor((mouseX / screenWidth) * 100)
+    let height = remap(mouseY, 0, window.innerHeight, 100, 20)
+
+    let center = percent.toString() + "% " + height + "%, "
+    let left = Math.max(percent - 20, 0).toString() + "% 60%, "
+    let right = Math.min(percent + 20, 100).toString() + "% 60%, "
+    let poly = "polygon(0 0, 100% 0, 100% 60%, " + left + center + right + "0 60%);"
+
+    let styleSheet = document.styleSheets[0]
+        
+    const rules = styleSheet.cssRules
+
+    // To do - delete previously created clip-path rule if necessary
+    let index = styleSheet.cssRules.length;
+    styleSheet.insertRule('.wave::before { clip-path: ' + poly + "}", index);
+}
+
 function morphText(endText, element, speed) {
 
-    let chars = "#%&"
+    let chars = "#%&$£*"
     let str = ""
     let thisChar = ""
     let lastChar = ""

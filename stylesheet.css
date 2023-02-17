@@ -48,7 +48,7 @@ body {
     border-color: rgb(146, 60, 60);
     border-width: 0px;
     border-style: solid;
-    /* justify-content: space-between; */
+    justify-content: space-between;
     pointer-events: none;
 
     flex: 1;
@@ -157,6 +157,7 @@ body {
 }
 
 #orbit {
+    pointer-events: all;
     margin-left: 20px;
     margin-top: 10px;
     margin-right: -20px;
@@ -170,7 +171,7 @@ body {
 }
 
 #orbit:hover {
-    animation: spin 3s linear infinite;
+    animation: spin 5s linear infinite;
 }
 
 @keyframes spin {
@@ -181,6 +182,7 @@ body {
       transform: rotate(360deg);
     }
   }
+
 
 #helloModule {
     width: 96%;

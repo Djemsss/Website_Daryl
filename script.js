@@ -16,6 +16,8 @@ const colors = [
     'rgb(255, 165, 0)',   // orange
 ]
 
+const projects = ["Orbits", "World Map"]
+
 var selectorTarget = null
 var selector_x = 0
 var selector_y = 0
@@ -37,13 +39,13 @@ function cycleWords() {
         }
         
         wordElement.style.color = colors[Math.floor(Math.random() * colors.length)];
-        wordElement.innerHTML = myHobbies[currentLike];
       
         wordElement.style.opacity = 1;
+        morphText(myHobbies[currentLike], wordElement, 100)
     }, 500);
   }
   
-setInterval(cycleWords, 3000);
+setInterval(cycleWords, 4000);
 
 function displayProjects(){
     var tags = document.querySelectorAll(".projectTag");
@@ -52,20 +54,79 @@ function displayProjects(){
         setTimeout(() => {
             element.style.opacity = 1
             element.style.pointerEvents = "all"
-          }, index * 1200); // delay each iteration by index * 2 seconds
+
+            let text = element.firstChild.innerHTML
+
+            let chars = "#%&"
+            let str = ""
+            let thisChar = ""
+            let lastChar = ""
+            for (let index = 0; index < myHobbies[currentLike].length; index++) {
+                while (thisChar == lastChar){
+                    thisChar = chars.charAt(Math.floor(Math.random() * chars.length))
+                }
+                lastChar = thisChar
+                str += thisChar
+            }
+            element.firstChild.innerHTML = str;
+            morphText(text, element.firstChild, 150)
+
+          }, index * 1200);
         
     });
 }
+
 // Run when window is loaded
 window.addEventListener('load', (eevent) => {
     console.log("window loaded")
+
+    // Set selector position
     selector_x = document.getElementById("tagSelector").getBoundingClientRect().x
     selector_y = document.getElementById("tagSelector").getBoundingClientRect().y - 97
 
-    // Preset Randomized Text
-    document.getElementById("helloModule").innerHTML = "%*&(&%(**%&((&%("
-    morphText("Hello! I'm Daryl", document.getElementById("helloModule"), 120)
+    // "Decode" displays
+    let helloModule = document.getElementById("helloModule")
+    morphText(helloModule.innerHTML, helloModule, 120)
+
+    let aboutMe = document.querySelectorAll(".legend")
+    aboutMe.forEach(element => {
+        morphText(element.innerHTML, element, 300)
+    });
+
+
     document.getElementById("infoText").style.display = "none"
+
+    // document mouse move listener
+    document.addEventListener("mousemove", (event) => {
+        let header = document.getElementById("Header")
+        let wave = document.getElementsByClassName("wave")
+        if (!header) {
+            return
+        }
+
+        // let headerPoly = window.getComputedStyle(wave[0], "::before")
+        // console.log(headerPoly)
+        let mouseX = event.clientX
+        let mouseY = event.clientY
+
+        let screenWidth = window.innerWidth
+        let percent = Math.floor((mouseX / screenWidth) * 100)
+        let height = remap(mouseY, 0, window.innerHeight, 100, 20)
+
+
+        let center = percent.toString() + "% " + height + "%, "
+        let left = Math.max(percent - 20, 0).toString() + "% 60%, "
+        let right = Math.min(percent + 20, 100).toString() + "% 60%, "
+        let poly = "polygon(0 0, 100% 0, 100% 60%, " + left + center + right + "0 60%);"
+
+        let styleSheet = document.styleSheets[0]
+        
+        const rules = styleSheet.cssRules
+
+        // To do - delete previously created clip-path rule if necessary
+        let index = styleSheet.cssRules.length;
+        styleSheet.insertRule('.wave::before { clip-path: ' + poly + "}", index);
+    });
 
     setTimeout(function(){
         document.getElementById("infoText").style.display = "block"
@@ -94,7 +155,22 @@ window.addEventListener('load', (eevent) => {
 })
 
 function morphText(endText, element, speed) {
+
+    let chars = "#%&"
+    let str = ""
+    let thisChar = ""
+    let lastChar = ""
+    for (let index = 0; index < endText.length; index++) {
+        while (thisChar == lastChar){
+           thisChar = chars.charAt(Math.floor(Math.random() * chars.length))
+        }
+        lastChar = thisChar
+        str += thisChar
+    }
+
+    element.innerHTML = str;
     initialText = element.innerHTML
+
     // Remove any extra characters from the initial text
     initialText = initialText.substring(0, endText.length);
   
@@ -221,3 +297,7 @@ function shuffleArray(array) {
       [array[i], array[j]] = [array[j], array[i]];
     }
   }
+
+function remap(value, inMin, inMax, outMin, outMax) {
+    return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+}

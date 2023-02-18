@@ -153,10 +153,12 @@ body {
     border-color: violet;
     border-width: 0px;
     z-index: 0;
+    opacity: 0.1;
 
 }
 
 #orbit {
+    position: absolute;
     pointer-events: all;
     margin-left: 20px;
     margin-top: 10px;
@@ -181,8 +183,121 @@ body {
     to {
       transform: rotate(360deg);
     }
-  }
+}
 
+#character_a, #character_b {
+    display: none;
+    image-rendering: pixelated;
+    position: absolute;
+    scale: 2;
+}
+
+#dinoButton {
+    pointer-events: all;
+    image-rendering: pixelated;
+    scale: 2;
+    position: absolute;
+    left: 20px;
+    opacity: 0.1;
+    transition: opacity 0.5s;
+    display: none;
+}
+
+#dinoControlsBox {
+    pointer-events: all;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 80px;
+    top: -16px;
+    height: 28px;
+    width: 80px;
+    align-items: center;
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: aliceblue;
+    transition: all 0.5s;
+    overflow: hidden;
+    display: none;
+}
+
+#dinoControlsBox:hover {
+    height: 120px;
+    width: 220px;
+    left: 10px;
+}
+
+.dinoControls {
+    align-items: center;
+    margin-top: 12px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.key {
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: aliceblue;
+    min-height: 20px;
+    min-width: 20px;
+    max-height: 20px;
+    max-width: 20px;
+    margin: 2px;
+}
+
+#dinoButton:hover {
+    opacity: 0.3;
+    cursor: pointer;
+}
+
+#dinoOptions {
+    pointer-events: all;
+    width: 100%;
+    height: 100%;
+    display: none;
+    border-width: 0px;
+    border-style: solid;
+    border-color: aliceblue;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.formLine {
+    display: block;
+    text-align: center;
+    margin-bottom: 0px;
+    height: 20px;
+}
+
+#submitButton {
+    all: unset;
+    margin-top: 20px;
+    width: 80px;
+    height: 24px;
+    text-align: center;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    border-color:rgb(255, 255, 255);
+    transition: background-color 0.3s;
+}
+
+#submitButton:hover {
+    cursor: pointer;
+    background-color: #24323a;
+}
+
+.nameTag {
+    width: 200px;
+    text-align: center; 
+    display: none;
+    position: absolute;
+
+}
 
 #helloModule {
     width: 96%;
@@ -388,5 +503,8 @@ body {
     }
     #infoText {
         max-width: 588px;
+    }
+    #dinoButton {
+        display: block;
     }
 }

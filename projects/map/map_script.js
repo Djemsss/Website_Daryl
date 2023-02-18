@@ -2,6 +2,8 @@
 
 
 var countries = []
+var countries_name = []
+var countries_code = []
 var selected_country = null
 var hovered_country = null
 
@@ -23,6 +25,7 @@ var mouse_y = 0
 var country_base_color = "#428d90"
 var country_hover_color = "aquamarine"
 var country_select_color = "mediumspringgreen"
+var country_time_color = "rgb(0, 200, 50)"
 
 
 // Run when document is loaded
@@ -41,11 +44,11 @@ window.addEventListener('load', (eevent) => {
     document.getElementById("canvas2").height = window.innerHeight;
     
     var world = document.getElementById("fullMap")
-    
-    world.style.left = map_pos_x + "px"
-    world.style.top = map_pos_y + "px"
     var doc = world.getSVGDocument();
     var svgMap = doc.childNodes[1]
+
+    world.style.left = map_pos_x + "px"
+    world.style.top = map_pos_y + "px"
 
     // Mouse handling
     doc.addEventListener("mousemove", function(e){
@@ -126,6 +129,8 @@ window.addEventListener('load', (eevent) => {
     doc.childNodes[1].querySelector("g").childNodes.forEach(element => {
         if (element.nodeName == "path"){
             countries.push(element)
+            countries_code.push(element.getAttribute("id"))
+            countries_name.push(element.getAttribute("title"))
         }
         
     });
@@ -278,9 +283,79 @@ window.addEventListener('load', (eevent) => {
 
 // Runs 30 times a second
 var intervalId = window.setInterval(function(){
-    
-  }, 33);
+    time_since_change += 1
+    if (time_since_change > 100){
+        time_since_change = 0
+        randomize_city()
+    }
+    display_time(current_city, current_utc)
+  }, 100);
 
+const cities = ['Baker Island', 'Pago Pago', 'Honolulu', 'Anchorage', 'Los Angeles', 'Denver', 'Mexico City', 'New York', 'Sao Paulo', 'Buenos Aires', 'Fernando de Noronha', 'Praia', 'London', 'Berlin', 'Cairo', 'Moscow', 'Dubai', 'Islamabad', 'Dhaka', 'Bangkok', 'Beijing', 'Tokyo', 'Sydney', 'Noumea', 'Auckland'];
+
+const cityCountries = ["United States","United States","United States","United States","United States","United States","Mexico","United States","Brazil","Argentina","Brazil","Cape Verde","United Kingdom","Germany","Egypt","Russia","United Arab Emirates","Pakistan","Bangladesh","Thailand","China","Japan","Australia","New Caledonia","New Zealand"];
+const utcOffsets = [-12, -11, -10, -9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+
+var current_city = "Buenos Aires"
+var current_index = 9
+var current_utc = -3
+var time_since_change = 0
+var previous_code = ""
+  
+function randomize_city(){
+    const randomIndex = Math.floor(Math.random() * cities.length);
+    if (randomIndex == current_index){
+        randomize_city
+    }
+    // if  (current_index + 1 > cities.length){
+    //     current_index = 0
+    // }
+    // else {
+    //     current_index += 1
+    // }
+    current_index = randomIndex
+    current_city = cities[current_index];
+    current_utc = utcOffsets[current_index];
+    display_names(current_city)
+    
+}
+
+function display_names(cityName){
+    morphText(current_city, document.getElementById("cityName"), 160)
+    morphText(cityCountries[current_index], document.getElementById("cityCountry"), 160)
+}
+
+function display_time(cityName, utc){
+    const now = new Date()
+    const cityTime = new Date(now.getTime() + utc * 60 * 60 * 1000)
+    const hours = cityTime.getUTCHours().toString().padStart(2, "0")
+    const minutes = cityTime.getUTCMinutes().toString().padStart(2, "0")
+    const seconds = cityTime.getUTCSeconds().toString().padStart(2, "0")
+
+    document.getElementById("cityTime").textContent = hours + ":" + minutes + ":" + seconds
+
+    var countryCode
+    if (countries_name.includes(cityCountries[current_index])){
+        let i = countries_name.indexOf(cityCountries[current_index])
+        countryCode = countries_code[i]
+    }
+
+    if (countryCode){
+        var world = document.getElementById("fullMap")
+        var doc = world.getSVGDocument();
+        var svgMap = doc.childNodes[1]
+
+        if (previous_code != ""){
+            let target = doc.getElementById(previous_code)
+            target.style.fill = country_base_color
+
+        }
+
+        let target = doc.getElementById(countryCode)
+        target.style.fill = country_time_color
+        previous_code = countryCode
+    }
+  }
 
 function remap(value, inMin, inMax, outMin, outMax) {
     return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
@@ -297,3 +372,70 @@ function addCommas(nStr) {
     }
     return x1 + x2;
   }
+
+function morphText(endText, element, speed) {
+
+    let chars = "#%&$£*"
+    let str = ""
+    let thisChar = ""
+    let lastChar = ""
+    for (let index = 0; index < endText.length; index++) {
+        while (thisChar == lastChar){
+           thisChar = chars.charAt(Math.floor(Math.random() * chars.length))
+        }
+        lastChar = thisChar
+        str += thisChar
+    }
+
+    element.innerHTML = str;
+    let initialText = element.innerHTML
+
+    // Remove any extra characters from the initial text
+    initialText = initialText.substring(0, endText.length);
+  
+    // Set the initial text of the element
+    let text = initialText;
+  
+    // Define an array of indices that represent the order in which the characters should be replaced
+    const indices = Array.from({length: endText.length}, (_, i) => i);
+    shuffleArray(indices);
+  
+    // Define a variable to keep track of the current position in the strings
+    let position = 0;
+  
+    // Define the interval function to update the text of the element
+    const interval = setInterval(() => {
+      // Get the current character in the end text
+      const endChar = endText[indices[position]];
+  
+      // If the current character in the initial text is the same as the end character, do nothing
+      if (text[indices[position]] === endChar) {
+        position++;
+        if (position === endText.length) {
+          clearInterval(interval);
+        }
+        return;
+      }
+  
+      // Replace the current character in the initial text with the end character
+      text = text.substring(0, indices[position]) + endChar + text.substring(indices[position] + 1);
+  
+      // Update the text of the element
+      element.textContent = text;
+  
+      // Move to the next position in the strings
+      position++;
+  
+      // If we have reached the end of the strings, stop the interval
+      if (position === endText.length) {
+        clearInterval(interval);
+      }
+    }, speed);
+}
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+}

@@ -27,7 +27,7 @@
             <div id="graphicsBox">
                 <div id="squaresLeft" class="squareContainer">
                     <div id="squareBox1" class="box">
-                      <div class="boxTag" style="width: 60px;">Orbit</div>
+                      <div class="boxTag">Orbit</div>
                       <div id="centerLeftLegend" class="legendBox" >
                         <div id="earthOrbitLegend" class="legend">Earth</div>
                         <div id="asteroidOrbitLegend" class="legend">Asteroid</div>
@@ -35,12 +35,12 @@
                       <div id="sun"></div>
                     </div>
                     <div id="squareBox2" class="box">
-                      <div class="boxTag" style="width: 60px;">Box 2</div>
+                      <div class="boxTag">Box 2</div>
                     </div>
                 </div>
                 <div id="centerDisplay">
                   <div id="centerLeft">
-                    <div class="boxTag" style="width: 120px;">Asteroid Size</div>
+                    <div class="boxTag">Asteroid Size</div>
                       <div id="centerLeftLegend" class="legendBox">
                         <div id="maxDiaLegend" class="legend">Max est. diameter: </div>
                         <div id="minDiaLegend" class="legend">Min est. diameter: </div>
@@ -57,21 +57,51 @@
                   </div>
                 </div>
                 <div id="rightDisplay" style="align-items: center;">
-                    <div class="boxTag" style="width: 110px;">Information</div>
-                    <button id="loadAstButton" style="height: fit-content; margin-top: 10px;">New Asteroid</button>
-                    <div id="asteroidID" class="infoLine"></div>
-                    <div id="asteroidDesignation" class="infoLine"></div>
-                    <div id="asteroidName" class="infoLine"></div>
-                    <div id="asteroidMagnitude" class="infoLine"></div>
-                    <div id="asteroidDiaMin" class="infoLine"></div>
-                    <div id="asteroidDiaMax" class="infoLine"></div>
-                    <div id="asteroidDiaMid" class="infoLine"></div>
-                    <div id="asteroidHazardous" class="infoLine"></div>
-                    <div id="asteroidApo" class="infoLine"></div>
-                    <div id="asteroidPeri" class="infoLine"></div>
-                    <div id="asteroidEccentricity" class="infoLine"></div>
-                    <div id="asteroidInclination" class="infoLine"></div>
-                    <div id="asteroidPeriod" class="infoLine"></div>
+                    <div class="boxTag">Information</div>
+                    <button id="loadAstButton" style="margin-top: 18px; font-size: 1vw; min-width: 8vw; min-height: 2vw;">New Asteroid</button>
+                    <table>
+                      <tbody>
+                        <tr>
+                          <th>ID</th> <td id="asteroidID"></td>
+                        </tr>
+                        <tr>
+                          <th>Designation</th> <td id="asteroidDesignation"></td>
+                        </tr>
+                        <tr>
+                          <th>Name</th> <td id="asteroidName"></td>
+                        </tr>
+                        <tr>
+                          <th>Magnitude</th> <td id="asteroidMagnitude"></td>
+                        </tr>
+                        <tr>
+                          <th>Min est. diameter</th> <td id="asteroidDiaMin"></td>
+                        </tr>
+                        <tr>
+                          <th>Max est. diameter</th> <td id="asteroidDiaMax"></td>
+                        </tr>
+                        <tr>
+                          <th>Mean est. diameter</th> <td id="asteroidDiaMid"></td>
+                        </tr>
+                        <tr>
+                          <th>Hazardous</th> <td id="asteroidHazardous"></td>
+                        </tr>
+                        <tr>
+                          <th>Apohelion</th> <td id="asteroidApo"></td>
+                        </tr>
+                        <tr>
+                          <th>Perihelion</th> <td id="asteroidPeri"></td>
+                        </tr>
+                        <tr>
+                          <th>Eccentricity</th> <td id="asteroidEccentricity"></td>
+                        </tr>
+                        <tr>
+                          <th>Inclination</th> <td id="asteroidInclination"></td>
+                        </tr>
+                        <tr>
+                          <th>Orbital Period</th> <td id="asteroidPeriod"></td>
+                        </tr>
+                      </tbody>
+                    </table>
                 </div>
             </div>
           </div>

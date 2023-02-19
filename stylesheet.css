@@ -132,6 +132,23 @@ body {
        }
 }
 
+button {
+    all: unset;
+    width: 80px;
+    height: 24px;
+    text-align: center;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    border-color:rgb(255, 255, 255);
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: #24323a;
+}
+
 .mainContainer {
     position: absolute;
     width: 100%;
@@ -185,12 +202,6 @@ body {
     }
 }
 
-#character_a, #character_b {
-    display: none;
-    image-rendering: pixelated;
-    position: absolute;
-    scale: 2;
-}
 
 #dinoButton {
     pointer-events: all;
@@ -234,6 +245,18 @@ body {
     margin-top: 12px;
     margin-left: 20px;
     margin-right: 20px;
+}
+
+#character_a, #character_b {
+    display: none;
+    image-rendering: pixelated;
+    position: absolute;
+    scale: 2;
+    border-radius: 4px;
+    border-width: 0px;
+    border-style: solid;
+    border-color: aliceblue;
+    filter: drop-shadow(4px -2px 3px rgba(0, 0, 0, 0.5));
 }
 
 .key {

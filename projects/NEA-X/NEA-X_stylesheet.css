@@ -1,0 +1,213 @@
+#mainContainer {
+    display: flex;
+}
+
+#neaxProject {
+    margin: auto;
+    width: 98%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    
+}
+
+#graphicsBox {
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 0px;
+    border-color:rgb(255, 255, 255);
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.squareContainer {
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+}
+
+.box{
+    position: relative;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    border-color:rgb(255, 255, 255);
+    min-width: 13%;
+    aspect-ratio: 1/1;
+}
+
+#squareBox1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+#sun{
+    border-radius: 50%;
+    background-color: orangered;
+    width: 10px;
+    height: 10px;
+    box-shadow: 0 0 30px 10px rgba(255, 255, 0, 0.5);
+    transition: all 0.5s;
+}
+
+#centerDisplay {
+    background-image: repeating-linear-gradient(to top, transparent, transparent 48px, rgba(204, 204, 204, 0.363) 49px);
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    border-color:rgb(255, 255, 255);
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    max-width: 560px;
+}
+
+#centerLeft{
+    position: relative;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 0px;
+    border-color:rgb(255, 255, 255);
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100%;
+    width: 100%;
+}
+
+#centerRight {
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 0px;
+    border-color:rgb(255, 255, 255);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+#rightDisplay {
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    border-color:rgb(255, 255, 255);
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    position: relative;
+}
+
+#asteroid_min {
+    border-color: green;
+}
+
+#asteroid_mid {
+    border-color: rgb(255, 145, 0);
+}
+
+#asteroid_max {
+    border-color: red;
+}
+
+.asteroid {
+    position: absolute;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 50%;
+    transition: all 0.5s;
+    margin-left: 300px;
+}
+
+.legendBox {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    font-size: 16px;
+    bottom: 0;
+    left: 0;  
+}
+
+.legend {
+    font-size: 10px;
+    border: 0px;
+    border-right-width: 20px;
+    border-style: solid;
+    margin: 4px;
+    padding-right: 10px;
+}
+
+#maxDiaLegend{
+    border-color: red;
+}
+#minDiaLegend{
+    border-color: green;
+}
+#midDiaLegend{
+    border-color: rgb(255, 174, 0);
+}
+#earthOrbitLegend {
+    border-color: blue;
+}
+#asteroidOrbitLegend {
+    border-color: red;
+}
+
+.boxTag {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    font-size: 16px;
+    top: 0;
+    left: 0;  
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 2px;
+    border-color:rgb(255, 255, 255);
+    text-align: center;
+    border-left-width: 0px;
+    border-top-width: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+
+}
+
+#scaleElementData {
+    color: rgb(253, 253, 253);
+    font-weight: 100;
+    margin-bottom: 10px;
+
+}
+
+.infoLine {
+    width: 100%;
+    text-align: center;
+}
+
+@media only screen and (min-width: 768px) {
+
+    
+}
+
+@media only screen and (min-width: 940px) {
+    #graphicsBox {
+        flex-direction: row;
+    }
+    .squareContainer {
+        flex-direction: column;
+    }
+    #centerDisplay {
+        max-width: none;
+    }
+}

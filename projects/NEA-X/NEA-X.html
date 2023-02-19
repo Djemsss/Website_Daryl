@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html id="html" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daryl Jaimes</title>
+    <link rel="stylesheet" href="../../stylesheet.css" />
+    <link rel="stylesheet" href="NEA-X_stylesheet.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500&display=swap" rel="stylesheet">
+
+    <script type="module" src="NEA-X_script.js"></script>
+  </head>
+  <body id="body"></body>
+    <div id="WrapperOrbits" class="flex-container" style="overflow: hidden; height: 100%; width: 100%; background-color: black;">
+      <canvas id="canvas" style="opacity: 0.5;"></canvas>
+      <canvas id="canvas2" ></canvas>
+      <div id="Header" class="flex-container">
+        <img id="orbit" src="../../img/dotOrbit.png" alt="">
+      </div>
+      <div class="mainContainer" class="flex-container">
+        <div id="project" class="flex-container">
+          <div id="neaxProject">
+            <div id="graphicsBox">
+                <div id="squaresLeft" class="squareContainer">
+                    <div id="squareBox1" class="box">
+                      <div class="boxTag" style="width: 60px;">Orbit</div>
+                      <div id="centerLeftLegend" class="legendBox" >
+                        <div id="earthOrbitLegend" class="legend">Earth</div>
+                        <div id="asteroidOrbitLegend" class="legend">Asteroid</div>
+                      </div>
+                      <div id="sun"></div>
+                    </div>
+                    <div id="squareBox2" class="box">
+                      <div class="boxTag" style="width: 60px;">Box 2</div>
+                    </div>
+                </div>
+                <div id="centerDisplay">
+                  <div id="centerLeft">
+                    <div class="boxTag" style="width: 120px;">Asteroid Size</div>
+                      <div id="centerLeftLegend" class="legendBox">
+                        <div id="maxDiaLegend" class="legend">Max est. diameter: </div>
+                        <div id="minDiaLegend" class="legend">Min est. diameter: </div>
+                        <div id="midDiaLegend" class="legend">Mean est. diameter: </div>
+                      </div>
+                      <div id="asteroid_min" class="asteroid"></div>
+                      <div id="asteroid_max" class="asteroid"></div>
+                      <div id="asteroid_mid" class="asteroid"></div>
+                  </div>
+                  <div id="centerRight">
+                      <div id="scaleElementData" style="text-align: center;">Eiffel Tower <br> 330 m</div>
+                      <object id="eiffelSVG" data="../../img/eiffel_tower.svg" type="image/svg+xml"></object>
+                      <object id="personSVG" data="../../img/person.svg" type="image/svg+xml"></object>
+                  </div>
+                </div>
+                <div id="rightDisplay" style="align-items: center;">
+                    <div class="boxTag" style="width: 110px;">Information</div>
+                    <button id="loadAstButton" style="height: fit-content; margin-top: 10px;">New Asteroid</button>
+                    <div id="asteroidID" class="infoLine"></div>
+                    <div id="asteroidDesignation" class="infoLine"></div>
+                    <div id="asteroidName" class="infoLine"></div>
+                    <div id="asteroidMagnitude" class="infoLine"></div>
+                    <div id="asteroidDiaMin" class="infoLine"></div>
+                    <div id="asteroidDiaMax" class="infoLine"></div>
+                    <div id="asteroidDiaMid" class="infoLine"></div>
+                    <div id="asteroidHazardous" class="infoLine"></div>
+                    <div id="asteroidApo" class="infoLine"></div>
+                    <div id="asteroidPeri" class="infoLine"></div>
+                    <div id="asteroidEccentricity" class="infoLine"></div>
+                    <div id="asteroidInclination" class="infoLine"></div>
+                    <div id="asteroidPeriod" class="infoLine"></div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="infoContent">
+          <p>NEA-X (Near Earth Asteroid Explorer) allows you to explore Near Earth asteroids and their characteristics</p>
+          <p>The projects makes use of NASA's NeoWs API to get data on asteroids.</p>
+        </div>
+        <button class="infoCollapsible">NEA-X
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

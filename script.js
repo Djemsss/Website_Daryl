@@ -83,6 +83,16 @@ window.addEventListener("resize", (ev) => {
 
     document.getElementById("canvas2").width = window.innerWidth;
     document.getElementById("canvas2").height = window.innerHeight;
+
+    if (window.innerWidth > 2000){
+        document.getElementById("character_a").style.scale = "4"
+        paintWidth = 24
+    }
+    else {
+        document.getElementById("character_a").style.scale = "2"
+        paintWidth = 12
+    }
+    
 });
 
 // Run when window is loaded
@@ -417,6 +427,7 @@ var anim_frames_b = [["img/character_b/idle/tile000.png", "img/character_b/idle/
 
 var game_mode = false
 var last_time = 0
+var paintWidth = 12
 
 // Character 1
 var current_animation_a = 0
@@ -500,6 +511,7 @@ var intervalId = window.setInterval(function(){
 
         let ctx = document.getElementById("canvas").getContext("2d")
         let ctx2 = document.getElementById("canvas2").getContext("2d")
+
         // Move name tags
         document.getElementById("character_a_tag").style.left = charX_a - 90 + "px"
         document.getElementById("character_a_tag").style.top = charY_a - 26 + "px"
@@ -507,6 +519,15 @@ var intervalId = window.setInterval(function(){
         document.getElementById("character_b_tag").style.left = charX_b - 90 + "px"
         document.getElementById("character_b_tag").style.top = charY_b - 26 + "px"
 
+        // Handle z index
+        if (character_a.getBoundingClientRect().y > character_b.getBoundingClientRect().y) {
+            character_a.style.zIndex = "5"
+            character_b.style.zIndex = "4"
+        }
+        else{
+            character_a.style.zIndex = "4"
+            character_b.style.zIndex = "5"
+        }
         // Handle character animation
         if (delta > 100){
             last_time = current_time
@@ -543,6 +564,7 @@ var intervalId = window.setInterval(function(){
             }
             if (pressed_keys_a.includes("A")){
                 character_a.style.transform = "scaleX(-1)"
+                character_a.style.filter = "drop-shadow(-4px -2px 3px rgba(0, 0, 0, 0.5))"
                 dirX -= 1
             }
             if (pressed_keys_a.includes("S")){
@@ -550,6 +572,7 @@ var intervalId = window.setInterval(function(){
             }
             if (pressed_keys_a.includes("D")){
                 character_a.style.transform = "scaleX(1)"
+                character_a.style.filter = "drop-shadow(4px -2px 3px rgba(0, 0, 0, 0.5))"
                 dirX += 1
             }
             charX_a += dirX * char_speed_a * (delta / 1000)
@@ -576,7 +599,7 @@ var intervalId = window.setInterval(function(){
 
             ctx.globalAlpha = 0.1;
             ctx.strokeStyle = "blue"
-            ctx.lineWidth = 12
+            ctx.lineWidth = paintWidth
 
             ctx.moveTo(last_pos_x_a + 10, last_pos_y_a + 100 + 20)
             ctx.lineTo(charX_a + 10, charY_a + 100 + 20)
@@ -604,6 +627,7 @@ var intervalId = window.setInterval(function(){
             }
             if (pressed_keys_b.includes("A")){
                 character_b.style.transform = "scaleX(-1)"
+                character_b.style.filter = "drop-shadow(-4px -2px 3px rgba(0, 0, 0, 0.5))"
                 dirX -= 1
             }
             if (pressed_keys_b.includes("S")){
@@ -611,6 +635,7 @@ var intervalId = window.setInterval(function(){
             }
             if (pressed_keys_b.includes("D")){
                 character_b.style.transform = "scaleX(1)"
+                character_b.style.filter = "drop-shadow(4px -2px 3px rgba(0, 0, 0, 0.5))"
                 dirX += 1
             }
             charX_b += dirX * char_speed_b * (delta / 1000)
@@ -637,7 +662,7 @@ var intervalId = window.setInterval(function(){
 
             ctx2.globalAlpha = 0.01;
             ctx2.strokeStyle = "green"
-            ctx2.lineWidth = 12
+            ctx2.lineWidth = paintWidth
 
             ctx2.moveTo(last_pos_x_b + 10, last_pos_y_b + 100 + 20)
             ctx2.lineTo(charX_b + 10, charY_b + 100 + 20)

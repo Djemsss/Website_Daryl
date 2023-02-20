@@ -92,7 +92,7 @@ function load_asteroid(){
   let randPage = Math.floor(Math.random() * 1598)
   let randObject = Math.floor(Math.random() * 20)
   // let link = "https://api.nasa.gov/neo/rest/v1/neo/3542519?api_key=XvnPh0wz7AMphlOLFEPqSJBE2cjj0ZTf3xZlFqUv"
-  let link = "http://api.nasa.gov/neo/rest/v1/neo/browse?page=" + randPage + "&size=20&api_key=XvnPh0wz7AMphlOLFEPqSJBE2cjj0ZTf3xZlFqUv"
+  let link = "https://api.nasa.gov/neo/rest/v1/neo/browse?page=" + randPage + "&size=20&api_key=XvnPh0wz7AMphlOLFEPqSJBE2cjj0ZTf3xZlFqUv"
 
   fetch(link)
   .then((response) => response.json())
@@ -218,8 +218,8 @@ function drawOrbit(canvas, perigee, apogee, eccentricity, inclination, ascending
   const context = canvas.getContext("2d");
   const sun = document.getElementById("sun");
   const sunX = (sun.offsetLeft + sun.offsetWidth / 2) + document.getElementById("graphicsBox").getBoundingClientRect().x;
-  console.log(document.getElementById("mainContainer"))
-  const sunY = (sun.offsetTop + sun.offsetHeight / 2) + document.getElementById("mainContainer").getBoundingClientRect().y;
+
+  const sunY = (sun.offsetTop + sun.offsetHeight / 2) + document.getElementById("neaxProject").getBoundingClientRect().y;
   const semiMajorAxis = (perigee * scale * global_scale + apogee * scale * global_scale) / 2;
   const semiMinorAxis = semiMajorAxis * Math.sqrt(1 - eccentricity ** 2);
   const centerOffset = semiMajorAxis * eccentricity;

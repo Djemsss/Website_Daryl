@@ -92,7 +92,7 @@ function load_asteroid(){
   let randPage = Math.floor(Math.random() * 1598)
   let randObject = Math.floor(Math.random() * 20)
   // let link = "https://api.nasa.gov/neo/rest/v1/neo/3542519?api_key=XvnPh0wz7AMphlOLFEPqSJBE2cjj0ZTf3xZlFqUv"
-  let link = "http://api.nasa.gov/neo/rest/v1/neo/browse?page=" + randPage + "&size=20&api_key=XvnPh0wz7AMphlOLFEPqSJBE2cjj0ZTf3xZlFqUv"
+  let link = "https://api.nasa.gov/neo/rest/v1/neo/browse?page=" + randPage + "&size=20&api_key=XvnPh0wz7AMphlOLFEPqSJBE2cjj0ZTf3xZlFqUv"
 
   fetch(link)
   .then((response) => response.json())

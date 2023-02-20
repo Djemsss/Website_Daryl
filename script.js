@@ -108,7 +108,7 @@ window.addEventListener('load', (eevent) => {
 
     // Set selector position
     selector_x = document.getElementById("tagSelector").getBoundingClientRect().x
-    selector_y = document.getElementById("tagSelector").getBoundingClientRect().y - 97
+    selector_y = document.getElementById("tagSelector").getBoundingClientRect().y - document.getElementById("mainContainer").getBoundingClientRect().y + 3
 
     document.getElementById("character_a").style.left = 0 + "px"
     document.getElementById("character_a").style.top = 0 + "px"
@@ -475,6 +475,7 @@ function prepare_dino_game(){
         return
     }
     document.getElementById("mainContainer").style.display = "none"
+    document.getElementById("dinoButton").style.display = "none"
     document.getElementById("dinoOptions").style.display = "flex"
 }
 
@@ -486,6 +487,7 @@ function start_dino_game(){
     document.getElementById("character_b_tag").textContent = dinoName2
 
     document.getElementById("mainContainer").style.display = "flex"
+    document.getElementById("dinoButton").style.display = "block"
     document.getElementById("dinoOptions").style.display = "none"
 
     game_mode = true
@@ -601,8 +603,8 @@ var intervalId = window.setInterval(function(){
             ctx.strokeStyle = "blue"
             ctx.lineWidth = paintWidth
 
-            ctx.moveTo(last_pos_x_a + 10, last_pos_y_a + 100 + 20)
-            ctx.lineTo(charX_a + 10, charY_a + 100 + 20)
+            ctx.moveTo(last_pos_x_a + 10, last_pos_y_a + document.getElementById("mainContainer").getBoundingClientRect().y + 20)
+            ctx.lineTo(charX_a + 10, charY_a + document.getElementById("mainContainer").getBoundingClientRect().y + 20)
             ctx.lineCap = 'round';
             ctx.stroke()
             last_pos_x_a = charX_a
@@ -664,8 +666,8 @@ var intervalId = window.setInterval(function(){
             ctx2.strokeStyle = "green"
             ctx2.lineWidth = paintWidth
 
-            ctx2.moveTo(last_pos_x_b + 10, last_pos_y_b + 100 + 20)
-            ctx2.lineTo(charX_b + 10, charY_b + 100 + 20)
+            ctx2.moveTo(last_pos_x_b + 10, last_pos_y_b + document.getElementById("mainContainer").getBoundingClientRect().y + 20)
+            ctx2.lineTo(charX_b + 10, charY_b + document.getElementById("mainContainer").getBoundingClientRect().y + 20)
             ctx2.lineCap = 'round';
             ctx2.stroke()
             last_pos_x_b = charX_b
@@ -684,18 +686,18 @@ var intervalId = window.setInterval(function(){
     const tagSelector = document.getElementById("tagSelector")
     if (selectorTarget != null){
         let selectorPos = tagSelector.getBoundingClientRect()
-        tagSelector.style.left = selectorTarget.x - 14 + "px"
+        tagSelector.style.left = selectorTarget.x - (14 * window.innerWidth / 1440) + "px"
 
         if (Math.abs(selectorPos.y - selectorTarget.y) < 5){
-            tagSelector.style.top = selectorTarget.y - 97 + "px"
+            tagSelector.style.top = selectorTarget.y - document.getElementById("mainContainer").getBoundingClientRect().y + "px"
         }
 
         else if (selectorPos.y > selectorTarget.y){
-            selector_y -= 10
+            selector_y -= 8
             tagSelector.style.top = selector_y + "px"
         }
         else {
-            selector_y += 10
+            selector_y += 8
             tagSelector.style.top = selector_y + "px"
         }
 

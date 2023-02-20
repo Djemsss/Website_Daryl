@@ -1,6 +1,8 @@
 var asteroid_min = null
 var asteroid_max = null
 var asteroid_mid = null
+var personContainer = null
+var eiffelContainer = null
 var personSVG = null
 var eiffelSVG = null
 
@@ -49,22 +51,30 @@ window.addEventListener('load', (event) => {
     }
 
     document.getElementById("loadAstButton").addEventListener("pointerdown", load_asteroid, false)
+
     // Set svg vars
     asteroid_min = document.getElementById("asteroid_min")
     asteroid_max = document.getElementById("asteroid_max")
     asteroid_mid = document.getElementById("asteroid_mid")
 
-    personSVG = document.getElementById("personSVG").contentDocument.querySelector("svg")
-    eiffelSVG = document.getElementById("eiffelSVG").contentDocument.querySelector("svg")
+    personContainer = document.getElementById("personSVG")
+    eiffelContainer = document.getElementById("eiffelSVG")
+
+    personSVG = personContainer.contentDocument.querySelector("svg")
+    eiffelSVG = eiffelContainer.contentDocument.querySelector("svg")
 
     personPath = personSVG.querySelector("g").querySelector("path")
     eiffelPath = eiffelSVG.querySelector("path")
 
-    document.getElementById("personSVG").style.display = "none"
-    // document.getElementById("eiffelSVG").style.display = "none"
+    personContainer.style.position = "absolute"
+    personSVG.style.transformOrigin = "bottom"
+    personSVG.style.transition = "all 0.5s"
+    personSVG.style.scale = (0.5 * 0.0049)
+
+    eiffelContainer.style.position = "absolute"
     eiffelSVG.style.transformOrigin = "bottom"
     eiffelSVG.style.transition = "all 0.5s"
-    eiffelSVG.style.scale = "0.5"
+    eiffelSVG.style.scale = "0.25"
 
     global_scale = window.innerWidth / 1440
     eiffelSVG.style.width = (320 * global_scale) + "px"
@@ -89,7 +99,6 @@ function load_asteroid(){
   .then((fullData) => {
       // let data = fullData
       let data = fullData.near_earth_objects[randObject]
-      console.log(data)
       let id = data.id
       let designation = data.designation
       let name = data.name
@@ -102,17 +111,25 @@ function load_asteroid(){
       if (diameter_mid > 2000){
         // Scale down eiffel tower a lot
         scaleElementSize = 40
-        eiffelSVG.style.scale = "0.125"
+        eiffelSVG.style.scale = "0.0625"
+        personSVG.style.scale = (0.0625 * 0.01).toString()
       }
       else if (diameter_mid > 600) {
         // Scale down eiffel tower
         scaleElementSize = 80
-        eiffelSVG.style.scale = "0.25"
+        eiffelSVG.style.scale = "0.125"
+        personSVG.style.scale = (0.125 * 0.01).toString()
       }
-      else if (diameter_mid < 300){
-        // Scale up eiffel tower
+      else if (diameter_mid > 200){
         scaleElementSize = 320
+        eiffelSVG.style.scale = "0.5"
+        personSVG.style.scale = (0.5 * 0.01).toString()
+      }
+      else{
+        // Scale up eiffel tower
+        scaleElementSize = 620
         eiffelSVG.style.scale = "1"
+        personSVG.style.scale = (1 * 0.01).toString()
       }
 
       
@@ -201,7 +218,8 @@ function drawOrbit(canvas, perigee, apogee, eccentricity, inclination, ascending
   const context = canvas.getContext("2d");
   const sun = document.getElementById("sun");
   const sunX = (sun.offsetLeft + sun.offsetWidth / 2) + document.getElementById("graphicsBox").getBoundingClientRect().x;
-  const sunY = (sun.offsetTop + sun.offsetHeight / 2) + 100;
+  console.log(document.getElementById("mainContainer"))
+  const sunY = (sun.offsetTop + sun.offsetHeight / 2) + document.getElementById("mainContainer").getBoundingClientRect().y;
   const semiMajorAxis = (perigee * scale * global_scale + apogee * scale * global_scale) / 2;
   const semiMinorAxis = semiMajorAxis * Math.sqrt(1 - eccentricity ** 2);
   const centerOffset = semiMajorAxis * eccentricity;

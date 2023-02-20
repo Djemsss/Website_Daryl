@@ -43,7 +43,7 @@ body {
     background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 100%);
     position: fixed;
     width: 100%;
-    height: 140px;
+    height: 20vh;
     display: flex;
     border-color: rgb(146, 60, 60);
     border-width: 0px;
@@ -58,7 +58,7 @@ body {
 
 .wave {
     position: relative;
-    height: 200px;
+    height: 14vw;
     width: 100%;
     background-color: rgba(187, 141, 141, 1);;
     clip-path: polygon(
@@ -155,7 +155,7 @@ button:hover {
     height: 80vh;
     display: flex;
     flex-direction: column;
-    top: 100px;
+    top: 20vh;
     border: 0px;
     border-color: red;
     border-style: solid;
@@ -177,15 +177,14 @@ button:hover {
 #orbit {
     position: absolute;
     pointer-events: all;
-    margin-left: 20px;
-    margin-top: 10px;
+    margin-left: 3vw;
+    margin-top: 3vw;
     margin-right: -20px;
-    height: 50%;
+    height: 8.8vh;
     border-width: 0px;
     border-style: solid;
     border-color: aliceblue;
     /*position: absolute;*/
-    scale: 1;
     animation: spin 5s linear infinite;
 }
 
@@ -206,9 +205,10 @@ button:hover {
 #dinoButton {
     pointer-events: all;
     image-rendering: pixelated;
-    scale: 2;
+    height: 4vw;
     position: absolute;
-    left: 20px;
+    top: 6vw;
+    left: 0px;
     opacity: 0.1;
     transition: opacity 0.5s;
     display: none;
@@ -220,10 +220,11 @@ button:hover {
     display: flex;
     flex-direction: column;
     position: absolute;
-    left: 80px;
-    top: -16px;
-    height: 28px;
-    width: 80px;
+    left: 6vw;
+    top: 6vw;
+    height: 2vw;
+    width: 6vw;
+    font-size: 1.2vw;
     align-items: center;
     border-radius: 4px;
     border-width: 1px;
@@ -235,16 +236,17 @@ button:hover {
 }
 
 #dinoControlsBox:hover {
-    height: 120px;
-    width: 220px;
-    left: 10px;
+    height: 10vw;
+    width: 18vw;
+    left: 2vw;
+
 }
 
 .dinoControls {
     align-items: center;
-    margin-top: 12px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-top: 1vw;
+    margin-left: 1vw;
+    margin-right: 1vw;
 }
 
 #character_a, #character_b {
@@ -264,11 +266,11 @@ button:hover {
     border-width: 1px;
     border-style: solid;
     border-color: aliceblue;
-    min-height: 20px;
-    min-width: 20px;
-    max-height: 20px;
-    max-width: 20px;
-    margin: 2px;
+    min-height: 2vw;
+    min-width: 2vw;
+    max-height: 2vw;
+    max-width: 2vw;
+    margin: 0.2vw;
 }
 
 #dinoButton:hover {
@@ -292,21 +294,22 @@ button:hover {
 .formLine {
     display: block;
     text-align: center;
-    margin-bottom: 0px;
-    height: 20px;
+    height: 1.6vw;
+    font-size: 1vw;
 }
 
 #submitButton {
     all: unset;
-    margin-top: 20px;
-    width: 80px;
-    height: 24px;
+    margin-top: 1vw;
+    width: 5vw;
+    height: 2vw;
     text-align: center;
     border-radius: 4px;
     border-style: solid;
     border-width: 1px;
     border-color:rgb(255, 255, 255);
     transition: background-color 0.3s;
+    font-size: 1.2vw;
 }
 
 #submitButton:hover {
@@ -319,23 +322,28 @@ button:hover {
     text-align: center; 
     display: none;
     position: absolute;
-
+    font-size: 1.2vw;
 }
 
 #helloModule {
     width: 96%;
+    font-size: 8vw;
+    margin-top: -5vh;
 }
 
 #myInfo {
     display: flex;
-    width: 96%;
+    min-height: 34vh;
     height: fit-content;
     border: 0px;
     border-style: solid;
     border-color: rgb(126, 26, 26);
     align-items: flex-start;
-    margin-top: 80px;
-    margin-bottom: 60px;
+    margin-top: 10vh;
+    margin-bottom: 0vh;
+    margin-left: 2vh;
+    font-size: 2vh;
+    width: 100%;
 }
 
 #iLike {
@@ -343,12 +351,15 @@ button:hover {
 }
 
 #projects {
+    font-size: 2vh;
+    min-height: 30vh;
     display: flex;
-    width: 96%;
     border: 0px;
     border-style: solid;
     border-color: rgb(26, 79, 126);
     align-items: flex-start;
+    margin-left: 2vh;
+    width: 100%;
     
 }
 
@@ -359,7 +370,6 @@ button:hover {
     align-items: flex-start;
 }
 
-
 .projectTag {
     pointer-events: none;
     color: inherit;
@@ -367,9 +377,11 @@ button:hover {
     display: flex;
     flex-direction: row;
     white-space: nowrap;
-    width: 100px;
-    height: 32px;
-    margin-bottom: 10px;
+    width: 7vw;
+    height: 2.3vw;
+    min-height: 20px;
+    min-width: 80px;
+    margin-bottom: 0.5vw;
     border-radius: 4px;
     border-style: solid;
     border-width: 1px;
@@ -385,8 +397,8 @@ button:hover {
 }
 
 #tagSelector {
-    min-width: 10px;
-    min-height: 28px;
+    min-width: 1.3vh;
+    min-height: 4.6vh;
     border-radius: 4px;
     position: absolute;
     opacity: 0;
@@ -497,35 +509,43 @@ button:hover {
 
 
 @media only screen and (min-width: 768px) {
+    #orbit {
+        margin-top: 2vh;
+        margin-left: 2vh;
+    }
     #helloModule {
-        margin-top: 70px;
+        font-size: 4vw;
+        margin-top: 0vh;
     }
     #myInfo{
-        margin-top: 70px;
-        margin-bottom: 80px;
+        min-height: 20vh;
+        margin-top: 8vh;
+        margin-bottom: 0vh;
     }
 
     #myInfo, #projects, #helloModule {
-        width: 80%;
+        width: 80vw;
     }
     #infoText {
-        max-width: 588px;
+        max-width: 60vw;
     }
 }
 
 @media only screen and (min-width: 940px) {
     #helloModule {
-        margin-top: 90px;
+        font-size: 3vw;
+        margin-top: 0vh;
     }
     #myInfo{
-        margin-top: 80px;
-        margin-bottom: 100px;
+        min-height: 20vh;
+        margin-top: 8vh;
+        margin-bottom: 0vh;
     }
     #myInfo, #projects, #helloModule {
-        width: 60%;
+        width: 60vw;
     }
     #infoText {
-        max-width: 588px;
+        max-width: 60vw;
     }
     #dinoButton {
         display: block;

@@ -11,6 +11,22 @@ var anim_frames_b = [
     ["img/character_b/runLow/tile017.png", "img/character_b/runLow/tile018.png", "img/character_b/runLow/tile019.png", "img/character_b/runLow/tile020.png", "img/character_b/runLow/tile021.png", "img/character_b/runLow/tile022.png", "img/character_b/runLow/tile023.png"], 
     ["img/character_b/kick/tile010.png", "img/character_b/kick/tile011.png", "img/character_b/kick/tile012.png", "img/character_b/kick/tile013.png"]]
 
+function preloadImages() {
+    anim_frames_a.forEach(images => {
+        for (let i = 0; i < images.length; i++) {
+            const img = new Image();
+            img.src = images[i];
+        }
+    });
+    anim_frames_b.forEach(images => {
+        for (let i = 0; i < images.length; i++) {
+            const img = new Image();
+            img.src = images[i];
+        }
+    });
+}
+preloadImages()
+
 var game_mode = false
 var paintWidth = 12
 

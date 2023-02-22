@@ -1,12 +1,21 @@
 // Assets
-var anim_frames_a = [["img/character_a/idle/tile000.png", "img/character_a/idle/tile001.png", "img/character_a/idle/tile002.png", "img/character_a/idle/tile003.png"], ["img/character_a/run/tile004.png", "img/character_a/run/tile005.png", "img/character_a/run/tile006.png", "img/character_a/run/tile007.png", "img/character_a/run/tile008.png", "img/character_a/run/tile009.png"]]
+var anim_frames_a = [
+    ["img/character_a/idle/tile000.png", "img/character_a/idle/tile001.png", "img/character_a/idle/tile002.png", "img/character_a/idle/tile003.png"], 
+    ["img/character_a/run/tile004.png", "img/character_a/run/tile005.png", "img/character_a/run/tile006.png", "img/character_a/run/tile007.png", "img/character_a/run/tile008.png", "img/character_a/run/tile009.png"], 
+    ["img/character_a/runLow/tile017.png", "img/character_a/runLow/tile018.png", "img/character_a/runLow/tile019.png", "img/character_a/runLow/tile020.png", "img/character_a/runLow/tile021.png", "img/character_a/runLow/tile022.png", "img/character_a/runLow/tile023.png"], 
+    ["img/character_a/kick/tile010.png", "img/character_a/kick/tile011.png", "img/character_a/kick/tile012.png", "img/character_a/kick/tile013.png"]]
 
-var anim_frames_b = [["img/character_b/idle/tile000.png", "img/character_b/idle/tile001.png", "img/character_b/idle/tile002.png", "img/character_b/idle/tile003.png"], ["img/character_b/run/tile004.png", "img/character_b/run/tile005.png", "img/character_b/run/tile006.png", "img/character_b/run/tile007.png", "img/character_b/run/tile008.png", "img/character_b/run/tile009.png"]]
+var anim_frames_b = [
+    ["img/character_b/idle/tile000.png", "img/character_b/idle/tile001.png", "img/character_b/idle/tile002.png", "img/character_b/idle/tile003.png"], 
+    ["img/character_b/run/tile004.png", "img/character_b/run/tile005.png", "img/character_b/run/tile006.png", "img/character_b/run/tile007.png", "img/character_b/run/tile008.png", "img/character_b/run/tile009.png"], 
+    ["img/character_b/runLow/tile017.png", "img/character_b/runLow/tile018.png", "img/character_b/runLow/tile019.png", "img/character_b/runLow/tile020.png", "img/character_b/runLow/tile021.png", "img/character_b/runLow/tile022.png", "img/character_b/runLow/tile023.png"], 
+    ["img/character_b/kick/tile010.png", "img/character_b/kick/tile011.png", "img/character_b/kick/tile012.png", "img/character_b/kick/tile013.png"]]
 
 var game_mode = false
 var paintWidth = 12
 
 var characters = []
+var obstacles = []
 
 // Classes
 class Vector2 {
@@ -46,6 +55,8 @@ class dino {
         this.charNum = charNum
         this.sprite_set = charNum
         this.last_time = 0
+        this.kicking = false
+        this.facingDir = 1
         if (charNum == 0){
             this.sprite = document.getElementById("character_a")
             this.color = "blue"
@@ -67,7 +78,7 @@ class dino {
         this.current_animation = 0
         this.current_frame = 0
         this.pressed_keys = []
-        this.char_speed = 24
+        this.char_speed = 16
         this.position = new Vector2(0, 0 + charNum * 50)
         this.last_position = new Vector2(0, 0 + charNum * 50)
     }
@@ -75,7 +86,6 @@ class dino {
         this.position = new Vector2(0, 0 + this.charNum * 50)
         this.last_position = new Vector2(0, 0 + this.charNum * 50)
     }
-
     simulate() {
         if (game_mode == true){
             let current_time = Date.now()
@@ -101,6 +111,11 @@ class dino {
                 this.last_time = current_time
 
                 if (this.current_frame + 1 > this.frames[this.current_animation].length - 1){
+                    if (this.kicking == true){
+                        // Kick ended
+                        this.kicking = false
+                        return
+                    }
                     this.current_frame = 0
                 }
                 else {
@@ -109,16 +124,45 @@ class dino {
                 this.sprite.src = this.frames[this.current_animation][this.current_frame]
             }
 
+            if (this.kicking == true){
+                return
+            }
+
             // Handle character movement
             if (this.pressed_keys.length > 0){
+                if (this.pressed_keys.includes("kick")){
+                    this.kicking = true
+                    this.current_animation = 3
+                    this.current_frame = 0
+
+                    let hit = willCollide(this.sprite, new Vector2(this.sprite.getBoundingClientRect().x + this.facingDir * 10, this.sprite.getBoundingClientRect().y))
+
+                    if (hit[0] == true){
+                        shakeElement(hit[1], 1, 200)
+                    }
+                    
+
+                    return
+                }
+                
                 this.current_animation = 1
                 let dir = new Vector2(0, 0)
+
+                if (this.pressed_keys.includes("run")){
+                    this.char_speed = 24
+                    this.current_animation = 2
+                }
+                else {
+                    this.char_speed = 16
+                    this.current_animation = 1
+                }
 
                 if (this.pressed_keys.includes("W")){
                     dir.y -= 1
                 }
                 if (this.pressed_keys.includes("A")){
                     dir.x -= 1
+                    this.facingDir = -1
                     this.sprite.style.transform = "scaleX(-1)"
                     this.sprite.style.filter = "drop-shadow(-4px -2px 3px rgba(0, 0, 0, 0.5))"
                 }
@@ -127,14 +171,24 @@ class dino {
                 }
                 if (this.pressed_keys.includes("D")){
                     dir.x += 1
+                    this.facingDir = 1
                     this.sprite.style.transform = "scaleX(1)"
                     this.sprite.style.filter = "drop-shadow(4px -2px 3px rgba(0, 0, 0, 0.5))"
                 }
 
                 let normalDir = dir.normalize()
 
-                this.position.x += normalDir.x * this.char_speed * (delta / 1000)
-                this.position.y += normalDir.y * this.char_speed * (delta / 1000) 
+                let collision = willCollide(this.sprite, new Vector2(this.sprite.getBoundingClientRect().x + normalDir.x * this.char_speed * (delta / 1000), this.sprite.getBoundingClientRect().y + normalDir.y * this.char_speed * (delta / 1000)))
+
+                if (collision[0] == true){
+                    
+                }
+                else {
+                    this.position.x += normalDir.x * this.char_speed * (delta / 1000)
+                    this.position.y += normalDir.y * this.char_speed * (delta / 1000) 
+                }
+                
+
             }
             else {
                 this.current_animation = 0
@@ -166,11 +220,13 @@ class dino {
             this.ctx.lineTo(this.position.x + 10, this.position.y + document.getElementById("mainContainer").getBoundingClientRect().y + 20)
             this.ctx.lineCap = 'round';
             this.ctx.stroke()
-            this.last_position = this.position
 
+            // Finally, set element position and check for collisions
             this.sprite.style.left = this.position.x + "px"
             this.sprite.style.top = this.position.y + "px"
-        }
+
+            this.last_position = this.position       
+        }   
         
     }
 }
@@ -179,15 +235,18 @@ window.addEventListener("load", (event) =>{
     document.getElementById("dinoButton").addEventListener("pointerdown", prepare_dino_game, false)
     document.getElementById("submitButton").addEventListener("pointerdown", start_dino_game, false)
 
+    obstacles = document.querySelectorAll(".obstacle")
+
     new dino(0)
     new dino(1)
+
     document.addEventListener('keydown', function(event) {
         
         // Character a key downs
         if (characters[0]){
             if (event.code === 'KeyW') {
-            if (!characters[0].pressed_keys.includes("W")){
-                characters[0].pressed_keys.push("W")
+                if (!characters[0].pressed_keys.includes("W")){
+                    characters[0].pressed_keys.push("W")
             }
             }
             if (event.code === 'KeyA') {
@@ -205,6 +264,18 @@ window.addEventListener("load", (event) =>{
                     characters[0].pressed_keys.push("D")
                 }
             }
+            if (event.code === 'KeyV'){
+                if (!characters[0].pressed_keys.includes("run")){
+                    characters[0].pressed_keys.push("run")
+                    
+                }
+            }
+            if (event.code === 'KeyB'){
+                if (!characters[0].pressed_keys.includes("kick")){
+                    characters[0].pressed_keys.push("kick")
+                }
+            }
+
         }
         // Character b key downs
         if (characters[1]){
@@ -228,81 +299,123 @@ window.addEventListener("load", (event) =>{
                     characters[1].pressed_keys.push("D")
                 }
             }
+            if (event.code === 'Comma'){
+                if (!characters[1].pressed_keys.includes("run")){
+                    characters[1].pressed_keys.push("run")
+                }
+            }
+            if (event.code === 'Period'){
+                if (!characters[1].pressed_keys.includes("kick")){
+                    characters[1].pressed_keys.push("kick")
+                }
+            }
         }
       });
 
-      document.addEventListener("keyup", (event) =>{
-        // Character a key ups
-        if (characters[0]){
-            if (event.code === 'KeyW') {
-                if (characters[0].pressed_keys.includes("W")){
-                    let index = characters[0].pressed_keys.indexOf("W")
-                    if (index > -1){
-                        characters[0].pressed_keys.splice(index, 1)
-                    }
-                }
-            }
-            if (event.code === 'KeyA') {
-                if (characters[0].pressed_keys.includes("A")){
-                    let index = characters[0].pressed_keys.indexOf("A")
-                    if (index > -1){
-                        characters[0].pressed_keys.splice(index, 1)
-                    }
-                }
-            }
-            if (event.code === 'KeyS') {
-                if (characters[0].pressed_keys.includes("S")){
-                    let index = characters[0].pressed_keys.indexOf("S")
-                    if (index > -1){
-                        characters[0].pressed_keys.splice(index, 1)
-                    }
-                }
-            }
-            if (event.code === 'KeyD') {
-                if (characters[0].pressed_keys.includes("D")){
-                    let index = characters[0].pressed_keys.indexOf("D")
-                    if (index > -1){
-                        characters[0].pressed_keys.splice(index, 1)
-                    }
+    document.addEventListener("keyup", (event) =>{
+    // Character a key ups
+    if (characters[0]){
+        if (event.code === 'KeyW') {
+            if (characters[0].pressed_keys.includes("W")){
+                let index = characters[0].pressed_keys.indexOf("W")
+                if (index > -1){
+                    characters[0].pressed_keys.splice(index, 1)
                 }
             }
         }
-        // Character b key ups
-        if (characters[1]){
-            if (event.code === 'ArrowUp') {
-                if (characters[1].pressed_keys.includes("W")){
-                    let index = characters[1].pressed_keys.indexOf("W")
-                    if (index > -1){
-                        characters[1].pressed_keys.splice(index, 1)
-                    }
-                }
-            }
-            if (event.code === 'ArrowLeft') {
-                if (characters[1].pressed_keys.includes("A")){
-                    let index = characters[1].pressed_keys.indexOf("A")
-                    if (index > -1){
-                        characters[1].pressed_keys.splice(index, 1)
-                    }
-                }
-            }
-            if (event.code === 'ArrowDown') {
-                if (characters[1].pressed_keys.includes("S")){
-                    let index = characters[1].pressed_keys.indexOf("S")
-                    if (index > -1){
-                        characters[1].pressed_keys.splice(index, 1)
-                    }
-                }
-            }
-            if (event.code === 'ArrowRight') {
-                if (characters[1].pressed_keys.includes("D")){
-                    let index = characters[1].pressed_keys.indexOf("D")
-                    if (index > -1){
-                        characters[1].pressed_keys.splice(index, 1)
-                    }
+        if (event.code === 'KeyA') {
+            if (characters[0].pressed_keys.includes("A")){
+                let index = characters[0].pressed_keys.indexOf("A")
+                if (index > -1){
+                    characters[0].pressed_keys.splice(index, 1)
                 }
             }
         }
-      })
+        if (event.code === 'KeyS') {
+            if (characters[0].pressed_keys.includes("S")){
+                let index = characters[0].pressed_keys.indexOf("S")
+                if (index > -1){
+                    characters[0].pressed_keys.splice(index, 1)
+                }
+            }
+        }
+        if (event.code === 'KeyD') {
+            if (characters[0].pressed_keys.includes("D")){
+                let index = characters[0].pressed_keys.indexOf("D")
+                if (index > -1){
+                    characters[0].pressed_keys.splice(index, 1)
+                }
+            }
+        }
+        if (event.code === 'KeyV'){
+            if (characters[0].pressed_keys.includes("run")){
+                let index = characters[0].pressed_keys.indexOf("run")
+                if (index > -1){
+                    characters[0].pressed_keys.splice(index, 1)
+                }
+            }
+        }
+        if (event.code === 'KeyB'){
+            if (characters[0].pressed_keys.includes("kick")){
+                let index = characters[0].pressed_keys.indexOf("kick")
+                if (index > -1){
+                    characters[0].pressed_keys.splice(index, 1)
+                }
+            }
+        }
+    }
+    // Character b key ups
+    if (characters[1]){
+        if (event.code === 'ArrowUp') {
+            if (characters[1].pressed_keys.includes("W")){
+                let index = characters[1].pressed_keys.indexOf("W")
+                if (index > -1){
+                    characters[1].pressed_keys.splice(index, 1)
+                }
+            }
+        }
+        if (event.code === 'ArrowLeft') {
+            if (characters[1].pressed_keys.includes("A")){
+                let index = characters[1].pressed_keys.indexOf("A")
+                if (index > -1){
+                    characters[1].pressed_keys.splice(index, 1)
+                }
+            }
+        }
+        if (event.code === 'ArrowDown') {
+            if (characters[1].pressed_keys.includes("S")){
+                let index = characters[1].pressed_keys.indexOf("S")
+                if (index > -1){
+                    characters[1].pressed_keys.splice(index, 1)
+                }
+            }
+        }
+        if (event.code === 'ArrowRight') {
+            if (characters[1].pressed_keys.includes("D")){
+                let index = characters[1].pressed_keys.indexOf("D")
+                if (index > -1){
+                    characters[1].pressed_keys.splice(index, 1)
+                }
+            }
+        }
+        if (event.code === 'Comma'){
+            if (characters[1].pressed_keys.includes("run")){
+                let index = characters[1].pressed_keys.indexOf("run")
+                if (index > -1){
+                    characters[1].pressed_keys.splice(index, 1)
+                }
+            }
+        }
+        if (event.code === 'Period'){
+            if (characters[1].pressed_keys.includes("kick")){
+                let index = characters[1].pressed_keys.indexOf("kick")
+                if (index > -1){
+                    characters[1].pressed_keys.splice(index, 1)
+                }
+            }
+        }
+    }
+    })
     
 })
 
@@ -353,3 +466,59 @@ function start_dino_game(){
     game_mode = true
 
 }
+
+function willCollide(element, futurePosition) {
+    // Get the bounding rectangle of the element at the future position
+    const futureRect = element.getBoundingClientRect();
+    futureRect.x = futurePosition.x;
+    futureRect.y = futurePosition.y;
+  
+    let collision_margin = 14
+
+    // Loop through each obstacle element
+    for (let i = 0; i < obstacles.length; i++) {
+      const obstacle = obstacles[i];  
+      // Get the bounding rectangle of the obstacle
+      const obstacleRect = obstacle.getBoundingClientRect();  
+
+      // Check if the element and obstacle are colliding at the future position
+      if (futureRect.bottom >= obstacleRect.top + collision_margin &&
+          futureRect.top <= obstacleRect.bottom - 36 &&
+          futureRect.right >= obstacleRect.left + collision_margin &&
+          futureRect.left <= obstacleRect.right - collision_margin) {
+        return [true, obstacle];
+      }
+    }
+  
+    // No collision detected
+    return [false, null];
+  }
+
+  function shakeElement(element, amount, duration) {
+    // Calculate the initial position of the element
+    var x = parseInt(window.getComputedStyle(element).getPropertyValue('left'));
+    var y = parseInt(window.getComputedStyle(element).getPropertyValue('top'));
+    
+    // Define the shake animation
+    var keyframes = [
+      { transform: 'translateX(0)' },
+      { transform: 'translateX(' + amount + 'px)' },
+      { transform: 'translateX(-' + amount + 'px)' },
+      { transform: 'translateX(0)' }
+    ];
+    var options = {
+      duration: duration,
+      iterations: Infinity,
+      easing: 'ease-in-out'
+    };
+    
+    // Apply the shake animation to the element
+    var animation = element.animate(keyframes, options);
+    
+    // Stop the animation and reset the element to its original position after the specified duration
+    setTimeout(function() {
+      animation.cancel();
+      element.style.left = x + 'px';
+      element.style.top = y + 'px';
+    }, duration);
+  }

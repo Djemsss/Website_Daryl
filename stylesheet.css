@@ -242,7 +242,7 @@ canvas{
 }
 
 #dinoControlsBox:hover {
-    height: 10vw;
+    height: 15vw;
     width: 18vw;
     left: 2vw;
 
@@ -333,9 +333,12 @@ canvas{
 }
 
 #helloModule {
-    width: 96%;
+    width: fit-content;
     font-size: 8vw;
     margin-top: -5vh;
+    border-width: 0px;
+    border-style: solid;
+    border-color: white;
 }
 
 #myInfo {
@@ -504,7 +507,7 @@ canvas{
         margin-bottom: 0vh;
     }
 
-    #myInfo, #projects, #helloModule {
+    #myInfo, #projects {
         width: 80vw;
     }
     #infoText {
@@ -516,13 +519,15 @@ canvas{
     #helloModule {
         font-size: 3vw;
         margin-top: 0vh;
+        margin-left: -36vw;
+        
     }
     #myInfo{
         min-height: 20vh;
         margin-top: 8vh;
         margin-bottom: 0vh;
     }
-    #myInfo, #projects, #helloModule {
+    #myInfo, #projects {
         width: 60vw;
     }
     #infoText {

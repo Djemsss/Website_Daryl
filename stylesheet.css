@@ -1,3 +1,11 @@
+:root {
+    --main-font-color: rgb(230, 230, 230);
+    --secondary-font-color: rgb(84, 104, 104);
+    --background-color: rgb(16, 39, 48);
+    --wave-color: rgba(0, 0, 0, 0.5);
+    /* #0d1f29 */
+}
+
 html {
     margin: 0;
     padding: 0;
@@ -23,7 +31,7 @@ body {
     /*cursor: none;*/
     fill: black;
     /* background-image: url("img/Jupiter_01.jpg"); */
-    background-color: #0d1f29;
+    background-color: var(--background-color);
     background-size: cover;
 
     background-repeat: no-repeat;
@@ -36,7 +44,6 @@ body {
     width: 100%;
     pointer-events: none;
 }
-
 
 #Header {
     z-index: 10;
@@ -60,7 +67,7 @@ body {
     position: relative;
     height: 14vw;
     width: 100%;
-    background-color: rgba(187, 141, 141, 1);;
+    background-color: rgb(255, 255, 255);;
     clip-path: polygon(
        0 0,
        100% 0,
@@ -69,9 +76,9 @@ body {
        0 0
     );
     pointer-events: none;
-  }
+}
   
-  .wave::before {
+.wave::before {
     pointer-events: none;
     content: "";
     position: absolute;
@@ -79,7 +86,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0) 80%);
+    background: linear-gradient(to bottom, var(--wave-color), rgba(0, 0, 0, 0) 80%);
     
     clip-path: polygon(
         0 0,
@@ -94,7 +101,7 @@ body {
        0 60%
     );
     
-  }
+}
 
 .drop-in-0 {
     animation: drop-in 1s ease 200ms backwards;
@@ -160,18 +167,17 @@ button:hover {
     border-color: red;
     border-style: solid;
     align-items: center;
-    color: #eee;
+    color: var(--main-font-color);
 }
 
-#canvas, #canvas2{
+canvas{
     pointer-events: none;
     position: absolute;
     border-style: dashed;
     border-color: violet;
     border-width: 0px;
-    z-index: 0;
+    z-index: 3;
     opacity: 0.1;
-
 }
 
 #orbit {
@@ -259,6 +265,7 @@ button:hover {
     border-style: solid;
     border-color: aliceblue;
     filter: drop-shadow(4px -2px 3px rgba(0, 0, 0, 0.5));
+    z-index: 5;
 }
 
 .key {
@@ -363,6 +370,11 @@ button:hover {
     
 }
 
+.section {
+    color: var(--secondary-font-color);
+    font-weight: 100;
+}
+
 .tagContainer {
     display: flex;
     width: 100%;
@@ -417,36 +429,6 @@ button:hover {
     transition: transform 0.3s ease-in-out;
 }
 
-
-.projectPreview {
-    font-weight: bolder;
-    color: aliceblue;
-    font-size: 24px;
-    display: flex;
-    background: linear-gradient(to top, rgba(0, 0, 0, 255), rgba(0, 0, 0, 0.5) 90%);
-    margin-right: 20px;
-    margin-left: 20px;
-    height: 180px;
-    width: 320px;
-    overflow: hidden;
-
-    border-radius: 14px;
-    border-style: solid;
-    border-width: 1px;
-    border-color:rgb(255, 255, 255);
-
-    transition: height 0.5s;
-
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column; 
-}
-
-.projectPreview:hover {
-    box-shadow: 0px 0px 20px 5px rgba(255, 255, 255, 0.4);
-    height: 280px;
-}
-
 .anchorButton {
     display: block;
     width: 115px;
@@ -475,12 +457,13 @@ button:hover {
     color: rgb(179, 179, 179);
     background-color: darkslategray;
     cursor: pointer;
-    padding: 10px;
+    padding: 1.2vh;
+    height: 4vh;
     width: 100%;
     border: none;
     text-align: left;
     outline: none;
-    font-size: 22px;
+    font-size: 3vh;
 }
 
 .infoCollapsible:hover {
@@ -491,10 +474,10 @@ button:hover {
 .infoContent {
     font-weight: bolder;
     color: rgb(179, 179, 179);
-    font-size: 10px;
+    font-size: 1.6vh;
     font-weight: 500;
     background-color: aquamarine;
-    padding: 4px;
+    padding: 0.8vh;
     max-height: 0;
     color: black;
     transition: max-height 0.2s ease-out;
@@ -504,9 +487,7 @@ button:hover {
     display: flex;
     height: 100%;
     width: 100%;
-
 }
-
 
 @media only screen and (min-width: 768px) {
     #orbit {

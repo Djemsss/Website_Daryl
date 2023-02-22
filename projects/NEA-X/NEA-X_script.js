@@ -154,8 +154,8 @@ function load_asteroid(){
       const context = document.getElementById("canvas").getContext("2d");
       context.clearRect(0, 0, canvas.width, canvas.height);
 
-      drawOrbit(document.getElementById("canvas"), perihelion , aphelion, eccentricity, inclination, asc_node, scale, "rgba(255, 0, 0, 255)")
-      drawOrbit(document.getElementById("canvas"), 0.983, 1.016, 0.0167, 7, 175, scale, "rgba(0, 0, 255, 255)")
+      drawOrbit(document.getElementById("canvas"), perihelion , aphelion, eccentricity, 0, asc_node, scale, "rgba(255, 0, 0, 255)")
+      drawOrbit(document.getElementById("canvas"), 0.983, 1.016, 0.0167, 0, 7, scale, "rgba(0, 0, 255, 255)")
 
       // Hide loading icon
       document.getElementById("loadAstButton").classList.remove("loading")
@@ -223,9 +223,9 @@ function drawOrbit(canvas, perigee, apogee, eccentricity, inclination, ascending
   const semiMajorAxis = (perigee * scale * global_scale + apogee * scale * global_scale) / 2;
   const semiMinorAxis = semiMajorAxis * Math.sqrt(1 - eccentricity ** 2);
   const centerOffset = semiMajorAxis * eccentricity;
-  const centerX = sunX + centerOffset * Math.cos(ascendingNode * Math.PI / 180);
-  const centerY = sunY + centerOffset * Math.sin(ascendingNode * Math.PI / 180) * Math.cos(inclination * Math.PI / 180);
-  
+  var centerX = sunX + centerOffset * Math.cos(ascendingNode * Math.PI / 180);
+  var centerY = sunY + centerOffset * Math.sin(ascendingNode * Math.PI / 180) * Math.cos(inclination * Math.PI / 180);
+
   let sunScale = scale * 10 / 80
   document.getElementById("sun").style.width = sunScale + "px"
   document.getElementById("sun").style.height = sunScale + "px"
@@ -238,6 +238,37 @@ function drawOrbit(canvas, perigee, apogee, eccentricity, inclination, ascending
   context.stroke();
 }
 
+function drawOrbitEdgeOn(canvas, perigee, apogee, eccentricity, inclination, ascendingNode, scale = 80, color) {
+  const context = canvas.getContext("2d");
+  const sun = document.getElementById("sun");
+  const sunX = (sun.offsetLeft + sun.offsetWidth / 2) + document.getElementById("graphicsBox").getBoundingClientRect().x;
+
+  const sunY = (sun.offsetTop + sun.offsetHeight / 2) + document.getElementById("neaxProject").getBoundingClientRect().y;
+  
+  const semiMajorAxis = (perigee * scale + apogee * scale) / 2;
+  const centerOffset = semiMajorAxis * eccentricity;
+  
+  // Compute the coordinates of the center of the orbit
+  const centerX = sunX + centerOffset * Math.cos((ascendingNode + 90) * Math.PI / 180);
+  const centerY = sunY + centerOffset * Math.sin((ascendingNode + 90) * Math.PI / 180) * Math.cos(inclination * Math.PI / 180);
+  
+  let sunScale = scale * 10 / 80;
+  document.getElementById("sun").style.width = sunScale + "px";
+  document.getElementById("sun").style.height = sunScale + "px";
+
+  context.beginPath();
+  context.lineWidth = 2 * global_scale;
+  
+  // Compute the endpoints of the major axis of the orbit
+  const endPoint1 = [centerX - semiMajorAxis * Math.sin((ascendingNode + 90) * Math.PI / 180), centerY - semiMajorAxis * Math.cos((ascendingNode + 90) * Math.PI / 180) * Math.cos(inclination * Math.PI / 180)];
+  const endPoint2 = [centerX + semiMajorAxis * Math.sin((ascendingNode + 90) * Math.PI / 180), centerY + semiMajorAxis * Math.cos((ascendingNode + 90) * Math.PI / 180) * Math.cos(inclination * Math.PI / 180)];
+  
+  // Draw the orbit as a line
+  context.strokeStyle = color;
+  context.moveTo(endPoint1[0], endPoint1[1]);
+  context.lineTo(endPoint2[0], endPoint2[1]);
+  context.stroke();
+}
 function remap(value, inMin, inMax, outMin, outMax) {
   return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
 }

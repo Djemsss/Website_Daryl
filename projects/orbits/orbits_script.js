@@ -79,6 +79,7 @@ class planet {
         this.canvas = document.getElementById("canvas").getContext("2d");
         
         this.sprite = create_svg_circle(this.color, size, true)
+        this.sprite.style.zIndex = "5"
         this.sprite.classList.add("planet");
         document.getElementById("orbitsWindow").appendChild(this.sprite);
         this.sprite.style.top = this.pos.y - document.getElementById("Header").clientHeight - (this.size / 2) + "px";
@@ -104,6 +105,7 @@ class satellite {
         this.canvas = document.getElementById("canvas").getContext("2d");
         
         this.sprite = create_svg_circle(this.color, size)
+        this.sprite.style.zIndex = "4"
         this.sprite.classList.add("satellite");
         document.getElementById("orbitsWindow").appendChild(this.sprite);
         this.sprite.style.top = this.pos.y - document.getElementById("Header").clientHeight - (this.size / 2) + "px";
@@ -237,8 +239,6 @@ document.getElementById("antiClockwiseButton").addEventListener("click", (ev) =>
     document.getElementById("antiClockwiseButton").style.backgroundColor = "rgba(150, 150, 150, 0.5)"
     
 });
-
-
 
 var drag_start = new THREE.Vector2(0, 0);
 let drag_end = new THREE.Vector2(0, 0);

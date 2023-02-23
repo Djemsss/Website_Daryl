@@ -196,6 +196,7 @@ canvas{
 
 #orbit:hover {
     animation: spin 5s linear infinite;
+    cursor: pointer;
 }
 
 @keyframes spin {

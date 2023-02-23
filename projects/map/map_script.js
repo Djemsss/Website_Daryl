@@ -25,7 +25,7 @@ var mouse_y = 0
 var country_base_color = "#428d90"
 var country_hover_color = "aquamarine"
 var country_select_color = "mediumspringgreen"
-var country_time_color = "rgb(0, 200, 50)"
+var country_time_color = "red"
 
 
 // Run when document is loaded

@@ -160,6 +160,8 @@ function load_asteroid(){
       // Hide loading icon
       document.getElementById("loadAstButton").classList.remove("loading")
       document.getElementById("loadAstButton").textContent = "New Asteroid"
+
+      clearRectAroundRect(document.getElementById("squareBox1").getBoundingClientRect(), context)
   });
 }
 
@@ -236,6 +238,7 @@ function drawOrbit(canvas, perigee, apogee, eccentricity, inclination, ascending
   context.ellipse(centerX, centerY, semiMajorAxis, semiMinorAxis, ascendingNode * Math.PI / 180, 0, 2 * Math.PI);
   context.strokeStyle = color;
   context.stroke();
+  
 }
 
 function drawOrbitEdgeOn(canvas, perigee, apogee, eccentricity, inclination, ascendingNode, scale = 80, color) {
@@ -271,4 +274,13 @@ function drawOrbitEdgeOn(canvas, perigee, apogee, eccentricity, inclination, asc
 }
 function remap(value, inMin, inMax, outMin, outMax) {
   return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+}
+
+function clearRectAroundRect(rect, context) {
+  let margin = -2
+
+  context.clearRect(0, 0, window.innerWidth, rect.y - margin);
+  context.clearRect(0, 0, rect.x - margin, window.innerHeight);
+  context.clearRect(0, rect.y + rect.height + margin, window.innerWidth, window.innerHeight - rect.y + rect.height + margin);
+  context.clearRect(rect.x + rect.width + margin, 0, window.innerWidth - rect.x + rect.width + margin, window.innerHeight);
 }

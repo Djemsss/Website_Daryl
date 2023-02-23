@@ -413,13 +413,17 @@ canvas{
 }
 
 #tagSelector {
-    min-width: 1.3vh;
+    min-width: 1.7vh;
     min-height: 4.6vh;
     border-radius: 4px;
     position: absolute;
     opacity: 0;
     transition: opacity 1s;
     background-color: white;
+    outline-style: solid;
+    outline-color: var(--background-color);; 
+    outline-offset: -0.2vw;
+    outline-width: 0.5vw 0;
 }
 
 .marker {
@@ -491,6 +495,34 @@ canvas{
     display: flex;
     height: 100%;
     width: 100%;
+}
+
+#projectBrowser {
+    display: flex; 
+    flex-direction: row; 
+    margin-top: 4vh; 
+    margin-right: 4vh; 
+    height: 5vh;
+}
+
+.browserButton {
+    all: unset;
+    display: flex;
+    font-size: 3vh;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 2vw;
+    pointer-events: all;
+    transition: all 0.3s;
+    border-radius: 5vh;
+}
+
+.browserButton:hover {
+    cursor: pointer;
+    font-size: 4vh;
+    /* background-color: rgba(255, 255, 255, 0.5); */
 }
 
 @media only screen and (min-width: 768px) {

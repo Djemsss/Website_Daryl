@@ -329,7 +329,7 @@ var intervalId = window.setInterval(function(){
     const tagSelector = document.getElementById("tagSelector")
     if (selectorTarget != null){
         let selectorPos = tagSelector.getBoundingClientRect()
-        tagSelector.style.left = selectorTarget.x - (14 * window.innerWidth / 1440) + "px"
+        tagSelector.style.left = selectorTarget.x - (16 * window.innerWidth / 1440) + "px"
 
         if (Math.abs(selectorPos.y - selectorTarget.y) < 5){
             tagSelector.style.top = selectorTarget.y - document.getElementById("mainContainer").getBoundingClientRect().y + "px"

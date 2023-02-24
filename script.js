@@ -139,8 +139,16 @@ window.addEventListener('load', (eevent) => {
     document.addEventListener("touchend", eventHandler, false)
     document.addEventListener("touchstart", eventHandler, false)
 
-    // let newRope = new Rope(500, 500, 100, [-Math.PI, Math.PI])
-    // ropes.push(newRope)
+    const canvas = document.getElementById("canvasRopes");
+    for (let index = 0; index < 20; index++) {
+      let x = window.innerWidth / 20 * index
+      const rope = new Rope(canvas, 2, 2, 10, 3, 9.81, 30, 0.1, 0.8, x, window.innerHeight - 200, 10);
+      ropes.push(rope)
+      rope.simulate();
+      
+    }
+    
+    
 
     setTimeout(function(){
         // Delay after page loads
@@ -195,6 +203,10 @@ var eventHandler = function (event) {
 
     }
     wave_to(mouseX, mouseY)
+    // ropes.forEach(rope => {
+    //   rope.targetX = mouseX;
+    //   rope.targetY = mouseY;
+    // })
 };
 
 function wave_to(mouseX, mouseY){
@@ -311,17 +323,15 @@ function displayText(element, text) {
   }
 
 function animate() {
-  let canvas = document.getElementById("canvasRopes")
-  let context = canvas.getContext("2d")
+  let context = document.getElementById("canvasRopes").getContext("2d")
   context.clearRect(0, 0, canvas.width, canvas.height);
   ropes.forEach(rope => {
-   rope.update(undefined, undefined, 0);
-   rope.draw(context, 10);
+   rope.simulate();
   });  
 }
   
 var intervalId = window.setInterval(function(){
-    animate();
+    animate()
     if (pageReady == false){
         return
     }
@@ -351,71 +361,130 @@ var intervalId = window.setInterval(function(){
 }, 10);
 
 class Rope {
-    constructor(x, y, length, angleRange) {
-      this.fixedPoint = { x: x, y: y };
-      this.targetPoint = { x: x + length, y: y };
-      this.length = length;
-      this.angleRange = angleRange;
-      this.speed = 5;
-      this.gravity = 9.81;
-      this.points = this.getPoints();
+  constructor(canvas, ropeLength, numPoints, pointMass, pointRadius, gravity, maxDist, stiffness, relaxation, startX, startY, targetMaxDist) {
+    // Initialize canvas
+    this.canvas = canvas;
+    this.ctx = canvas.getContext("2d");
+    
+    // Define rope parameters
+    this.ropeLength = ropeLength;
+    this.numPoints = numPoints;
+    this.pointMass = pointMass;
+    this.pointRadius = pointRadius;
+    this.gravity = gravity;
+    this.maxDist = maxDist;
+    this.stiffness = stiffness;
+    this.relaxation = relaxation;
+    this.fixedX = startX;
+    this.fixedY = startY;
+    this.targetMaxDist = targetMaxDist;
+
+    // Initialize rope points
+    this.points = [];
+    for (let i = 0; i < this.numPoints; i++) {
+      this.points.push({
+        x: i * (this.ropeLength / (this.numPoints - 1)),
+        y: 100,
+        prevX: i * (this.ropeLength / (this.numPoints - 1)),
+        prevY: 100,
+        mass: this.pointMass
+      });
     }
+    // Fix first point in place
+    this.points[0].x = startX;
+    this.points[0].y = startY;
+    this.points[0].prevX = startX;
+    this.points[0].prevY = startY;
+
+    this.targetX = null;
+    this.targetY = null;
+  }
   
-    getPoints() {
-      const points = [this.fixedPoint];
-  
-      const dx = this.targetPoint.x - this.fixedPoint.x;
-      const dy = this.targetPoint.y - this.fixedPoint.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-  
-      let prevPoint = this.fixedPoint;
-      for (let i = 1; i < distance; i++) {
-        const angle = Math.atan2(dy, dx) + (Math.random() * (this.angleRange[1] - this.angleRange[0]) + this.angleRange[0]);
-        const x = this.fixedPoint.x + Math.cos(angle) * i;
-        const y = this.fixedPoint.y + Math.sin(angle) * i;
-        const point = { x: x, y: y };
-        points.push(point);
-        prevPoint = point;
+  // Verlet integration function
+  verletIntegrate(dt) {
+    // Update fixed point
+    this.points[0].x = this.fixedX;
+    this.points[0].y = this.fixedY;
+    
+    // Update remaining points
+    for (let i = 1; i < this.points.length; i++) {
+      const point = this.points[i];
+
+      const tempX = point.x;
+      const tempY = point.y;
+
+      point.x += point.x - point.prevX;
+      point.y += point.y - point.prevY;
+      point.y += point.mass * this.gravity * dt ** 2;
+      
+      // Move point towards target position (if specified)
+      if (this.targetX !== null && this.targetY !== null && i === this.points.length - 1) {
+        const dx = this.targetX - point.x;
+        const dy = this.targetY - point.y;
+        const dist = Math.sqrt(dx ** 2 + dy ** 2);
+        const maxMove = Math.min(dist / 10, this.targetMaxDist);
+        if (maxMove > 1) {
+          point.x += dx / dist * maxMove;
+          point.y += dy / dist * maxMove;
+        } else {
+          // this.targetX = null;
+          // this.targetY = null;
+        }
       }
-      points.push(this.targetPoint);
-      return points;
-    }
-  
-    update(targetX, targetY, delta) {
-      if (targetX !== undefined && targetY !== undefined) {
-        const dx = targetX - this.targetPoint.x;
-        const dy = targetY - this.targetPoint.y;
-  
-        this.targetPoint.x += dx * this.speed * delta;
-        this.targetPoint.y += dy * this.speed * delta;
-      } else {
-        this.targetPoint.y += this.gravity * delta;
-      }
-  
-      const dx = this.targetPoint.x - this.fixedPoint.x;
-      const dy = this.targetPoint.y - this.fixedPoint.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-  
-      if (distance > this.length) {
-        const ratio = this.length / distance;
-        this.targetPoint.x = this.fixedPoint.x + dx * ratio;
-        this.targetPoint.y = this.fixedPoint.y + dy * ratio;
-      }
-  
-      this.points = this.getPoints();
-    }
-  
-    draw(context, lineWidth) {
-      context.beginPath();
-      context.moveTo(this.points[0].x, this.points[0].y);
-      for (let i = 1; i < this.points.length; i++) {
-        context.lineTo(this.points[i].x, this.points[i].y);
-      }
-      context.lineWidth = lineWidth;
-      context.strokeStyle = "black";
-      context.stroke();
+
+      point.prevX = tempX;
+      point.prevY = tempY;
+    
+       // Apply constraint
+       const dx = point.x - this.points[i - 1].x;
+       const dy = point.y - this.points[i - 1].y;
+       const dist = Math.sqrt(dx ** 2 + dy ** 2);
+       if (dist > this.maxDist) {
+         const offset = (dist - this.maxDist) / dist;
+         const ddx = dx * offset * this.stiffness;
+         const ddy = dy * offset * this.stiffness;
+         point.x -= ddx * this.relaxation;
+         point.y -= ddy * this.relaxation;
+         this.points[i - 1].x += ddx * this.relaxation;
+         this.points[i - 1].y += ddy * this.relaxation;
+       }
     }
   }
+
+  // Simulate rope function
+  simulate() {
+    // Clear canvas
+
+    // Simulate rope
+    const dt = 0.01;
+    for (let i = 0; i < 10; i++) {
+      this.verletIntegrate(dt);
+    }
+
+    // Draw rope
+    this.ctx.beginPath();
+    this.ctx.moveTo(this.points[0].x, this.points[0].y);
+    for (let i = 1; i < this.points.length; i++) {
+      this.ctx.lineTo(this.points[i].x, this.points[i].y);
+    }
+    this.ctx.lineWidth = this.pointRadius * 2;
+    this.ctx.strokeStyle = "#000";
+    this.ctx.stroke();
+
+    // Draw rope points
+    // for (let i = 0; i < this.points.length; i++) {
+    //   this.ctx.beginPath();
+    //   this.ctx.arc(this.points[i].x, this.points[i].y, this.pointRadius, 0, Math.PI * 2);
+    //   this.ctx.fillStyle = "#fff";
+    //   this.ctx.fill();
+    //   this.ctx.strokeStyle = "#000";
+    //   this.ctx.stroke();
+    // }
+
+    // Request next frame
+    // requestAnimationFrame(() => this.simulate());
+  }
+}
 
 function lerp(start, end, t) {
     return (1 - t) * start + t * end;

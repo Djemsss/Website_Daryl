@@ -1,0 +1,38 @@
+* {
+  -webkit-user-drag: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+#matrix {
+  display: grid;
+  gap: 0vh;
+  /* border: 1px solid black; */
+  padding: 0.6vh;
+  width: 100%;
+  height: 100%;
+}
+
+.grid-item {
+  background-color: rgba(136, 136, 136, 0);
+  color: white;
+  text-align: center;
+  padding: 1vh;
+  pointer-events: all;
+  aspect-ratio: 1 / 1;
+}
+
+.networkNameTag {
+  position: absolute;
+  max-width: 200px;
+  min-width: 200px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.networkColorTag {
+  position: absolute;
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  border: 2px solid black;
+}

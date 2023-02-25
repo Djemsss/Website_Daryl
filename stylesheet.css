@@ -1,572 +1,571 @@
 :root {
-    --main-font-color: rgb(230, 230, 230);
-    --secondary-font-color: rgb(84, 104, 104);
-    --background-color: rgb(16, 39, 48);
-    --wave-color: rgba(0, 0, 0, 0.5);
-    /* #0d1f29 */
+  --main-font-color: rgb(230, 230, 230);
+  --secondary-font-color: rgb(84, 104, 104);
+  --background-color: rgb(16, 39, 48);
+  --wave-color: rgba(0, 0, 0, 0.5);
+  /* #0d1f29 */
 }
 
 html {
-    margin: 0;
-    padding: 0;
-    background-color: rgb(0, 0, 0);
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    font-family:'Roboto Slab', serif, sans-serif;
-    font-weight: bolder;
-    color: aliceblue;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(0, 0, 0);
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: "Roboto Slab", serif, sans-serif;
+  font-weight: bolder;
+  color: aliceblue;
 }
 
 body {
-    position: relative;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
+  position: relative;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }
 
 #Wrapper {
-    /*cursor: none;*/
-    fill: black;
-    /* background-image: url("img/Jupiter_01.jpg"); */
-    background-color: var(--background-color);
-    background-size: cover;
+  /*cursor: none;*/
+  fill: black;
+  /* background-image: url("img/Jupiter_01.jpg"); */
+  background-color: var(--background-color);
+  background-size: cover;
 
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-position: center center;
-    border-style: dashed;
-    border-width: 0px;
-    border-color: tomato;
-    height: auto;
-    width: 100%;
-    pointer-events: none;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  border-style: dashed;
+  border-width: 0px;
+  border-color: tomato;
+  height: auto;
+  width: 100%;
+  pointer-events: none;
 }
 
 #Header {
-    z-index: 10;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0) 100%);
-    position: fixed;
-    width: 100%;
-    height: 20vh;
-    display: flex;
-    border-color: rgb(146, 60, 60);
-    border-width: 0px;
-    border-style: solid;
-    justify-content: space-between;
-    pointer-events: none;
+  z-index: 10;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0) 100%
+  );
+  position: fixed;
+  width: 100%;
+  height: 20vh;
+  display: flex;
+  border-color: rgb(146, 60, 60);
+  border-width: 0px;
+  border-style: solid;
+  justify-content: space-between;
+  pointer-events: none;
 
-    flex: 1;
-    flex-flow: row;
-    margin-right: 0px;
+  flex: 1;
+  flex-flow: row;
+  margin-right: 0px;
 }
 
 .wave {
-    position: relative;
-    height: 14vw;
-    width: 100%;
-    background-color: rgb(255, 255, 255);;
-    clip-path: polygon(
-       0 0,
-       100% 0,
-       100% 100%,
-       0 100%,
-       0 0
-    );
-    pointer-events: none;
+  position: relative;
+  height: 14vw;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+  pointer-events: none;
 }
-  
+
 .wave::before {
-    pointer-events: none;
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, var(--wave-color), rgba(0, 0, 0, 0) 80%);
-    
-    clip-path: polygon(
-        0 0,
-       100% 0,
-       100% 60%,
+  pointer-events: none;
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    var(--wave-color),
+    rgba(0, 0, 0, 0) 80%
+  );
 
-        30% 60%,
-        50% 60%,
-        70% 60%,
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 60%,
 
-       
-       0 60%
-    );
-    
+    30% 60%,
+    50% 60%,
+    70% 60%,
+
+    0 60%
+  );
 }
 
 .drop-in-0 {
-    animation: drop-in 1s ease 200ms backwards;
+  animation: drop-in 1s ease 200ms backwards;
 }
 
 .drop-in-1 {
-    animation: drop-in 1200ms ease 500ms backwards;
+  animation: drop-in 1200ms ease 500ms backwards;
 }
-   
+
 .drop-in-2 {
-    animation: fade-in 1600ms ease 100ms backwards;
+  animation: fade-in 1600ms ease 100ms backwards;
 }
 
 .drop-in-3 {
-    animation: drop-in 2100ms ease 1200ms backwards;
+  animation: drop-in 2100ms ease 1200ms backwards;
 }
-   
+
 @keyframes drop-in {
-    from {
-     opacity: 0;
-     transform: translateY(-120px);
-    }
-    to {
-     opacity: 1;
-     transform: translate(0px);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(-120px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(0px);
+  }
 }
 
 @keyframes fade-in {
-    from {
-        opacity: 0;
-       }
-       to {
-        opacity: 1;
-       }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 button {
-    all: unset;
-    width: 80px;
-    height: 24px;
-    text-align: center;
-    border-radius: 4px;
-    border-style: solid;
-    border-width: 1px;
-    border-color:rgb(255, 255, 255);
-    transition: background-color 0.3s;
+  all: unset;
+  width: 80px;
+  height: 24px;
+  text-align: center;
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(255, 255, 255);
+  transition: background-color 0.3s;
 }
 
 button:hover {
-    cursor: pointer;
-    background-color: #24323a;
+  cursor: pointer;
+  background-color: #24323a;
 }
 
 .mainContainer {
-    position: absolute;
-    width: 100%;
-    height: 80vh;
-    display: flex;
-    flex-direction: column;
-    top: 20vh;
-    border: 0px;
-    border-color: red;
-    border-style: solid;
-    align-items: center;
-    color: var(--main-font-color);
+  position: absolute;
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  top: 20vh;
+  border: 0px;
+  border-color: red;
+  border-style: solid;
+  align-items: center;
+  color: var(--main-font-color);
 }
 
-canvas{
-    pointer-events: none;
-    position: absolute;
-    border-style: dashed;
-    border-color: violet;
-    border-width: 0px;
-    z-index: 3;
-    opacity: 0.1;
+canvas {
+  pointer-events: none;
+  position: absolute;
+  border-style: dashed;
+  border-color: violet;
+  border-width: 0px;
+  z-index: 3;
+  opacity: 0.1;
 }
 
 #orbit {
-    position: absolute;
-    pointer-events: all;
-    margin-left: 3vw;
-    margin-top: 3vw;
-    margin-right: -20px;
-    height: 8.8vh;
-    border-width: 0px;
-    border-style: solid;
-    border-color: aliceblue;
-    /*position: absolute;*/
-    animation: spin 5s linear infinite;
+  position: absolute;
+  pointer-events: all;
+  margin-left: 3vw;
+  margin-top: 3vw;
+  margin-right: -20px;
+  height: 8.8vh;
+  border-width: 0px;
+  border-style: solid;
+  border-color: aliceblue;
+  /*position: absolute;*/
+  animation: spin 5s linear infinite;
 }
 
 #orbit:hover {
-    animation: spin 5s linear infinite;
-    cursor: pointer;
+  animation: spin 5s linear infinite;
+  cursor: pointer;
 }
 
 @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-
 #dinoButton {
-    pointer-events: all;
-    image-rendering: pixelated;
-    height: 4vw;
-    position: absolute;
-    top: 6vw;
-    left: 0px;
-    opacity: 0.1;
-    transition: opacity 0.5s;
-    display: none;
+  pointer-events: all;
+  image-rendering: pixelated;
+  height: 4vw;
+  position: absolute;
+  top: 6vw;
+  left: 0px;
+  opacity: 0.1;
+  transition: opacity 0.5s;
+  display: none;
 }
 
 #dinoControlsBox {
-    pointer-events: all;
-    opacity: 1;
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    left: 6vw;
-    top: 6vw;
-    height: 2vw;
-    width: 6vw;
-    font-size: 1.2vw;
-    align-items: center;
-    border-radius: 4px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: aliceblue;
-    transition: all 0.5s;
-    overflow: hidden;
-    display: none;
+  pointer-events: all;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 6vw;
+  top: 6vw;
+  height: 2vw;
+  width: 6vw;
+  font-size: 1.2vw;
+  align-items: center;
+  border-radius: 4px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: aliceblue;
+  transition: all 0.5s;
+  overflow: hidden;
+  display: none;
 }
 
 #dinoControlsBox:hover {
-    height: 15vw;
-    width: 18vw;
-    left: 2vw;
-
+  height: 15vw;
+  width: 18vw;
+  left: 2vw;
 }
 
 .dinoControls {
-    align-items: center;
-    margin-top: 1vw;
-    margin-left: 1vw;
-    margin-right: 1vw;
+  align-items: center;
+  margin-top: 1vw;
+  margin-left: 1vw;
+  margin-right: 1vw;
 }
 
-#character_a, #character_b {
-    display: none;
-    image-rendering: pixelated;
-    position: absolute;
-    scale: 2;
-    border-radius: 4px;
-    border-width: 0px;
-    border-style: solid;
-    border-color: aliceblue;
-    filter: drop-shadow(4px -2px 3px rgba(0, 0, 0, 0.5));
-    z-index: 5;
+#character_a,
+#character_b {
+  display: none;
+  image-rendering: pixelated;
+  position: absolute;
+  scale: 2;
+  border-radius: 4px;
+  border-width: 0px;
+  border-style: solid;
+  border-color: aliceblue;
+  filter: drop-shadow(4px -2px 3px rgba(0, 0, 0, 0.5));
+  z-index: 5;
 }
 
 .key {
-    border-radius: 4px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: aliceblue;
-    min-height: 2vw;
-    min-width: 2vw;
-    max-height: 2vw;
-    max-width: 2vw;
-    margin: 0.2vw;
+  border-radius: 4px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: aliceblue;
+  min-height: 2vw;
+  min-width: 2vw;
+  max-height: 2vw;
+  max-width: 2vw;
+  margin: 0.2vw;
 }
 
 #dinoButton:hover {
-    opacity: 0.3;
-    cursor: pointer;
+  opacity: 0.3;
+  cursor: pointer;
 }
 
 #dinoOptions {
-    pointer-events: all;
-    width: 100%;
-    height: 100%;
-    display: none;
-    border-width: 0px;
-    border-style: solid;
-    border-color: aliceblue;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  pointer-events: all;
+  width: 100%;
+  height: 100%;
+  display: none;
+  border-width: 0px;
+  border-style: solid;
+  border-color: aliceblue;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .formLine {
-    display: block;
-    text-align: center;
-    height: 1.6vw;
-    font-size: 1vw;
+  display: block;
+  text-align: center;
+  height: 1.6vw;
+  font-size: 1vw;
 }
 
 #submitButton {
-    all: unset;
-    margin-top: 1vw;
-    width: 5vw;
-    height: 2vw;
-    text-align: center;
-    border-radius: 4px;
-    border-style: solid;
-    border-width: 1px;
-    border-color:rgb(255, 255, 255);
-    transition: background-color 0.3s;
-    font-size: 1.2vw;
+  all: unset;
+  margin-top: 1vw;
+  width: 5vw;
+  height: 2vw;
+  text-align: center;
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(255, 255, 255);
+  transition: background-color 0.3s;
+  font-size: 1.2vw;
 }
 
 #submitButton:hover {
-    cursor: pointer;
-    background-color: #24323a;
+  cursor: pointer;
+  background-color: #24323a;
 }
 
 .nameTag {
-    width: 200px;
-    text-align: center; 
-    display: none;
-    position: absolute;
-    font-size: 1.2vw;
+  width: 200px;
+  text-align: center;
+  display: none;
+  position: absolute;
+  font-size: 1.2vw;
 }
 
 #helloModule {
-    width: fit-content;
-    font-size: 8vw;
-    margin-top: -5vh;
-    border-width: 0px;
-    border-style: solid;
-    border-color: white;
+  width: fit-content;
+  font-size: 8vw;
+  margin-top: -5vh;
+  border-width: 0px;
+  border-style: solid;
+  border-color: white;
 }
 
 #myInfo {
-    display: flex;
-    min-height: 34vh;
-    height: fit-content;
-    border: 0px;
-    border-style: solid;
-    border-color: rgb(126, 26, 26);
-    align-items: flex-start;
-    margin-top: 10vh;
-    margin-bottom: 0vh;
-    margin-left: 2vh;
-    font-size: 2vh;
-    width: 100%;
+  display: flex;
+  min-height: 34vh;
+  height: fit-content;
+  border: 0px;
+  border-style: solid;
+  border-color: rgb(126, 26, 26);
+  align-items: flex-start;
+  margin-top: 10vh;
+  margin-bottom: 0vh;
+  margin-left: 2vh;
+  font-size: 2vh;
+  width: 100%;
 }
 
 #iLike {
-    transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.5s ease-in-out;
 }
 
 #projects {
-    font-size: 2vh;
-    min-height: 30vh;
-    display: flex;
-    border: 0px;
-    border-style: solid;
-    border-color: rgb(26, 79, 126);
-    align-items: flex-start;
-    margin-left: 2vh;
-    width: 100%;
-    
+  font-size: 2vh;
+  min-height: 30vh;
+  display: flex;
+  border: 0px;
+  border-style: solid;
+  border-color: rgb(26, 79, 126);
+  align-items: flex-start;
+  margin-left: 2vh;
+  width: 100%;
 }
 
 .section {
-    color: var(--secondary-font-color);
-    font-weight: 100;
+  color: var(--secondary-font-color);
+  font-weight: 100;
 }
 
 .tagContainer {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .projectTag {
-    pointer-events: none;
-    color: inherit;
-    text-decoration: none;
-    display: flex;
-    flex-direction: row;
-    white-space: nowrap;
-    width: 7vw;
-    height: 2.3vw;
-    min-height: 20px;
-    min-width: 80px;
-    margin-bottom: 0.5vw;
-    border-radius: 4px;
-    border-style: solid;
-    border-width: 1px;
-    border-color:rgb(255, 255, 255);
-    text-align: center;
-    transition: width 0.5s, opacity 2s;
-    overflow: hidden;
-    opacity: 0;
+  pointer-events: none;
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  white-space: nowrap;
+  width: 7vw;
+  height: 2.3vw;
+  min-height: 20px;
+  min-width: 80px;
+  margin-bottom: 0.5vw;
+  border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgb(255, 255, 255);
+  text-align: center;
+  transition: width 0.5s, opacity 2s;
+  overflow: hidden;
+  opacity: 0;
 }
 
 .projectTag:hover {
-    background-color: #24323a;
+  background-color: #24323a;
 }
 
 #tagSelector {
-    min-width: 1.7vh;
-    min-height: 4.6vh;
-    border-radius: 4px;
-    position: absolute;
-    opacity: 0;
-    transition: opacity 1s;
-    background-color: white;
-    outline-style: solid;
-    outline-color: var(--background-color);; 
-    outline-offset: -0.2vw;
-    outline-width: 0.5vw 0;
+  min-width: 1.7vh;
+  min-height: 4.6vh;
+  border-radius: 4px;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 1s;
+  background-color: white;
+  outline-style: solid;
+  outline-color: var(--background-color);
+  outline-offset: -0.2vw;
+  outline-width: 0.5vw 0;
 }
 
 .marker {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100px;
-    height: 5px;
-    background-color: red;
-    border-radius: 5px;
-    transition: transform 0.3s ease-in-out;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 5px;
+  background-color: red;
+  border-radius: 5px;
+  transition: transform 0.3s ease-in-out;
 }
 
 .anchorButton {
-    display: block;
-    width: 115px;
-    height: 25px;
-    background: #073541;
-    padding: 10px;
-    text-align: center;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    line-height: 25px;
+  display: block;
+  width: 115px;
+  height: 25px;
+  background: #073541;
+  padding: 10px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  line-height: 25px;
 }
 
 .anchorButton:hover {
-    background: #0f758f;
+  background: #0f758f;
 }
 
 .footer {
-    width: 100%;
-    position: absolute;
-    bottom: 0px;
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
 }
 
 .infoCollapsible {
-    font-weight: bolder;
-    color: rgb(179, 179, 179);
-    background-color: darkslategray;
-    cursor: pointer;
-    padding: 1.2vh;
-    height: 4vh;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 3vh;
+  font-weight: bolder;
+  color: rgb(179, 179, 179);
+  background-color: darkslategray;
+  cursor: pointer;
+  padding: 1.2vh;
+  height: 4vh;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 3vh;
 }
 
 .infoCollapsible:hover {
-    background-color: #eee;
-    color: rgb(97, 97, 97);
+  background-color: #eee;
+  color: rgb(97, 97, 97);
 }
 
 .infoContent {
-    font-weight: bolder;
-    color: rgb(179, 179, 179);
-    font-size: 1.6vh;
-    font-weight: 500;
-    background-color: aquamarine;
-    padding: 0.8vh;
-    max-height: 0;
-    color: black;
-    transition: max-height 0.2s ease-out;
+  font-weight: bolder;
+  color: rgb(179, 179, 179);
+  font-size: 1.6vh;
+  font-weight: 500;
+  background-color: aquamarine;
+  padding: 0.8vh;
+  max-height: 0;
+  color: black;
+  transition: max-height 0.2s ease-out;
 }
 
 #project {
-    display: flex;
-    height: 100%;
-    width: 100%;
+  display: flex;
+  height: 100%;
+  width: 100%;
 }
 
 #projectBrowser {
-    display: flex; 
-    flex-direction: row; 
-    margin-top: 4vh; 
-    margin-right: 4vh; 
-    height: 5vh;
+  display: flex;
+  flex-direction: row;
+  margin-top: 4vh;
+  margin-right: 4vh;
+  height: 5vh;
 }
 
 .browserButton {
-    all: unset;
-    display: flex;
-    font-size: 3vh;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 2vw;
-    pointer-events: all;
-    transition: all 0.3s;
-    border-radius: 5vh;
+  all: unset;
+  display: flex;
+  font-size: 3vh;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 2vw;
+  pointer-events: all;
+  transition: all 0.3s;
+  border-radius: 5vh;
 }
 
 .browserButton:hover {
-    cursor: pointer;
-    font-size: 4vh;
-    /* background-color: rgba(255, 255, 255, 0.5); */
+  cursor: pointer;
+  font-size: 4vh;
+  /* background-color: rgba(255, 255, 255, 0.5); */
 }
 
 @media only screen and (min-width: 768px) {
-    #orbit {
-        margin-top: 2vh;
-        margin-left: 2vh;
-    }
-    #helloModule {
-        font-size: 4vw;
-        margin-top: 0vh;
-    }
-    #myInfo{
-        min-height: 20vh;
-        margin-top: 8vh;
-        margin-bottom: 0vh;
-    }
+  #orbit {
+    margin-top: 2vh;
+    margin-left: 2vh;
+  }
+  #helloModule {
+    font-size: 4vw;
+    margin-top: 0vh;
+  }
+  #myInfo {
+    min-height: 20vh;
+    margin-top: 8vh;
+    margin-bottom: 0vh;
+  }
 
-    #myInfo, #projects {
-        width: 80vw;
-    }
-    #infoText {
-        max-width: 60vw;
-    }
+  #myInfo,
+  #projects {
+    width: 80vw;
+  }
+  #infoText {
+    max-width: 60vw;
+  }
 }
 
 @media only screen and (min-width: 940px) {
-    #helloModule {
-        font-size: 3vw;
-        margin-top: 0vh;
-        margin-left: -36vw;
-        
-    }
-    #myInfo{
-        min-height: 20vh;
-        margin-top: 8vh;
-        margin-bottom: 0vh;
-    }
-    #myInfo, #projects {
-        width: 60vw;
-    }
-    #infoText {
-        max-width: 60vw;
-    }
-    #dinoButton {
-        display: block;
-    }
+  #helloModule {
+    font-size: 3vw;
+    margin-top: 0vh;
+    margin-left: -36vw;
+  }
+  #myInfo {
+    min-height: 20vh;
+    margin-top: 8vh;
+    margin-bottom: 0vh;
+  }
+  #myInfo,
+  #projects {
+    width: 60vw;
+  }
+  #infoText {
+    max-width: 60vw;
+  }
+  #dinoButton {
+    display: block;
+  }
 }

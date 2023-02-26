@@ -20,7 +20,19 @@
       <canvas id="canvas2" ></canvas>
       <div id="Header" class="flex-container">
         <a href="../../index.html">
-          <img id="orbit" src="../../img/dotOrbit.png" alt="logo">
+          <div id="orbit">
+            <svg width="60" height="60">
+              <circle cx="30" cy="30" r="30" fill="rgba(255, 255, 255, 1)" />
+            </svg>
+            <svg id="orbitPlanet"
+              style="position: absolute;"
+              y="-2vh"
+              width="60"
+              height="160"
+            >
+              <circle cx="30" cy="30" r="7" fill="white" />
+            </svg>
+          </div>
         </a>
         <div id="projectBrowser">
           <a href="../map/map.html" class="browserButton"><div>&#60;</div></a>

@@ -37,7 +37,7 @@ function create_networkNameTag(text) {
   newTag.textContent = text;
   newTag.classList.add("networkNameTag");
   newTag.style.pointerEvents = "none";
-  document.body.appendChild(newTag);
+  document.getElementById("matrix").appendChild(newTag);
   return newTag;
 }
 
@@ -46,7 +46,7 @@ function create_networkColorTag(color) {
   newTag.style.backgroundColor = color;
   newTag.classList.add("networkColorTag");
   newTag.style.pointerEvents = "none";
-  document.body.appendChild(newTag);
+  document.getElementById("matrix").appendChild(newTag);
   return newTag;
 }
 
@@ -86,15 +86,23 @@ onValue(ref(database, "/users"), (values) => {
       users[user_id].color = dbArray[index].color;
 
       // Update nameTag position
-      users[user_id].nameTag.style.left = users[user_id].mouseX - 100 + "px";
-      users[user_id].nameTag.style.top = users[user_id].mouseY - 50 + "px";
+      users[user_id].nameTag.style.left = `calc(${
+        users[user_id].mouseX
+      }% - ${100}px)`;
+      users[user_id].nameTag.style.top = `calc(${
+        users[user_id].mouseY
+      }% - ${30}px)`;
 
       // Update nameTag text
       users[user_id].nameTag.textContent = users[user_id].name;
 
       // Update colorTag position
-      users[user_id].colorTag.style.left = users[user_id].mouseX - 10 + "px";
-      users[user_id].colorTag.style.top = users[user_id].mouseY - 10 + "px";
+      users[user_id].colorTag.style.left = `calc(${
+        users[user_id].mouseX
+      }% - ${10}px)`;
+      users[user_id].colorTag.style.top = `calc(${
+        users[user_id].mouseY
+      }% - ${10}px)`;
 
       // Update colorTag color
       users[user_id].colorTag.style.backgroundColor = users[user_id].color;
@@ -166,7 +174,9 @@ window.addEventListener("load", (eevent) => {
     .getElementById("matrix")
     .addEventListener("mousedown", eventHandler, false);
   document.addEventListener("mouseup", eventHandler, false);
-  document.addEventListener("mousemove", eventHandler, false);
+  document
+    .getElementById("matrix")
+    .addEventListener("mousemove", eventHandler, false);
   // Startup Grid
 
   // create a 4x4 grid
@@ -236,8 +246,12 @@ function eventHandler(event) {
       clicking = false;
       break;
     case "mousemove":
-      mouseX = event.clientX;
-      mouseY = event.clientY;
+      // mouseX = event.clientX;
+      // mouseY = event.clientY;
+      const rect = document.getElementById("matrix").getBoundingClientRect();
+      const mouseX = ((event.clientX - rect.left) / rect.width) * 100;
+      const mouseY = ((event.clientY - rect.top) / rect.height) * 100;
+
       set(ref(database, "users/" + networkID), {
         mouseX: mouseX,
         mouseY: mouseY,

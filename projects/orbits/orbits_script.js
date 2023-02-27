@@ -104,7 +104,7 @@ class planet {
     document.getElementById("orbitsWindow").appendChild(this.sprite);
     this.sprite.style.top =
       this.pos.y -
-      document.getElementById("Header").clientHeight -
+      document.getElementById("Header").getBoundingClientRect().height * 2 -
       this.size / 2 +
       "px";
     this.sprite.style.left = this.pos.x - this.size / 2 + "px";
@@ -134,7 +134,7 @@ class satellite {
     document.getElementById("orbitsWindow").appendChild(this.sprite);
     this.sprite.style.top =
       this.pos.y -
-      document.getElementById("Header").clientHeight -
+      document.getElementById("Header").getBoundingClientRect().height * 2 -
       this.size / 2 +
       "px";
     this.sprite.style.left = this.pos.x - this.size / 2 + "px";
@@ -184,7 +184,7 @@ class satellite {
     this.pos.add(this.vel);
     this.sprite.style.top =
       this.pos.y -
-      document.getElementById("Header").clientHeight -
+      document.getElementById("Header").getBoundingClientRect().height * 2 -
       this.size / 2 +
       "px";
     this.sprite.style.left = this.pos.x - this.size / 2 + "px";

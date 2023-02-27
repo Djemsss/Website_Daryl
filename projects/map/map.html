@@ -15,10 +15,10 @@
     <script type="module" src="map_script.js"></script>
   </head>
   <body id="body"></body>
-    <div id="WrapperMap" class="flex-container" style="overflow: hidden; height: 100%; width: 100%; background-color: black;">
+    <div id="WrapperMap" class="flex-container" style="overflow: hidden; height: 100%; width: 100%;">
       <canvas id="canvas" ></canvas>
       <canvas id="canvas2" ></canvas>
-      <div id="Header" class="flex-container">
+      <div id="Header" class="flex-container wave">
         <a href="../../index.html">
           <div id="orbit">
             <svg width="60" height="60">
@@ -36,11 +36,7 @@
         </a>
         
 
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; color: rgb(84, 104, 104); font-weight: 50; font-size: 22px; width: 100%; height: 100%;">
-          <div id="cityName" style="min-width: 300px; text-align: center;">Buenos Aires</div>
-          <div id="cityCountry" style="min-width: 300px; text-align: center; font-size: 18px;">Argentina</div>
-          <div id="cityTime" style="min-width: 300px; text-align: center; font-size: 18px; border-bottom: 0.1vh solid red;">02:35:02</div>
-        </div>
+        
 
         <div id="projectBrowser">
           <a href="../orbits/orbits.html" class="browserButton"><div>&#60;</div></a>
@@ -49,21 +45,26 @@
         </div>
       </div>
         <div class="mainContainer" class="flex-container">
-            <div id="project" class="flex-container" >
-                <div id="countryData" style="position: absolute; pointer-events: none;">
-                    <div id="countryName"></div>
-                    <!-- <img src="https://countryflagsapi.com/png/argentina" alt=""> -->
-                    <div id="countryFlag"></div>
-                    <div id="countryArea" class="listInfo"></div>
-                    <div id="countryCapital" class="listInfo"></div>
-                    <div id="countryCurrency" class="listInfo"></div>
-                    <div id="countryLanguage" class="listInfo"></div>
-                    <div id="countryPopulation" class="listInfo"></div>
-                </div>
-                <div id="countryNameHover" style="position: absolute; color: coral; z-index: 5; pointer-events: none; width: 400px; text-align: center;"></div>
-                <div id="mapProject">
-                    <embed id="fullMap" src="../../img/worldHigh.svg" type="image/svg+xml">
-                </div>
+          <div style="position: absolute; display: flex; flex-direction: column; align-items: center; justify-content: center; color: rgb(84, 104, 104); font-weight: 50; font-size: 22px; width: 20vw; height: 20vh; color: white; margin-top: -18vh; z-index: 5;">
+            <div id="cityName" style="min-width: 300px; text-align: center;">Buenos Aires</div>
+            <div id="cityCountry" style="min-width: 300px; text-align: center; font-size: 18px;">Argentina</div>
+            <div id="cityTime" style="min-width: 300px; text-align: center; font-size: 18px; border-bottom: 0.1vh solid red;">02:35:02</div>
+          </div>
+          <div id="project" class="flex-container" >
+              <div id="countryData" style="position: absolute; pointer-events: none;">
+                  <div id="countryName"></div>
+                  <!-- <img src="https://countryflagsapi.com/png/argentina" alt=""> -->
+                  <div id="countryFlag"></div>
+                  <div id="countryArea" class="listInfo"></div>
+                  <div id="countryCapital" class="listInfo"></div>
+                  <div id="countryCurrency" class="listInfo"></div>
+                  <div id="countryLanguage" class="listInfo"></div>
+                  <div id="countryPopulation" class="listInfo"></div>
+              </div>
+              <div id="countryNameHover" style="position: absolute; color: coral; z-index: 5; pointer-events: none; width: 400px; text-align: center;"></div>
+              <div id="mapProject">
+                  <embed id="fullMap" src="../../img/worldHigh.svg" type="image/svg+xml">
+              </div>
         </div>
         </div>
       </div>

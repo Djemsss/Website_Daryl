@@ -135,11 +135,8 @@ window.addEventListener("beforeunload", (event) => {
 window.addEventListener("load", (eevent) => {
   document.getElementById("clearButton").addEventListener("click", (event) => {
     set(ref(database, "/tiles"), null);
-    set(ref(database, "tiles/" + 0), {
-      color: "black",
-    });
     tiles.forEach((tile) => {
-      tile.style.backgroundColor = "black";
+      tile.style.backgroundColor = "rgba(0, 0, 0, 0)";
     });
   });
 

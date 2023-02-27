@@ -9,7 +9,7 @@
 html {
   margin: 0;
   padding: 0;
-  background-color: rgb(0, 0, 0);
+  background-color: var(--background-color);
   height: 100%;
   width: 100%;
   overflow: hidden;
@@ -29,7 +29,7 @@ body {
 
 #Wrapper {
   /*cursor: none;*/
-  fill: black;
+  /* fill: black; */
   /* background-image: url("img/Jupiter_01.jpg"); */
   background-color: var(--background-color);
   background-size: cover;
@@ -507,7 +507,7 @@ canvas {
 #projectBrowser {
   display: flex;
   flex-direction: row;
-  margin-top: 4vh;
+  margin-top: 0.5vh;
   margin-right: 4vh;
   height: 5vh;
 }

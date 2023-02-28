@@ -88,7 +88,6 @@ var characters = [];
 var obstacles = [];
 
 // Classes
-
 class dino {
   constructor(charNum) {
     characters.push(this);
@@ -298,6 +297,16 @@ class dino {
     }
   }
 }
+
+window.addEventListener("resize", (ev) => {
+  if (window.innerWidth > 2000) {
+    document.getElementById("character_a").style.scale = "4";
+    paintWidth = 24;
+  } else {
+    document.getElementById("character_a").style.scale = "2";
+    paintWidth = 12;
+  }
+});
 
 window.addEventListener("load", (event) => {
   document

@@ -35,12 +35,11 @@ const colors = [
   "rgb(255, 165, 0)", // orange
 ];
 
-const projects = ["Orbits", "World Map"];
-
 var selectorTarget = null;
 var selector_x = 0;
 var selector_y = 0;
 var ropes = [];
+var clicking = false;
 
 var pageReady = false;
 
@@ -155,6 +154,8 @@ window.addEventListener("load", (eevent) => {
   document.addEventListener("touchmove", eventHandler, false);
   document.addEventListener("touchend", eventHandler, false);
   document.addEventListener("touchstart", eventHandler, false);
+  document.addEventListener("pointerdown", eventHandler, false);
+  document.addEventListener("pointerup", eventHandler, false);
 
   const canvas = document.getElementById("canvasRopes");
   // for (let index = 0; index < 20; index++) {
@@ -162,13 +163,13 @@ window.addEventListener("load", (eevent) => {
   //   const rope = new Rope(
   //     canvas,
   //     2,
-  //     2,
+  //     10,
   //     10,
   //     3,
   //     9.81,
   //     30,
   //     0.1,
-  //     0.8,
+  //     0.4,
   //     x,
   //     window.innerHeight - 200,
   //     10
@@ -230,12 +231,23 @@ var eventHandler = function (event) {
       mouseX = event.clientX;
       mouseY = event.clientY;
       break;
+    case "pointerup":
+      clicking = false;
+      break;
+    case "pointerdown":
+      clicking = true;
+      break;
   }
   wave_to(mouseX, mouseY);
-  // ropes.forEach(rope => {
-  //   rope.targetX = mouseX;
-  //   rope.targetY = mouseY;
-  // })
+  ropes.forEach((rope) => {
+    if (!clicking) {
+      rope.targetX = null;
+      rope.targetY = null;
+      return;
+    }
+    rope.targetX = mouseX;
+    rope.targetY = mouseY;
+  });
 };
 
 function wave_to(mouseX, mouseY) {
@@ -534,19 +546,6 @@ class Rope {
     // Request next frame
     // requestAnimationFrame(() => this.simulate());
   }
-}
-
-function lerp(start, end, t) {
-  return (1 - t) * start + t * end;
-}
-
-function waitForElement(id, callback) {
-  var poops = setInterval(function () {
-    if (document.getElementById(id)) {
-      clearInterval(poops);
-      callback();
-    }
-  }, 100);
 }
 
 function shuffleArray(array) {

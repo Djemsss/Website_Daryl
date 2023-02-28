@@ -1,3 +1,5 @@
+import { Vectors } from "./modules/Vectors.js";
+
 // Assets
 var anim_frames_a = [
   [
@@ -86,36 +88,6 @@ var characters = [];
 var obstacles = [];
 
 // Classes
-class Vector2 {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-  }
-
-  // Returns the magnitude (length) of the vector
-  magnitude() {
-    return Math.sqrt(this.x ** 2 + this.y ** 2);
-  }
-
-  // Returns a normalized (unit) vector with the same direction as this vector
-  normalize() {
-    const mag = this.magnitude();
-    if (mag === 0) {
-      return new Vector2(0, 0);
-    }
-    return new Vector2(this.x / mag, this.y / mag);
-  }
-
-  // Returns the result of adding the other vector to this vector
-  add(other) {
-    return new Vector2(this.x + other.x, this.y + other.y);
-  }
-
-  // Returns the result of subtracting the other vector from this vector
-  subtract(other) {
-    return new Vector2(this.x - other.x, this.y - other.y);
-  }
-}
 
 class dino {
   constructor(charNum) {
@@ -146,12 +118,12 @@ class dino {
     this.current_frame = 0;
     this.pressed_keys = [];
     this.char_speed = 16;
-    this.position = new Vector2(0, 0 + charNum * 50);
-    this.last_position = new Vector2(0, 0 + charNum * 50);
+    this.position = new Vectors.Vector2(0, 0 + charNum * 50);
+    this.last_position = new Vectors.Vector2(0, 0 + charNum * 50);
   }
   reset() {
-    this.position = new Vector2(0, 0 + this.charNum * 50);
-    this.last_position = new Vector2(0, 0 + this.charNum * 50);
+    this.position = new Vectors.Vector2(0, 0 + this.charNum * 50);
+    this.last_position = new Vectors.Vector2(0, 0 + this.charNum * 50);
   }
   simulate() {
     if (game_mode == true) {
@@ -209,7 +181,7 @@ class dino {
 
           let hit = willCollide(
             this.sprite,
-            new Vector2(
+            new Vectors.Vector2(
               this.sprite.getBoundingClientRect().x + this.facingDir * 10,
               this.sprite.getBoundingClientRect().y
             )
@@ -223,7 +195,7 @@ class dino {
         }
 
         this.current_animation = 1;
-        let dir = new Vector2(0, 0);
+        let dir = new Vectors.Vector2(0, 0);
 
         if (this.pressed_keys.includes("run")) {
           this.char_speed = 24;
@@ -258,7 +230,7 @@ class dino {
 
         let collision = willCollide(
           this.sprite,
-          new Vector2(
+          new Vectors.Vector2(
             this.sprite.getBoundingClientRect().x +
               normalDir.x * this.char_speed * (delta / 1000),
             this.sprite.getBoundingClientRect().y +

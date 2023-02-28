@@ -1,8 +1,7 @@
 // Script for the Orbits project
+import { Vectors } from "../../modules/Vectors.js";
 
-import * as THREE from "../../three/build/three.module.js";
-
-var dir = new THREE.Vector2();
+var dir = new Vectors.Vector2();
 
 const GRAVITY = 0.001;
 var planets = [];
@@ -73,7 +72,7 @@ function create_svg_circle(color, size, useGradient = false) {
   gradient.appendChild(stop3);
 
   // append the gradient element to the SVG
-  console.log(useGradient);
+  // console.log(useGradient);
   if (useGradient == true) {
     circle.setAttribute("fill", "url(#myGradient" + randNum.toString() + ")");
   } else {
@@ -94,7 +93,7 @@ class planet {
 
     this.size = size;
     this.mass = MASS;
-    this.pos = new THREE.Vector2(x, y);
+    this.pos = new Vectors.Vector2(x, y);
 
     this.canvas = document.getElementById("canvas").getContext("2d");
 
@@ -110,8 +109,8 @@ class planet {
     this.sprite.style.left = this.pos.x - this.size / 2 + "px";
 
     planets.push(this);
-    planet_positions.push(new THREE.Vector2(this.pos.x, this.pos.y));
-    console.log("Created planet");
+    planet_positions.push(new Vectors.Vector2(this.pos.x, this.pos.y));
+    // console.log("Created planet");
   }
 }
 
@@ -121,8 +120,8 @@ class satellite {
     this.color = "#" + randomColor;
 
     this.mass = 100;
-    this.pos = new THREE.Vector2(PosX, PosY);
-    this.vel = new THREE.Vector2(VelX, VelY);
+    this.pos = new Vectors.Vector2(PosX, PosY);
+    this.vel = new Vectors.Vector2(VelX, VelY);
     this.orbitPoints = [];
     this.size = size;
 
@@ -141,7 +140,7 @@ class satellite {
 
     satellites.push(this);
 
-    console.log("Created satellite");
+    // console.log("Created satellite");
   }
 
   simulate() {
@@ -151,19 +150,18 @@ class satellite {
         this.orbitPoints = [];
         return;
       }
-      let gravDir = new THREE.Vector2()
-        .copy(planets[x].pos)
-        .sub(this.pos)
+      let gravDir = new Vectors.Vector2(planets[x].pos.x, planets[x].pos.y)
+        .subtract(this.pos)
         .normalize();
 
       let gravForce =
         (GRAVITY * this.mass * planets[x].mass) /
         this.pos.distanceToSquared(planets[x].pos);
-      this.vel.add(new THREE.Vector2().copy(gravDir).multiplyScalar(gravForce));
+      this.vel = this.vel.add(gravDir.multiplyScalar(gravForce));
     }
 
     // Handle drawing of trails
-    this.orbitPoints.push(new THREE.Vector2().copy(this.pos));
+    this.orbitPoints.push(new Vectors.Vector2(this.pos.x, this.pos.y));
     if (this.orbitPoints.length > 300) {
       this.orbitPoints.shift();
     }
@@ -181,7 +179,7 @@ class satellite {
       this.canvas.strokeStyle = trail_color;
       this.canvas.stroke();
     }
-    this.pos.add(this.vel);
+    this.pos = this.pos.add(this.vel);
     this.sprite.style.top =
       this.pos.y -
       document.getElementById("Header").getBoundingClientRect().height * 2 -
@@ -279,8 +277,8 @@ document
       "rgba(150, 150, 150, 0.5)";
   });
 
-var drag_start = new THREE.Vector2(0, 0);
-let drag_end = new THREE.Vector2(0, 0);
+var drag_start = new Vectors.Vector2(0, 0);
+let drag_end = new Vectors.Vector2(0, 0);
 var dragging = false;
 
 // Window click listener
@@ -305,7 +303,7 @@ document
       case "Satellites":
         if (autoOrbits == true) {
           var launchVel = calculate_orbit(
-            new THREE.Vector2(ev.clientX, ev.clientY)
+            new Vectors.Vector2(ev.clientX, ev.clientY)
           );
           var newSat = new satellite(
             ev.clientX,
@@ -334,15 +332,14 @@ document.getElementById("orbitsWindow").addEventListener("pointerup", (ev) => {
       if (!dragging) {
         break;
       }
-      drag_end = new THREE.Vector2(ev.clientX, ev.clientY);
-      let dir = new THREE.Vector2()
-        .copy(drag_end)
-        .sub(drag_start)
+      drag_end = new Vectors.Vector2(ev.clientX, ev.clientY);
+      let dir = new Vectors.Vector2(drag_end.x, drag_end.y)
+        .subtract(drag_start)
         .normalize()
         .negate();
       let force =
-        drag_start.distanceTo(new THREE.Vector2().copy(drag_end)) / 20;
-      var impulse = new THREE.Vector2().copy(dir).multiplyScalar(force);
+        drag_start.distanceTo(new Vectors.Vector2(drag_end.x, drag_end.y)) / 20;
+      var impulse = new Vectors.Vector2(dir.x, dir.y).multiplyScalar(force);
 
       var newSat = new satellite(
         drag_start.x,
@@ -369,7 +366,7 @@ document
 
       case "Satellites":
         if (dragging) {
-          drag_end = new THREE.Vector2(ev.clientX, ev.clientY);
+          drag_end = new Vectors.Vector2(ev.clientX, ev.clientY);
           var c = document.getElementById("canvas2");
           var ctx = c.getContext("2d");
           ctx.clearRect(0, 0, c.width, c.height);
@@ -391,7 +388,7 @@ window.addEventListener("resize", (ev) => {
 
 // Run when window is loaded
 window.addEventListener("load", (eevent) => {
-  console.log("Document loaded");
+  // console.log("Document loaded");
 
   document.getElementById("canvas").width = window.innerWidth;
   document.getElementById("canvas").height = window.innerHeight;
@@ -421,7 +418,7 @@ window.addEventListener("load", (eevent) => {
 
   // Spawn satellite orbiting planet
   let launchVel = calculate_orbit(
-    new THREE.Vector2(planetPos_x + 100, planetPos_y)
+    new Vectors.Vector2(planetPos_x + 100, planetPos_y)
   );
   let newSat = new satellite(
     planetPos_x + 100,
@@ -473,8 +470,8 @@ function calculate_orbit(pos) {
   }
   if (closest_body) {
     let newVel = calculate_launch_velocity(
-      new THREE.Vector2().copy(pos),
-      new THREE.Vector2().copy(closest_body.pos)
+      new Vectors.Vector2(pos.x, pos.y),
+      new Vectors.Vector2(closest_body.pos.x, closest_body.pos.y)
     );
 
     return newVel;
@@ -487,11 +484,13 @@ function calculate_launch_velocity(
   satMass = 100,
   planetMass = 100000
 ) {
-  let gravDir = new THREE.Vector2().copy(planetPos).sub(satPos).normalize();
+  let gravDir = new Vectors.Vector2(planetPos.x, planetPos.y)
+    .subtract(satPos)
+    .normalize();
   let grav_force =
     (GRAVITY * satMass * planetMass) / satPos.distanceToSquared(planetPos);
 
-  let newDir = new THREE.Vector2(gravDir.y, -gravDir.x);
+  let newDir = new Vectors.Vector2(gravDir.y, -gravDir.x);
 
   let orbitEccentricity = document.getElementById("eccSlider").value;
 
